@@ -1,0 +1,48 @@
+.formContainer {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+.inputs {
+    text-align: start;
+    min-width: auto;
+}
+
+.inputUser {
+    padding: 15px;
+    text-align: center;
+}
+
+.inputPass {
+    padding: 15px;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+
+
+@media (max-width: 655px) {
+    .inputUser {
+        padding: 0;
+        width: 8rem;
+        margin: auto;
+    }
+
+    .inputPass {
+        padding: 0;
+        width: 8rem;
+        margin: 3rem auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .inputUser {
+        width: 6rem;
+     
+    }
+
+    .inputPass {
+        width: 6rem;
+    }
+}
+
