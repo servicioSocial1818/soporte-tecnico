@@ -36,7 +36,7 @@ const Menu = () => {
             <GroupIcon fontSize="large" />
           </div>
           <div className="boxesSub">
-            <span>Usuarios</span>
+            <span>Responsables</span>
           </div>
         </div>
         <div className="boxes boxes3">
@@ -61,3 +61,4 @@ const Menu = () => {
 };
 
 export default Menu;
+ 
