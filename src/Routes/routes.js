@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "../components/Header/header";
 import Login from "../components/Login/login";
 import Menu from "../components/Menu/menu";
-import MyAccount from "../components/MyAccount/myAccount";
+
 
 const Routes = () => {
   return (
@@ -17,7 +17,7 @@ const Routes = () => {
           <Menu />
         </Route>
         <Route exact path="/my-account">
-          <MyAccount />
+          
         </Route>
       </Switch>
     </Router>
