@@ -42,7 +42,10 @@ const Menu = () => {
             <span>Responsables</span>
           </div>
         </div>
-        <div className="boxes boxes3">
+        <div 
+          className="boxes boxes3"
+          onClick={() => history.push("/equipos")}
+        >
           <div className="boxesTitle">
             <ComputerIcon fontSize="large" />
           </div>
