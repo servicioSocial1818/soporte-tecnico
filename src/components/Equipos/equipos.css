@@ -1,6 +1,6 @@
 .container {
     width: 70rem;
-    height: 35rem;
+    height: 34rem;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -27,4 +27,8 @@
 .filtrar {
     display: flex;
     justify-content: space-between;
+}
+.tabla {
+    height: 370px;
+    width: 100%;
 }
