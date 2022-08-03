@@ -29,7 +29,8 @@
     justify-content: space-between;
 }
 .tabla {
-    color: white;
+    height: 40px;
+    width: 100%;
 }
 .contenedor {
     width: 100rem;
@@ -44,4 +45,10 @@
 .colum, .usuario, .ubica {
     display: flex;
     flex-direction: column;
+}
+.boton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 28rem;
 }

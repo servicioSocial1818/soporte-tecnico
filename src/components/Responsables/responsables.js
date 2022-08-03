@@ -11,14 +11,10 @@ import {
   Box,
   MenuItem,
   FormControl,
-  Select,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
+  Select
 } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
+import { DataGrid } from "@mui/x-data-grid";
 
 const style = {
   position: "absolute",
@@ -32,6 +28,22 @@ const style = {
   p: 4,
 };
 
+const columns = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'persona', headerName: 'Persona', width: 70 },
+  { field: 'edad', headerName: 'Edad', width: 70 },
+  { field: 'telefono', headerName: 'Teléfono', width: 70 },
+  { field: 'correo', headerName: 'Correo', width: 70 },
+  { field: 'usuario', headerName: 'Usuario', width: 70 },
+  { field: 'genero', headerName: 'Género', width: 70 },
+];
+
+const rows = [
+  { id: 1, persona: 'persona1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'},
+  { id: 2, persona: 'persona1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'},
+  { id: 3, persona: 'persona1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'}
+
+]
 const Responsables = () => {
   let history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -71,32 +83,12 @@ const Responsables = () => {
           </div>
         </div>
         <div className="tabla">
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Persona</TableCell>
-                <TableCell align="center">Edad</TableCell>
-                <TableCell align="center">Telefono</TableCell>
-                <TableCell align="center">Correo</TableCell>
-                <TableCell align="center">Usuario</TableCell>
-                <TableCell align="center">Género</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell align="center" component="th" scope="row">
-                  persona1
-                </TableCell>
-                <TableCell align="center">1</TableCell>
-                <TableCell align="center">2</TableCell>
-                <TableCell align="center">3</TableCell>
-                <TableCell align="center">4</TableCell>
-                <TableCell align="center">5</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />
         </div>
         <div className="contenedor">
           <Modal
@@ -177,16 +169,16 @@ const Responsables = () => {
               </div>
             </Box>
           </Modal>
+          <div className="boton">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => history.push("/menu")}
+            >
+              Atras
+            </Button>
+          </div>
         </div>
-      </div>
-      <div className="boton">
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => history.push("/menu")}
-        >
-          Atras
-        </Button>
       </div>
     </>
   );
