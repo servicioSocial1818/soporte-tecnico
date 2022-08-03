@@ -30,18 +30,27 @@ const style = {
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'persona', headerName: 'Persona', width: 70 },
+  { field: 'nombre', headerName: 'Nombre', width: 100 },
+  { field: 'apellidoP', headerName: 'ApellidoP', width: 130 },
+  { field: 'apellidoM', headerName: 'ApellidoM', width: 130 },
   { field: 'edad', headerName: 'Edad', width: 70 },
-  { field: 'telefono', headerName: 'Teléfono', width: 70 },
-  { field: 'correo', headerName: 'Correo', width: 70 },
-  { field: 'usuario', headerName: 'Usuario', width: 70 },
+  { field: 'telefono', headerName: 'Teléfono', width: 160 },
+  { field: 'correo', headerName: 'Correo', width: 180 },
+  { field: 'usuario', headerName: 'Usuario', width: 150 },
   { field: 'genero', headerName: 'Género', width: 70 },
 ];
 
 const rows = [
-  { id: 1, persona: 'persona1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'},
-  { id: 2, persona: 'persona1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'},
-  { id: 3, persona: 'persona1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'}
+  { id: 1, nombre: 'nombre1', apellidoP: 'apellidoP1', apellidoM: 'apellidoM1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'},
+  { id: 2, nombre: 'nombre2', apellidoP: 'apellidoP2', apellidoM: 'apellidoM2', edad: 22, telefono: '3456778483', correo: 'correo2@correo.com', usuario: 'sad25d', genero: 'M'},
+  { id: 3, nombre: 'nombre3', apellidoP: 'apellidoP3', apellidoM: 'apellidoM3', edad: 36, telefono: '8154554113', correo: 'correo3@correo.com', usuario: 'sa51sd', genero: 'F'},
+  { id: 4, nombre: 'nombre4', apellidoP: 'apellidoP4', apellidoM: 'apellidoM4', edad: 42, telefono: '8154554113', correo: 'correo4@correo.com', usuario: 'sa51sd', genero: 'M'},
+  { id: 5, nombre: 'nombre5', apellidoP: 'apellidoP5', apellidoM: 'apellidoM5', edad: 52, telefono: '8154554113', correo: 'correo5@correo.com', usuario: 'sa51sd', genero: 'F'},
+  { id: 6, nombre: 'nombre6', apellidoP: 'apellidoP6', apellidoM: 'apellidoM6', edad: 52, telefono: '8154554113', correo: 'correo6@correo.com', usuario: 'sa51sd', genero: 'M'},
+  { id: 7, nombre: 'nombre7', apellidoP: 'apellidoP7', apellidoM: 'apellidoM7', edad: 12, telefono: '8154554113', correo: 'correo7@correo.com', usuario: 'sa51sd', genero: 'F'},
+  { id: 8, nombre: 'nombre8', apellidoP: 'apellidoP8', apellidoM: 'apellidoM8', edad: 52, telefono: '8154554113', correo: 'correo8@correo.com', usuario: 'sa51sd', genero: 'F'}
+
+
 
 ]
 const Responsables = () => {
@@ -63,7 +72,7 @@ const Responsables = () => {
           </BootstrapButton>
         </div>
         <div className="filtrar">
-          <div className="seleccionar">
+          {/* <div className="seleccionar">
             <p>Mostrar</p>
             <Box sx={{ minWidth: 100 }}>
               <FormControl>
@@ -75,7 +84,7 @@ const Responsables = () => {
               </FormControl>
             </Box>
             <p>registros</p>
-          </div>
+          </div> */}
 
           <div className="buscar">
             <p>Buscar: </p>
