@@ -1,0 +1,54 @@
+.containerResponsables {
+    width: 70rem;
+    height: 35rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    box-shadow: 18px 18px 20px 0px rgba(0, 0, 0, 0.342);
+    background: #3879f1be;
+    text-align: center;
+}
+.title {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button, .seleccionar, .buscar {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 2rem;
+    margin-right: 3rem;
+    color: white;
+}
+.filtrar {
+    display: flex;
+    justify-content: space-between;
+}
+.tabla {
+    height: 40px;
+    width: 100%;
+}
+.contenedor {
+    width: 100rem;
+    height: 150rem;
+}
+.formulario {
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+.colum, .usuario, .ubica {
+    display: flex;
+    flex-direction: column;
+}
+.boton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 28rem;
+}
