@@ -31,12 +31,15 @@ const Menu = () => {
             <span>Mi Cuenta</span>
           </div>
         </div>
-        <div className="boxes">
+        <div 
+          className="boxes"
+          onClick={() => history.push("/responsables")}
+        >
           <div className="boxesTitle">
             <GroupIcon fontSize="large" />
           </div>
           <div className="boxesSub">
-            <span>Usuarios</span>
+            <span>Responsables</span>
           </div>
         </div>
         <div className="boxes boxes3">
