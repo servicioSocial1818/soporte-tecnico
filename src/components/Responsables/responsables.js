@@ -6,13 +6,7 @@ import { styled } from "@material-ui/styles";
 import PersonSharp from "@material-ui/icons/PersonSharp";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Typography from "@material-ui/core/Typography";
-import {
-  Input,
-  Box,
-  MenuItem,
-  FormControl,
-  Select
-} from "@material-ui/core";
+import { Input, Box, MenuItem, FormControl, Select } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -29,30 +23,107 @@ const style = {
 };
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'nombre', headerName: 'Nombre', width: 100 },
-  { field: 'apellidoP', headerName: 'ApellidoP', width: 130 },
-  { field: 'apellidoM', headerName: 'ApellidoM', width: 130 },
-  { field: 'edad', headerName: 'Edad', width: 70 },
-  { field: 'telefono', headerName: 'Teléfono', width: 160 },
-  { field: 'correo', headerName: 'Correo', width: 180 },
-  { field: 'usuario', headerName: 'Usuario', width: 150 },
-  { field: 'genero', headerName: 'Género', width: 70 },
+  { field: "id", headerName: "ID", width: 70 },
+  { field: "nombre", headerName: "Nombre", width: 100 },
+  { field: "apellidoP", headerName: "ApellidoP", width: 130 },
+  { field: "apellidoM", headerName: "ApellidoM", width: 130 },
+  { field: "edad", headerName: "Edad", width: 70 },
+  { field: "telefono", headerName: "Teléfono", width: 160 },
+  { field: "correo", headerName: "Correo", width: 180 },
+  { field: "usuario", headerName: "Usuario", width: 150 },
+  { field: "genero", headerName: "Género", width: 70 },
 ];
 
 const rows = [
-  { id: 1, nombre: 'nombre1', apellidoP: 'apellidoP1', apellidoM: 'apellidoM1', edad: 32, telefono: '1234568523', correo: 'correo@correo.com', usuario: 'sadasd', genero: 'M'},
-  { id: 2, nombre: 'nombre2', apellidoP: 'apellidoP2', apellidoM: 'apellidoM2', edad: 22, telefono: '3456778483', correo: 'correo2@correo.com', usuario: 'sad25d', genero: 'M'},
-  { id: 3, nombre: 'nombre3', apellidoP: 'apellidoP3', apellidoM: 'apellidoM3', edad: 36, telefono: '8154554113', correo: 'correo3@correo.com', usuario: 'sa51sd', genero: 'F'},
-  { id: 4, nombre: 'nombre4', apellidoP: 'apellidoP4', apellidoM: 'apellidoM4', edad: 42, telefono: '8154554113', correo: 'correo4@correo.com', usuario: 'sa51sd', genero: 'M'},
-  { id: 5, nombre: 'nombre5', apellidoP: 'apellidoP5', apellidoM: 'apellidoM5', edad: 52, telefono: '8154554113', correo: 'correo5@correo.com', usuario: 'sa51sd', genero: 'F'},
-  { id: 6, nombre: 'nombre6', apellidoP: 'apellidoP6', apellidoM: 'apellidoM6', edad: 52, telefono: '8154554113', correo: 'correo6@correo.com', usuario: 'sa51sd', genero: 'M'},
-  { id: 7, nombre: 'nombre7', apellidoP: 'apellidoP7', apellidoM: 'apellidoM7', edad: 12, telefono: '8154554113', correo: 'correo7@correo.com', usuario: 'sa51sd', genero: 'F'},
-  { id: 8, nombre: 'nombre8', apellidoP: 'apellidoP8', apellidoM: 'apellidoM8', edad: 52, telefono: '8154554113', correo: 'correo8@correo.com', usuario: 'sa51sd', genero: 'F'}
-
-
-
-]
+  {
+    id: 1,
+    nombre: "nombre1",
+    apellidoP: "apellidoP1",
+    apellidoM: "apellidoM1",
+    edad: 32,
+    telefono: "1234568523",
+    correo: "correo@correo.com",
+    usuario: "sadasd",
+    genero: "M",
+  },
+  {
+    id: 2,
+    nombre: "nombre2",
+    apellidoP: "apellidoP2",
+    apellidoM: "apellidoM2",
+    edad: 22,
+    telefono: "3456778483",
+    correo: "correo2@correo.com",
+    usuario: "sad25d",
+    genero: "M",
+  },
+  {
+    id: 3,
+    nombre: "nombre3",
+    apellidoP: "apellidoP3",
+    apellidoM: "apellidoM3",
+    edad: 36,
+    telefono: "8154554113",
+    correo: "correo3@correo.com",
+    usuario: "sa51sd",
+    genero: "F",
+  },
+  {
+    id: 4,
+    nombre: "nombre4",
+    apellidoP: "apellidoP4",
+    apellidoM: "apellidoM4",
+    edad: 42,
+    telefono: "8154554113",
+    correo: "correo4@correo.com",
+    usuario: "sa51sd",
+    genero: "M",
+  },
+  {
+    id: 5,
+    nombre: "nombre5",
+    apellidoP: "apellidoP5",
+    apellidoM: "apellidoM5",
+    edad: 52,
+    telefono: "8154554113",
+    correo: "correo5@correo.com",
+    usuario: "sa51sd",
+    genero: "F",
+  },
+  {
+    id: 6,
+    nombre: "nombre6",
+    apellidoP: "apellidoP6",
+    apellidoM: "apellidoM6",
+    edad: 52,
+    telefono: "8154554113",
+    correo: "correo6@correo.com",
+    usuario: "sa51sd",
+    genero: "M",
+  },
+  {
+    id: 7,
+    nombre: "nombre7",
+    apellidoP: "apellidoP7",
+    apellidoM: "apellidoM7",
+    edad: 12,
+    telefono: "8154554113",
+    correo: "correo7@correo.com",
+    usuario: "sa51sd",
+    genero: "F",
+  },
+  {
+    id: 8,
+    nombre: "nombre8",
+    apellidoP: "apellidoP8",
+    apellidoM: "apellidoM8",
+    edad: 52,
+    telefono: "8154554113",
+    correo: "correo8@correo.com",
+    usuario: "sa51sd",
+    genero: "F",
+  },
+];
 const Responsables = () => {
   let history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -99,94 +170,91 @@ const Responsables = () => {
             rowsPerPageOptions={[5]}
           />
         </div>
-        <div className="contenedor">
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          className="modalStyles"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Agregar Nuevo Usuario
+            </Typography>
+            <div className="formulario">
+              <form>
+                <div className="row">
+                  <div className="ap">
+                    <label>Apellido Paterno</label>
+                    <input placeholder="Apellido Paterno"></input>
+                  </div>
+                  <div className="apm">
+                    <label>Apellido Materno</label>
+                    <input placeholder="Apellido Materno"></input>
+                  </div>
+                  <div className="nombre">
+                    <label>Nombre</label>
+                    <input placeholder="Nombre"></input>
+                  </div>
+                <div className="fechaNacimiento">
+                  <label>Fecha de Nacimiento</label>
+                  <input type="date"></input>
+                </div>
+                <div className="genero">
+                  <label>Género</label>
+                  <select name="genero">
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
+                  </select>
+                </div>
+                <div className="telefono">
+                  <label>Télefono</label>
+                  <input placeholder="Telefono"></input>
+                </div>
+                <div className="correo">
+                  <label>Correo</label>
+                  <input placeholder="Correo"></input>
+                </div>
+                <div className="usuario">
+                  <label>Usuario</label>
+                  <input placeholder="Usuario"></input>
+                </div>
+                <div className="contra">
+                  <label>Contraseña</label>
+                  <input placeholder="Contraseña"></input>
+                </div>
+                </div>
+                <div className="colum">
+                  <div className="usuario">
+                    <label>Rol de Usuario</label>
+                    <select name="usuario">
+                      <option value="C">Cliente</option>
+                      <option value="A">Administrador</option>
+                    </select>
+                  </div>
+                  </div>
+                  <div className="ubica">
+                    <label>Ubicación</label>
+                    <textarea></textarea>
+                  </div>
+               
+              </form>
+            </div>
+            <div className="botones">
+              <Button variant="contained" color="secondary" onClick={handleClose}>Cerrar</Button>
+              <Button variant="contained" color="primary">Agregar</Button>
+            </div>
+          </Box>
+        </Modal>
+        <div className="boton">
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => history.push("/menu")}
           >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Agregar Nuevo Usuario
-              </Typography>
-              <div className="formulario">
-                <form>
-                    <div className="row">
-                    <div className="AP">
-                        <label>Apellido Paterno</label>
-                        <input placeholder="Apellido Paterno"></input>
-                    </div>
-                    <div className="APM">
-                        <label>Apellido Materno</label>
-                        <input placeholder="Apellido Materno"></input>
-                    </div>
-                    <div className="nombre">
-                        <label>Nombre</label>
-                        <input placeholder="Nombre"></input>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div className="Fecha de Nacimiento">
-                        <label>Nombre</label>
-                        <input type="date"></input>
-                    </div>
-                    <div className="Genero">
-                        <label>Género</label>
-                        <select name="genero">
-                        <option value="F">Femenino</option>
-                        <option value="M">Masculino</option>
-                        </select>
-                    </div>
-                    <div className="Telefono">
-                        <label>Télefono</label>
-                        <input placeholder="Telefono"></input>
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div className="correo">
-                        <label>Correo</label>
-                        <input placeholder="Correo"></input>
-                    </div>
-                    <div className="usuario">
-                        <label>Usuario</label>
-                        <input placeholder="Usuario"></input>
-                    </div>
-                    <div className="contra">
-                        <label>Contraseña</label>
-                        <input placeholder="Contraseña"></input>
-                    </div>
-                    </div>
-                    <div className="colum">
-                    <div className="usuario">
-                        <label>Rol de Usuario</label>
-                        <select name="usuario">
-                        <option value="C">Cliente</option>
-                        <option value="A">Administrador</option>
-                        </select>
-                    </div>
-                    <div className="ubica">
-                        <label>Ubicación</label>
-                        <textarea></textarea>
-                    </div>
-                    </div>
-                </form>
-              </div>
-              <div className="botones">
-                <Button onClick={handleClose}>Cerrar</Button>
-                <Button>Agregar</Button>
-              </div>
-            </Box>
-          </Modal>
-          <div className="boton">
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => history.push("/menu")}
-            >
-              Atras
-            </Button>
-          </div>
+            Atras
+          </Button>
         </div>
       </div>
     </>

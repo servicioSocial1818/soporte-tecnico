@@ -32,15 +32,44 @@
     height: 400px;
     width: 100%;
 }
-.contenedor {
-    width: 100rem;
-    height: 150rem;
-}
+
 .formulario {
+
 }
 .row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+    grid-template-rows: 70px 70px 70px;
+    column-gap: 10px;
+}
+.row > div > input {
+    height: 25px;
+    border-radius: 10px;
+    border-style: none;
+    border: none;
+    width: 195px;
+}
+.row > div > select {
+    height: 25px;
+    border-radius: 10px;
+    border-style: none;
+    border: none;
+}
+.ap input,
+.apm input,
+.nombre input,
+.telefono input,
+.correo input,
+.usuario input,
+.contra input,
+.colum input,
+.ubica input {
+    margin-top: 11px;
+}
+
+.fechaNacimiento, 
+.genero {
+    display: grid;
 }
 .colum, .usuario, .ubica {
     display: flex;
@@ -51,4 +80,17 @@
     justify-content: center;
     align-items: center;
     margin-right: 28rem;
+}
+
+.modalStyles div {
+    background-color: #007bff;
+    color: white;
+    width: auto;
+    border-radius: 5px;
+}
+.botones {
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+    column-gap: 10px;
 }
