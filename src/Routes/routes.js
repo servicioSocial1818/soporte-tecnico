@@ -4,6 +4,7 @@ import Header from "../components/Header/header";
 import Login from "../components/Login/login";
 import Menu from "../components/Menu/menu";
 import Responsables from "../components/Responsables/responsables";
+import Equipos from "../components/Equipos/equipos";
 
 
 const Routes = () => {
@@ -19,6 +20,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/responsables">
           <Responsables/>
+        </Route>
+        <Route exact path="/equipos">
+          <Equipos/>
         </Route>
       </Switch>
     </Router>
