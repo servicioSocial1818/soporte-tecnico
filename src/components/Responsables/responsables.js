@@ -23,15 +23,17 @@ const style = {
 };
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "id", headerName: "ID", width: 30 },
   { field: "nombre", headerName: "Nombre", width: 100 },
   { field: "apellidoP", headerName: "ApellidoP", width: 130 },
   { field: "apellidoM", headerName: "ApellidoM", width: 130 },
   { field: "edad", headerName: "Edad", width: 70 },
-  { field: "telefono", headerName: "Teléfono", width: 160 },
+  { field: "telefono", headerName: "Teléfono", width: 140 },
   { field: "correo", headerName: "Correo", width: 180 },
-  { field: "usuario", headerName: "Usuario", width: 150 },
+  { field: "usuario", headerName: "Usuario", width: 110 },
   { field: "genero", headerName: "Género", width: 70 },
+  { field: "botones", headerName: "Acción", width: 100 },
+
 ];
 
 const rows = [
@@ -124,6 +126,7 @@ const rows = [
     genero: "F",
   },
 ];
+
 const Responsables = () => {
   let history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -168,6 +171,11 @@ const Responsables = () => {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
+            sx={{
+              borderColor: 'transparent',
+              color: 'white',
+              fontSize: '1.2rem'
+            }}
           />
         </div>
 

@@ -33,7 +33,7 @@ const columns = [
   { field: "marca", headerName: "Marca", width: 70 },
   { field: "modelo", headerName: "Modelo", width: 100 },
   { field: "color", headerName: "Color", width: 100 },
-  { field: "botones", headerName: "botón", width: 150 },
+  { field: "botones", headerName: "Acción", width: 150 },
 ];
 
 const rows = [
@@ -153,6 +153,11 @@ const Equipos = () => {
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
+          sx={{
+            borderColor: 'transparent',
+            color: 'white',
+            fontSize: '1.2rem'
+          }}
         />
       </div>
       <div className="contenedor">

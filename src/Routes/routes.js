@@ -5,6 +5,7 @@ import Login from "../components/Login/login";
 import Menu from "../components/Menu/menu";
 import Responsables from "../components/Responsables/responsables";
 import Equipos from "../components/Equipos/equipos";
+import Reportes from "../components/Reportes/reportes";
 
 
 const Routes = () => {
@@ -23,6 +24,9 @@ const Routes = () => {
         </Route>
         <Route exact path="/equipos">
           <Equipos/>
+        </Route>
+        <Route exact path="/reportes">
+          <Reportes/>
         </Route>
       </Switch>
     </Router>

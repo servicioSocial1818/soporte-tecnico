@@ -18,7 +18,7 @@ const Menu = () => {
 
   return (
     <div className="containerData">
-      <h2 className="generalTitle">Menu</h2>
+      <h1 className="generalTitle">Menu</h1>
       <div className="box">
         <div
           className="boxes boxes1"
@@ -53,7 +53,10 @@ const Menu = () => {
             <span>Equipos</span>
           </div>
         </div>
-        <div className="boxes">
+        <div 
+          className="boxes"
+          onClick={() => history.push("/reportes")}
+        >
           <div className="boxesTitle">
             <ReportIcon fontSize="large" />
           </div>
