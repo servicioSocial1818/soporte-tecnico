@@ -28,7 +28,7 @@ const Menu = () => {
             <AccountCircleIcon fontSize="large" />
           </div>
           <div className="boxesSub">
-            <span>Mi Cuenta</span>
+            <span>Inventario</span>
           </div>
         </div>
         <div 

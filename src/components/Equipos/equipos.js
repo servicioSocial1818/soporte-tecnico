@@ -1,10 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import {
-  Select,
-  FormControl,
   Box,
-  MenuItem,
   Input,
   Modal,
   Typography,
@@ -13,7 +10,8 @@ import { useHistory } from "react-router-dom";
 import { styled } from "@material-ui/styles";
 import "./equipos.css";
 import { DataGrid } from "@mui/x-data-grid";
-
+import ComputerIcon from '@mui/icons-material/Computer';
+import AddIcon from '@mui/icons-material/Add';
 const style = {
   position: "absolute",
   top: "50%",
@@ -119,10 +117,14 @@ const Equipos = () => {
   return (
     <div className="container">
       <div className="title">
+        <ComputerIcon fontSize="large"/>
         <h1>Asignación de Equipos</h1>
       </div>
       <div className="button">
-        <BootstrapButton onClick={handleOpen}>Asignar Equipo</BootstrapButton>
+        <BootstrapButton onClick={handleOpen}>
+            <AddIcon/>
+            Asignar Equipo
+        </BootstrapButton>
       </div>
       <div className="filtrar">
         {/* <div className="seleccionar">
@@ -170,36 +172,44 @@ const Equipos = () => {
                 <div className="row">
                   <div className="usuario">
                     <label>Encargado</label>
-                    <select name="Responsable"></select>
+                    <select name="Responsable">
+                        <option value="seleccionar" disabled>--Seleccionar--</option>
+                    </select>
                   </div>
                   <div className="APM">
                     <label>Num Serie</label>
-                    <input placeholder="Número de Serie"></input>
+                    <input 
+                        placeholder="Número de Serie"
+                        type="Number"
+                    >
+                    </input>
                   </div>
                   <div className="equipo">
                     <label>Tipo de Equipo</label>
-                    <select name="Equipo"></select>
+                    <select>
+                        <option value="seleccionar" disabled>--Seleccionar--</option>
+                    </select>
                   </div>
                   <div className="Marca">
                     <label>Marca</label>
-                    <input ></input>
+                    <input></input>
                   </div>
                   <div className="Modelo">
                     <label>Modelo</label>
-                    <input ></input>
+                    <input></input>
                   </div>
                   <div className="color">
                     <label>Color</label>
                     <input></input>
                   </div>
-                  <div className="Descripción">
+                  <div className="Descripcion">
                     <label>Descripción</label>
                     <textarea></textarea>
                   </div>
                   <div className="Monitor">
-                    <label>Monitor/Pantalla</label>
+                    <label>Monitor</label>
                     <input></input>
-                  
+                  </div>
                   <div className="Perifericos">
                     <label>Perifericos</label>
                     <input></input>
@@ -216,17 +226,16 @@ const Equipos = () => {
                     <label>Procesador</label>
                     <input></input>
                   </div>
-                  <div className="Almacenamiento">
-                    <label>Almacenamiento</label>
+                  <div className="tarjeta">
+                    <label>Tarjeta Gráfica</label>
                     <input></input>
                   </div>
                 </div>
+              </form>
             </div>
-        </form>
-    </div>
             <div className="botones">
-              <Button onClick={handleClose}>Cerrar</Button>
-              <Button>Agregar</Button>
+              <Button variant="contained" color="secondary" onClick={handleClose}>Cerrar</Button>
+              <Button variant="contained" color="primary">Agregar</Button>
             </div>
           </Box>
         </Modal>

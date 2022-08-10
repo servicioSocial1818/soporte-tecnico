@@ -6,7 +6,7 @@ import { styled } from "@material-ui/styles";
 import PersonSharp from "@material-ui/icons/PersonSharp";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Typography from "@material-ui/core/Typography";
-import { Input, Box, MenuItem, FormControl, Select } from "@material-ui/core";
+import { Input, Box } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -197,33 +197,33 @@ const Responsables = () => {
                     <label>Nombre</label>
                     <input placeholder="Nombre"></input>
                   </div>
-                <div className="fechaNacimiento">
-                  <label>Fecha de Nacimiento</label>
-                  <input type="date"></input>
-                </div>
-                <div className="genero">
-                  <label>Género</label>
-                  <select name="genero">
-                    <option value="F">Femenino</option>
-                    <option value="M">Masculino</option>
-                  </select>
-                </div>
-                <div className="telefono">
-                  <label>Télefono</label>
-                  <input placeholder="Telefono"></input>
-                </div>
-                <div className="correo">
-                  <label>Correo</label>
-                  <input placeholder="Correo"></input>
-                </div>
-                <div className="usuario">
-                  <label>Usuario</label>
-                  <input placeholder="Usuario"></input>
-                </div>
-                <div className="contra">
-                  <label>Contraseña</label>
-                  <input placeholder="Contraseña"></input>
-                </div>
+                  <div className="fechaNacimiento">
+                    <label>Fecha de Nacimiento</label>
+                    <input type="date"></input>
+                  </div>
+                  <div className="genero">
+                    <label>Género</label>
+                    <select name="genero">
+                      <option value="F">Femenino</option>
+                      <option value="M">Masculino</option>
+                    </select>
+                  </div>
+                  <div className="telefono">
+                    <label>Télefono</label>
+                    <input placeholder="Telefono"></input>
+                  </div>
+                  <div className="correo">
+                    <label>Correo</label>
+                    <input placeholder="Correo"></input>
+                  </div>
+                  <div className="usuario">
+                    <label>Usuario</label>
+                    <input placeholder="Usuario"></input>
+                  </div>
+                  <div className="contra">
+                    <label>Contraseña</label>
+                    <input placeholder="Contraseña"></input>
+                  </div>
                 </div>
                 <div className="colum">
                   <div className="usuario">
@@ -233,17 +233,24 @@ const Responsables = () => {
                       <option value="A">Administrador</option>
                     </select>
                   </div>
-                  </div>
-                  <div className="ubica">
-                    <label>Ubicación</label>
-                    <textarea></textarea>
-                  </div>
-               
+                </div>
+                <div className="ubica">
+                  <label>Ubicación</label>
+                  <textarea></textarea>
+                </div>
               </form>
             </div>
             <div className="botones">
-              <Button variant="contained" color="secondary" onClick={handleClose}>Cerrar</Button>
-              <Button variant="contained" color="primary">Agregar</Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleClose}
+              >
+                Cerrar
+              </Button>
+              <Button variant="contained" color="primary">
+                Agregar
+              </Button>
             </div>
           </Box>
         </Modal>
