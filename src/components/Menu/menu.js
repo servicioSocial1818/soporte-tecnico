@@ -22,7 +22,7 @@ const Menu = () => {
       <div className="box">
         <div
           className="boxes boxes1"
-          onClick={() => history.push("/my-account")}
+          onClick={() => history.push("/inventario")}
         >
           <div className="boxesTitle">
             <AccountCircleIcon fontSize="large" />
