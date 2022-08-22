@@ -21,12 +21,22 @@
 .fecha,
 .area,
 .solicitante {
-    display: flex;
+    display: grid;
     flex-direction: column;
 }
 .texto {
     width: 100%;
-}
-.busquedaModal {
     
+}
+.busquedaModal, 
+.cantidad {
+    display: flex;
+    flex-direction: column;
+}
+.buttonValeModal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-right: 2rem;
 }

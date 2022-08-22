@@ -26,27 +26,41 @@ const style = {
 
 const columns = [
   { field: "id", headerName: "ID", width: 30 },
-  { field: "componente", headerName: "Componente", width: 100 },
-  { field: "cantidad", headerName: "Cantidad", width: 130 },
-  { field: "solicitante", headerName: "Solicitante", width: 130 },
-  { field: "area", headerName: "Área", width: 130 },
-  { field: "fecha", headerName: "Fecha", width: 130 },
-  { field: "reporte", headerName: "Reporte", width: 130 },
-  { field: "numSerie", headerName: "Num-Serie", width: 130 },
-
-
+  { field: "extencion", headerName: "Extencion", width: 100 },
+  { field: "usuario", headerName: "Usuario", width: 200 },
+  { field: "area", headerName: "Area", width: 500 },
+  { field: "cargo", headerName: "Cargo", width: 200 },
+  { field: "marca", headerName: "Marca", width: 130 },
+  { field: "modelo", headerName: "Modelo", width: 130 },
+  { field: "serie", headerName: "Serie", width: 130 },
+  { field: "inventario", headerName: "Inventario", width: 130 },
+  { field: "monitor", headerName: "Monitor", width: 130 },
+  { field: "teclado", headerName: "Teclado", width: 130 },
+  { field: "mouse", headerName: "Mouse", width: 130 },
+  { field: "lector", headerName: "Lector", width: 130 },
+  { field: "inventario2", headerName: "Inventario 2", width: 130 },
+  { field: "resguardante", headerName: "Resguardante", width: 200 },
+  { field: "mantenimientoPreventivo", headerName: "Mantenimiento Preventivo", width: 250 },
 ];
 
 const rows = [
   {
     id: 1,
-    componente: "Teclado",
-    cantidad: "2",
-    solicitante: "Luis M",
-    area: 'sistemas',
-    fecha: "12/12/2022",
-    reporte: 3,
-    numSerie: 1332312,
+    extencion: 125,
+    usuario: 'Karina Montiel',
+    area:'FACTURACION DE SERVICIOS DE ELECTRICIDAD',
+    cargo: 'ANALISTA DE FACTURACION ELECTRICA',
+    marca:'ACTECK',
+    modelo:'GENERICO',
+    serie:28162761827,
+    inventario: 87373202392,
+    monitor:'GENERICO',
+    teclado:'GENERICO',
+    mouse:'GENERICO',
+    lector: 'GENERICO',
+    inventario2:1272712-323,
+    resguardante:'VICTORIA CUELLAR  GONZALEZ',
+    mantenimientoPreventivo: 'Realizado el',
   },
 
 ];
