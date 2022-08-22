@@ -14,3 +14,19 @@
 .busqueda {
     display: flex;
 }
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.fecha,
+.area,
+.solicitante {
+    display: flex;
+    flex-direction: column;
+}
+.texto {
+    width: 100%;
+}
+.busquedaModal {
+    
+}
