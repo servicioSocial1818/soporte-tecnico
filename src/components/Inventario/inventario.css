@@ -17,6 +17,29 @@
 .row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+
+    font-size: 1.3rem;
+}
+.row > .area {
+    margin-right: 2rem;
+}
+.row > .fecha > input {
+    width: 15rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+}
+.row > .area > select {
+    width: 15rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+}
+.row > .solicitante > select {
+    width: 15rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+}
+.row > .texto {
+    padding-bottom: 1rem;
 }
 .fecha,
 .area,
@@ -25,15 +48,58 @@
     flex-direction: column;
 }
 .texto {
-    width: 100%;
-    
+    grid-row: 2 / 3;
+    grid-column: 1 / 4;
 }
-.busquedaModal, 
+.busquedaModal {
+    display: flex;
+    flex-direction: column;
+    grid-row: 3 / 5;
+    grid-column: 1 / 2;
+}
+.busquedaModal > select {
+    width: 15rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+}
+.caja {
+    grid-row: 3 / 5;
+    grid-column: 2 / 3;
+    display: flex;
+    justify-items: center;
+    align-items: flex-end;
+    height: 6.9rem;
+}
+.caja > input {
+    width: 15rem;
+    height: 2.5rem;
+    font-size: 1.3rem;
+}
+.medida {
+    grid-row: 3 / 5;
+    grid-column: 3 / 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    font-size: 1.3rem;
+}
+.medida > input {
+    font-size: 1.3rem;
+}
 .cantidad {
     display: flex;
     flex-direction: column;
+    grid-row: 7 / 8;
+    grid-column: 1 / 2;
+    gap: 1rem;
+}
+.cantidad >input {
+    font-size: 1.3rem;
 }
 .buttonValeModal{
+    grid-row: 6 / 7;
+    grid-column: 3 / 4;
     display: flex;
     justify-content: center;
     align-items: center;

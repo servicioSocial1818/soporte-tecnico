@@ -39,7 +39,7 @@ const Menu = () => {
             <GroupIcon fontSize="large" />
           </div>
           <div className="boxesSub">
-            <span>Responsables</span>
+            <span>Usuarios</span>
           </div>
         </div>
         <div 

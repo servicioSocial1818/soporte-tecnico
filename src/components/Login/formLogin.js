@@ -9,15 +9,22 @@ import { useAppContext } from "../Context/context";
 const FormLogin = () => {
   let history = useHistory();
 
-  const { createNotification, setIsLogged, setUser } = useAppContext();
+  const { createNotification, setIsLogged, setUser, setIsNotAdmin } = useAppContext();
 
   const handleSubmit = ({ values }) => {
     const { user, password } = values;
     if (user === "Alex" && password === "123456") {
+      setIsNotAdmin(false);
       setIsLogged(true);
       setUser(user);
-      history.push("/menu");
-    } else {
+      history.push("/layout");
+    } else if(user === "user" && password === "pass" ) {
+      setIsNotAdmin(true);
+      setIsLogged(true);
+      setUser(user);
+      history.push("/layout");
+    }
+    else {
       createNotification(
         "error",
         "Datos Incorrectos",

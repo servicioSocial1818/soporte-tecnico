@@ -36,6 +36,7 @@
     background-color: #007bff;
     color: white;
     width: auto;
+    height: auto;
     border-radius: 5px; 
 }
 .row {
@@ -52,6 +53,7 @@
     margin-top: 1.5rem;
 }
 .usuario,
+.user,
 .APM,
 .equipo,
 .Marca,

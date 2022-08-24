@@ -65,10 +65,25 @@
 .colum input,
 .ubica input {
     margin-top: 11px;
+    font-size: 20px;
+    padding: auto;
 }
-
+.genero > select {
+    padding: auto;
+    font-size: 20px;
+}
+.fechaNacimiento > input {
+    padding: auto;
+    font-size: 20px;
+}
 .fechaNacimiento, 
-.genero {
+.genero, 
+.correo,
+.apm,
+.nombre,
+.telefono,
+.ap,
+.contra {
     display: grid;
 }
 .colum, .usuario, .ubica {

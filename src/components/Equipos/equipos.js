@@ -181,6 +181,10 @@ const Equipos = () => {
                         <option value="seleccionar" disabled>--Seleccionar--</option>
                     </select>
                   </div>
+                  <div className="user">
+                    <label>Usuario</label>
+                    <input placeholder="usuario"></input>
+                  </div>
                   <div className="APM">
                     <label>Num Serie</label>
                     <input 

@@ -6,6 +6,7 @@ import React, {
   Children,
 } from "react";
 import { NotificationManager } from "react-notifications";
+// export const UserContext = createContext(null)
 
 const ContextApp = createContext();
 

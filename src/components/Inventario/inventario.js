@@ -1,16 +1,17 @@
 import * as React from "react";
 import "./inventario.css";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  styled,
+  Modal,
+  Input,
+  Box,
+  Typography,
+} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { styled } from "@material-ui/styles";
-import Modal from "@material-ui/core/Modal";
-import { Input, Box } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
 import { DataGrid } from "@mui/x-data-grid";
-
-
+import SearchIcon from "@mui/icons-material/Search";
+import { IconButton, InputBase, Paper } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -26,10 +27,6 @@ const style = {
 
 const columns = [
   { field: "id", headerName: "ID", width: 30 },
-  { field: "extencion", headerName: "Extencion", width: 100 },
-  { field: "usuario", headerName: "Usuario", width: 200 },
-  { field: "area", headerName: "Area", width: 500 },
-  { field: "cargo", headerName: "Cargo", width: 200 },
   { field: "marca", headerName: "Marca", width: 130 },
   { field: "modelo", headerName: "Modelo", width: 130 },
   { field: "serie", headerName: "Serie", width: 130 },
@@ -39,30 +36,21 @@ const columns = [
   { field: "mouse", headerName: "Mouse", width: 130 },
   { field: "lector", headerName: "Lector", width: 130 },
   { field: "inventario2", headerName: "Inventario 2", width: 130 },
-  { field: "resguardante", headerName: "Resguardante", width: 200 },
-  { field: "mantenimientoPreventivo", headerName: "Mantenimiento Preventivo", width: 250 },
 ];
 
 const rows = [
   {
     id: 1,
-    extencion: 125,
-    usuario: 'Karina Montiel',
-    area:'FACTURACION DE SERVICIOS DE ELECTRICIDAD',
-    cargo: 'ANALISTA DE FACTURACION ELECTRICA',
-    marca:'ACTECK',
-    modelo:'GENERICO',
-    serie:28162761827,
+    marca: "ACTECK",
+    modelo: "GENERICO",
+    serie: 28162761827,
     inventario: 87373202392,
-    monitor:'GENERICO',
-    teclado:'GENERICO',
-    mouse:'GENERICO',
-    lector: 'GENERICO',
-    inventario2:1272712-323,
-    resguardante:'VICTORIA CUELLAR  GONZALEZ',
-    mantenimientoPreventivo: 'Realizado el',
+    monitor: "GENERICO",
+    teclado: "GENERICO",
+    mouse: "GENERICO",
+    lector: "GENERICO",
+    inventario2: 1272712323,
   },
-
 ];
 
 const Inventario = () => {
@@ -99,6 +87,9 @@ const Inventario = () => {
                 sx={{ ml: 1, flex: 1 }}
                 inputProps={{ "aria-label": "search google maps" }}
               />
+              <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+                <SearchIcon />
+              </IconButton>
             </Paper>
 
             <div className="buttonVale">
@@ -115,9 +106,9 @@ const Inventario = () => {
             pageSize={5}
             rowsPerPageOptions={[5]}
             sx={{
-              borderColor: 'transparent',
-              color: 'white',
-              fontSize: '1.2rem'
+              borderColor: "transparent",
+              color: "white",
+              fontSize: "1.2rem",
             }}
           />
         </div>
@@ -129,7 +120,7 @@ const Inventario = () => {
           className="modalStyles"
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography id="modal-modal-title" variant="h5" component="h2">
               Nuevo Vale de Salida
             </Typography>
             <div className="formulario">
@@ -156,44 +147,41 @@ const Inventario = () => {
                   <div className="texto">
                     <p>Seleccione los artículos por agregar</p>
                   </div>
-                  <div className="filtroModal">
-                    <div className="busquedaModal">
-                      <p>Buscar por: </p>
-                      <select name="select">
-                        <option value="value1">Value 1</option>
-                        <option value="value2" selected>Value 2</option>
-                        <option value="value3">Value 3</option>
-                      </select>
-                      <Paper
-                        component="form"
-                        sx={{
-                          p: "1px 1px",
-                          display: "flex",
-                          alignItems: "center",
-                          width: 300,
-                        }}
-                      >
-                        <InputBase
-                          sx={{ ml: 1, flex: 1 }}
-                          inputProps={{ "aria-label": "search google maps" }}
-                        />
-                      </Paper>
-                    </div>
-                      <div className="medida">
-                        <label>Medida</label>
-                        <input placeholder="medida"></input>
-                      </div>
+
+                  <div className="busquedaModal">
+                    <p>Buscar por: </p>
+                    <select name="select">
+                      <option value="value1">Value 1</option>
+                      <option value="value2" selected>
+                        Value 2
+                      </option>
+                      <option value="value3">Value 3</option>
+                    </select>
                   </div>
-                  <div className="bot">
-                    <div className="cantidad">
-                      <label>Cantidad</label>
-                      <input placeholder="Cantidad"></input>
+                  <div className="caja">
+                    <input placeholder="ingrese datos"></input>
+                    <div className="iconLupa">
+                      <IconButton
+                        type="button"
+                        sx={{ p: "9px" }}
+                        aria-label="search"
+                      >
+                        <SearchIcon />
+                      </IconButton>
                     </div>
-                      <div className="buttonValeModal">
-                        <BootstrapButton>
-                          Agregar Artículo al Vale
-                        </BootstrapButton>
-                      </div>
+                  </div>
+                  <div className="medida">
+                    <label>Medida</label>
+                    <input placeholder="medida"></input>
+                  </div>
+
+                  <div className="cantidad">
+                    <label>Cantidad</label>
+                    <input placeholder="Cantidad"></input>
+                  </div>
+
+                  <div className="buttonValeModal">
+                    <BootstrapButton>Agregar Artículo al Vale</BootstrapButton>
                   </div>
                 </div>
               </form>
@@ -224,7 +212,6 @@ const Inventario = () => {
             </Button>
           </div>
         </div>
-
       </div>
     </>
   );

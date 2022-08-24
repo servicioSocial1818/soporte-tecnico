@@ -137,7 +137,7 @@ const Responsables = () => {
       <div className="containerResponsables">
         <div className="title">
           <PersonSharp fontSize="large" />
-          <h2>Administrar Responsables</h2>
+          <h2>Administrar Usuarios</h2>
         </div>
         <div className="button">
           <PersonAddIcon />
