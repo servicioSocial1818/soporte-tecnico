@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./menu.css";
+import "./isNotAdmin.css";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../Context/context";
 import { useEffect } from "react";
@@ -18,24 +18,24 @@ const IsNotAdmin = () => {
     <>
       <div className="containerData">
         <h1 className="generalTitle">Menu</h1>
-        <div className="box">
+        <div className="boxUser">
           <div
             className="boxes boxes1"
-            onClick={() => history.push("/inventario")}
+            onClick={() => history.push("/dispositivos")}
           >
             <div className="boxesTitle">
               <AccountCircleIcon fontSize="large" />
             </div>
             <div className="boxesSub">
-              <span>Inventario</span>
+              <span>Dispositivos</span>
             </div>
           </div>
-          <div className="boxes" onClick={() => history.push("/responsables")}>
+          <div className="boxes" onClick={() => history.push("/generarReportes")}>
             <div className="boxesTitle">
               <GroupIcon fontSize="large" />
             </div>
             <div className="boxesSub">
-              <span>Usuarios</span>
+              <span>Reportes</span>
             </div>
           </div>
         </div>

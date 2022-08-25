@@ -6,7 +6,7 @@ import React, {
   Children,
 } from "react";
 import { NotificationManager } from "react-notifications";
-// export const UserContext = createContext(null)
+
 
 const ContextApp = createContext();
 
@@ -26,22 +26,28 @@ export const ContextAppProvider = (props) => {
   };
 
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState("Alex");
+  const [user, setUser] = useState();
   const [path, setPath] = useState();
+  const [isNotAdmin, setIsNotAdmin] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   const contextValue = useMemo(() => {
     const contextAppState = {
       isLogged,
       user,
       path,
+      isNotAdmin,
+      isShow,
       setPath,
       setIsLogged,
       setUser,
+      setIsNotAdmin,
+      setIsShow,
       createNotification,
     };
 
     return contextAppState;
-  }, [isLogged, path]);
+  }, [isLogged, path, isShow, isNotAdmin]);
 
   return (
     <ContextApp.Provider value={contextValue}>{children}</ContextApp.Provider>

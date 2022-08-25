@@ -5,11 +5,13 @@ import { useContext, useEffect } from 'react'
 import { useAppContext } from "../Context/context";
 
 const Layout = () => {
-    const { setIsNotAdmin } = useAppContext()
-    useEffect(() => {
-        setIsShow(true);
-    }, [])
 
+  const { isNotAdmin, setIsShow } = useAppContext();
+  
+  useEffect(() => {
+    setIsShow(true);
+  }, [])
+  
   return (
     <>
         { isNotAdmin ? <IsNotAdmin/> : <Menu/> }

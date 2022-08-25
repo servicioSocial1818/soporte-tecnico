@@ -1,0 +1,38 @@
+.container {
+    width: 70rem;
+    height: 34rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    box-shadow: 18px 18px 20px 0px rgba(0, 0, 0, 0.342);
+    background: #3879f1be;
+    text-align: center;
+}
+.modalStyles div{
+    background-color: #007bff;
+    color: white;
+    width: auto;
+    height: auto;
+    border-radius: 5px; 
+    font-size: 1.6rem;
+}
+.dispositivos,
+.descrip{
+    display: flex;
+    flex-direction: column;
+}
+.misdispositivos {
+    display: flex;
+    flex-direction: column;
+}
+.modalStyles select {
+    height: 2rem;
+    font-size: 1.3rem;
+}
+.modalStyles textarea {
+    height: 10rem;
+    width: 40rem;
+    font-size: 1.3rem;
+}

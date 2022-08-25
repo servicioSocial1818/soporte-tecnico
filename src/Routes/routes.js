@@ -7,7 +7,8 @@ import Responsables from "../components/Responsables/responsables";
 import Equipos from "../components/Equipos/equipos";
 import Reportes from "../components/Reportes/reportes";
 import Inventario from "../components/Inventario/inventario";
-
+import Dispositivos from "../components/Dispositivos/dispositivos";
+import GenerarReportes from "../components/ReportesCliente/generarReportes";
 
 const Routes = () => {
   return (
@@ -31,6 +32,12 @@ const Routes = () => {
         </Route>
         <Route exact path="/inventario">
           <Inventario/>
+        </Route>
+        <Route exact path="/dispositivos">
+          <Dispositivos/>
+        </Route>
+        <Route exact path="/generarReportes">
+          <GenerarReportes/>
         </Route>
       </Switch>
     </Router>

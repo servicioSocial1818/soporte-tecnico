@@ -206,7 +206,7 @@ const Inventario = () => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => history.push("/menu")}
+              onClick={() => history.push("/layout")}
             >
               Atras
             </Button>

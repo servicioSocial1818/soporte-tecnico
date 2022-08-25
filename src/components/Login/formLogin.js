@@ -5,23 +5,27 @@ import Button from "@material-ui/core/Button";
 import CustomInput from "../CustomComponents/customInput";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../Context/context";
+import { useEffect } from "react";
 
 const FormLogin = () => {
   let history = useHistory();
 
   const { createNotification, setIsLogged, setUser, setIsNotAdmin } = useAppContext();
 
+  useEffect(() => {
+    setUser(null);
+  }, []);
   const handleSubmit = ({ values }) => {
     const { user, password } = values;
     if (user === "Alex" && password === "123456") {
       setIsNotAdmin(false);
       setIsLogged(true);
-      setUser(user);
+      setUser(values.user);
       history.push("/layout");
     } else if(user === "user" && password === "pass" ) {
       setIsNotAdmin(true);
       setIsLogged(true);
-      setUser(user);
+      setUser(values.user);
       history.push("/layout");
     }
     else {

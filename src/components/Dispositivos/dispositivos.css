@@ -1,0 +1,29 @@
+.titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.container {
+    height: 1rem;
+}
+.cards {
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    height: auto;
+    width: auto;
+    
+}
+.dispositivos {
+    margin-left: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.555);
+    box-shadow: 5px 10px 10px 5px #00000015;
+
+}
+.contenedor {
+    margin-top: 2px !important;
+}
+.botonDisp {
+    margin-top: 4.3rem;
+}

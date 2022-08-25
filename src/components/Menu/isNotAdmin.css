@@ -12,10 +12,10 @@
     text-align: center;
 }
 
-.box {
+.boxUser {
     width: auto;
-    height: 25rem;
-    margin-top: 25px;
+    height: auto;
+    margin-top: 125px;
     display: grid;
     grid-template-columns: 390px 50px;
     column-gap: 17rem;
@@ -64,10 +64,10 @@
      
     }
 
-    .box {
+    .boxUser {
         width: auto;
-        height: 25rem;
-        margin-top: 25px;
+        height: auto;
+        margin-top: 7.5rem;
         display: grid;
         grid-template-columns: 200px 50px;
         column-gap: 17rem;
