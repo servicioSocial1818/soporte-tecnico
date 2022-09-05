@@ -1,5 +1,5 @@
 import "./responsables.css";
-import * as React from "react";
+import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import { styled } from "@material-ui/styles";
@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import { Input, Box } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import { DataGrid } from "@mui/x-data-grid";
+// import { useAppContext } from "../Context/context";
+
 
 const style = {
   position: "absolute",
@@ -127,11 +129,58 @@ const rows = [
   },
 ];
 
-const Responsables = () => {
+const Responsables = ({ guardarUsuario }) => {
   let history = useHistory();
-  const [open, setOpen] = React.useState(false);
+  // const {
+  //   setApellidoP,
+  //   setApellidoM,
+  //   setNombre,
+  //   setFechaNacimiento,
+  //   setGenero,
+  //   setTelefono,
+  //   setCorreo,
+  //   setUsername,
+  //   setPassword,
+  //   setRol,
+  //   setUbicacion,
+  //   apellidoP,
+  //   apellidoM,
+  //   nombre,
+  //   fechaNacimiento,
+  //   genero,
+  //   telefono,
+  //   correo,
+  //   username,
+  //   password,
+  //   rol,
+  //   ubicacion
+  // } = useAppContext();
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [apellidoP, setApellidoP] = useState('');
+  const [apellidoM, setApellidoM] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [genero, setGenero] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [rol, setRol] = useState('');
+  const [ubicacion, setUbicacion] = useState('');
+
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if ([ apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion ].includes('')) {
+      console.log('Todos los campos son obligatorios');
+      return;
+    }
+    guardarUsuario({apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion})
+  }
+
   return (
     <>
       <div className="containerResponsables">
@@ -191,52 +240,110 @@ const Responsables = () => {
               Agregar Nuevo Usuario
             </Typography>
             <div className="formulario">
-              <form>
+              <form
+                onSubmit={handleSubmit}
+              >
                 <div className="row">
                   <div className="ap">
                     <label>Apellido Paterno</label>
-                    <input placeholder="Apellido Paterno"></input>
+                    <input 
+                      id="apellidoP"
+                      placeholder="Apellido Paterno"
+                      type="text"
+                      value={apellidoP}
+                      onChange={e => setApellidoP(e.target.value)}
+                    />
                   </div>
                   <div className="apm">
                     <label>Apellido Materno</label>
-                    <input placeholder="Apellido Materno"></input>
+                    <input 
+                      id="apellidoM"
+                      placeholder="Apellido Materno"
+                      type="text"
+                      value={apellidoM}
+                      onChange={e => setApellidoM(e.target.value)}
+                    />
                   </div>
                   <div className="nombre">
                     <label>Nombre</label>
-                    <input placeholder="Nombre"></input>
+                    <input 
+                      id="nombre"
+                      placeholder="Nombre"
+                      type="text"
+                      value={nombre}
+                      onChange={e => setNombre(e.target.value)}
+                    />
                   </div>
                   <div className="fechaNacimiento">
                     <label>Fecha de Nacimiento</label>
-                    <input type="date"></input>
+                    <input 
+                      id="fechaNacimiento"
+                      type="date"
+                      value={fechaNacimiento}
+                      onChange={e => setFechaNacimiento(e.target.value)}
+                    />
                   </div>
                   <div className="genero">
-                    <label>Género</label>
-                    <select name="genero">
+                    <label htmlFor="genero">Género</label>
+                    <select 
+                      id="genero"
+                      value={genero}
+                      onChange={e => setGenero(e.target.value)}
+                    >
                       <option value="F">Femenino</option>
                       <option value="M">Masculino</option>
                     </select>
                   </div>
                   <div className="telefono">
                     <label>Télefono</label>
-                    <input placeholder="Telefono"></input>
+                    <input 
+                      id="telefono"
+                      type="text"
+                      placeholder="Telefono"
+                      value={telefono}
+                      onChange={e => setTelefono(e.target.value)}
+                    />
                   </div>
                   <div className="correo">
                     <label>Correo</label>
-                    <input placeholder="Correo"></input>
+                    <input 
+                      id="correo"
+                      type="email"
+                      placeholder="Correo"
+                      value={correo}
+                      onChange={e => setCorreo(e.target.value)}
+                    ></input>
                   </div>
                   <div className="usuario">
                     <label>Usuario</label>
-                    <input placeholder="Usuario"></input>
+                    <input 
+                      id="usuario"
+                      type="text"
+                      placeholder="Usuario"
+                      value={username}
+                      onChange={e => setUsername(e.target.value)}
+                    />
                   </div>
                   <div className="contra">
                     <label>Contraseña</label>
-                    <input placeholder="Contraseña"></input>
+                    <input 
+                      id="password"
+                      type="password"
+                      placeholder="Contraseña"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+
+                    />
                   </div>
                 </div>
                 <div className="colum">
                   <div className="usuario">
-                    <label>Rol de Usuario</label>
-                    <select name="usuario">
+                    <label htmlFor="rol">Rol de Usuario</label>
+                    <select 
+                      id="rol"
+                      value={rol}
+                      onChange={e => setRol(e.target.value)}
+                    >
                       <option value="C">Cliente</option>
                       <option value="A">Administrador</option>
                     </select>
@@ -244,7 +351,11 @@ const Responsables = () => {
                 </div>
                 <div className="ubica">
                   <label>Ubicación</label>
-                  <textarea></textarea>
+                  <textarea
+                    id="ubicacion"
+                    value={ubicacion}
+                    onChange={e => setUbicacion(e.target.value)}
+                  />
                 </div>
               </form>
             </div>

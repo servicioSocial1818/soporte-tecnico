@@ -30,6 +30,18 @@ export const ContextAppProvider = (props) => {
   const [path, setPath] = useState();
   const [isNotAdmin, setIsNotAdmin] = useState(false);
   const [isShow, setIsShow] = useState(false);
+  const [apellidoP, setApellidoP] = useState('');
+  const [apellidoM, setApellidoM] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [genero, setGenero] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [rol, setRol] = useState('');
+  const [ubicacion, setUbicacion] = useState('');
+
 
   const contextValue = useMemo(() => {
     const contextAppState = {
@@ -38,11 +50,33 @@ export const ContextAppProvider = (props) => {
       path,
       isNotAdmin,
       isShow,
+      apellidoP,
+      apellidoM,
+      nombre,
+      fechaNacimiento,
+      genero,
+      telefono,
+      correo,
+      username,
+      password,
+      rol,
+      ubicacion,
       setPath,
       setIsLogged,
       setUser,
       setIsNotAdmin,
       setIsShow,
+      setApellidoP,
+      setApellidoM,
+      setNombre,
+      setFechaNacimiento,
+      setGenero,
+      setTelefono,
+      setCorreo,
+      setUsername,
+      setPassword,
+      setRol,
+      setUbicacion,
       createNotification,
     };
 

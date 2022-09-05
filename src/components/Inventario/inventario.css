@@ -25,17 +25,17 @@
 }
 .row > .fecha > input {
     width: 15rem;
-    height: 2.5rem;
+    height: 1.5rem;
     font-size: 1.3rem;
 }
 .row > .area > select {
     width: 15rem;
-    height: 2.5rem;
+    height: 1.5rem;
     font-size: 1.3rem;
 }
 .row > .solicitante > select {
     width: 15rem;
-    height: 2.5rem;
+    height: 1.5rem;
     font-size: 1.3rem;
 }
 .row > .texto {
