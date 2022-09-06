@@ -1,5 +1,5 @@
 import "./responsables.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import { styled } from "@material-ui/styles";
@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { Input, Box } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import { DataGrid } from "@mui/x-data-grid";
+import { columns, rows } from './checkJson';
 // import { useAppContext } from "../Context/context";
 
 
@@ -24,137 +25,9 @@ const style = {
   p: 4,
 };
 
-const columns = [
-  { field: "id", headerName: "ID", width: 30 },
-  { field: "nombre", headerName: "Nombre", width: 100 },
-  { field: "apellidoP", headerName: "ApellidoP", width: 130 },
-  { field: "apellidoM", headerName: "ApellidoM", width: 130 },
-  { field: "edad", headerName: "Edad", width: 70 },
-  { field: "telefono", headerName: "Teléfono", width: 140 },
-  { field: "correo", headerName: "Correo", width: 180 },
-  { field: "usuario", headerName: "Usuario", width: 110 },
-  { field: "genero", headerName: "Género", width: 70 },
-  { field: "botones", headerName: "Acción", width: 100 },
-
-];
-
-const rows = [
-  {
-    id: 1,
-    nombre: "nombre1",
-    apellidoP: "apellidoP1",
-    apellidoM: "apellidoM1",
-    edad: 32,
-    telefono: "1234568523",
-    correo: "correo@correo.com",
-    usuario: "sadasd",
-    genero: "M",
-  },
-  {
-    id: 2,
-    nombre: "nombre2",
-    apellidoP: "apellidoP2",
-    apellidoM: "apellidoM2",
-    edad: 22,
-    telefono: "3456778483",
-    correo: "correo2@correo.com",
-    usuario: "sad25d",
-    genero: "M",
-  },
-  {
-    id: 3,
-    nombre: "nombre3",
-    apellidoP: "apellidoP3",
-    apellidoM: "apellidoM3",
-    edad: 36,
-    telefono: "8154554113",
-    correo: "correo3@correo.com",
-    usuario: "sa51sd",
-    genero: "F",
-  },
-  {
-    id: 4,
-    nombre: "nombre4",
-    apellidoP: "apellidoP4",
-    apellidoM: "apellidoM4",
-    edad: 42,
-    telefono: "8154554113",
-    correo: "correo4@correo.com",
-    usuario: "sa51sd",
-    genero: "M",
-  },
-  {
-    id: 5,
-    nombre: "nombre5",
-    apellidoP: "apellidoP5",
-    apellidoM: "apellidoM5",
-    edad: 52,
-    telefono: "8154554113",
-    correo: "correo5@correo.com",
-    usuario: "sa51sd",
-    genero: "F",
-  },
-  {
-    id: 6,
-    nombre: "nombre6",
-    apellidoP: "apellidoP6",
-    apellidoM: "apellidoM6",
-    edad: 52,
-    telefono: "8154554113",
-    correo: "correo6@correo.com",
-    usuario: "sa51sd",
-    genero: "M",
-  },
-  {
-    id: 7,
-    nombre: "nombre7",
-    apellidoP: "apellidoP7",
-    apellidoM: "apellidoM7",
-    edad: 12,
-    telefono: "8154554113",
-    correo: "correo7@correo.com",
-    usuario: "sa51sd",
-    genero: "F",
-  },
-  {
-    id: 8,
-    nombre: "nombre8",
-    apellidoP: "apellidoP8",
-    apellidoM: "apellidoM8",
-    edad: 52,
-    telefono: "8154554113",
-    correo: "correo8@correo.com",
-    usuario: "sa51sd",
-    genero: "F",
-  },
-];
-
-const Responsables = ({ guardarUsuario }) => {
+const Responsables = ({ usuarios, setUsuarios, usuario }) => {
   let history = useHistory();
-  // const {
-  //   setApellidoP,
-  //   setApellidoM,
-  //   setNombre,
-  //   setFechaNacimiento,
-  //   setGenero,
-  //   setTelefono,
-  //   setCorreo,
-  //   setUsername,
-  //   setPassword,
-  //   setRol,
-  //   setUbicacion,
-  //   apellidoP,
-  //   apellidoM,
-  //   nombre,
-  //   fechaNacimiento,
-  //   genero,
-  //   telefono,
-  //   correo,
-  //   username,
-  //   password,
-  //   rol,
-  //   ubicacion
-  // } = useAppContext();
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -171,6 +44,27 @@ const Responsables = ({ guardarUsuario }) => {
   const [rol, setRol] = useState('');
   const [ubicacion, setUbicacion] = useState('');
 
+  useEffect(() => {
+    if (Object.keys(usuario).length > 0) {
+      setApellidoP(usuario.apellidoP);
+      setApellidoM(usuario.apellidoM);
+      setNombre(usuario.nombre);
+      setFechaNacimiento(usuario.fechaNacimiento);
+      setGenero(usuario.genero);
+      setTelefono(usuario.telefono);
+      setCorreo(usuario.correo);
+      setUsername(usuario.username);
+      setPassword(usuario.password);
+      setRol(usuario.rol);
+      setUbicacion(usuario.ubicacion);
+    }
+  }, [usuario]);
+
+  const generarId = () => {
+    const random = Math.random().toString(36).substring(2);
+    const fecha = Date.now().toString(36);
+    return random + fecha;
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -178,7 +72,37 @@ const Responsables = ({ guardarUsuario }) => {
       console.log('Todos los campos son obligatorios');
       return;
     }
-    guardarUsuario({apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion})
+
+    //Objeto de Usuario
+    const objetoUsuario = {
+      apellidoM,
+      apellidoP,
+      nombre,
+      fechaNacimiento,
+      genero,
+      telefono,
+      correo,
+      username,
+      password,
+      rol,
+      ubicacion
+    }
+    //Nuevo Registro
+    objetoUsuario.id = generarId();
+    setUsuarios([...usuarios, objetoUsuario]);
+
+    //Reiniciar el nombre
+    setApellidoP('')
+    setApellidoM('')
+    setNombre('')
+    setFechaNacimiento('')
+    setGenero('')
+    setTelefono('')
+    setCorreo('')
+    setUsername('')
+    setPassword('')
+    setRol('')
+    setUbicacion('')
   }
 
   return (
