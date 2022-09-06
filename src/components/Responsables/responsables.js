@@ -25,7 +25,7 @@ const style = {
   p: 4,
 };
 
-const Responsables = ({ usuarios, setUsuarios, usuario }) => {
+const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
@@ -68,7 +68,9 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if ([ apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion ].includes('')) {
+
+    //validacion para el formulario
+    if ([apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion].includes('')) {
       console.log('Todos los campos son obligatorios');
       return;
     }
@@ -87,9 +89,25 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
       rol,
       ubicacion
     }
-    //Nuevo Registro
-    objetoUsuario.id = generarId();
-    setUsuarios([...usuarios, objetoUsuario]);
+
+    if (usuario.id) {
+      //Editar un registro
+      objetoUsuario.id = usuario.id;
+
+      const usuariosActualizados = usuarios.map(usuarioState => usuarioState.id ===
+        usuario.id ? objetoUsuario : usuarioState)
+      //.map retorna un arreglo nuevo y se puede setear a usuarios
+
+      setUsuarios(usuariosActualizados);
+      setUsuario({})
+    } else {
+      //Nuevo Registro
+      objetoUsuario.id = generarId();
+      setUsuarios([...usuarios, objetoUsuario]);
+
+    }
+
+    console.log(objetoUsuario);
 
     //Reiniciar el nombre
     setApellidoP('')
@@ -170,7 +188,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                 <div className="row">
                   <div className="ap">
                     <label>Apellido Paterno</label>
-                    <input 
+                    <input
                       id="apellidoP"
                       placeholder="Apellido Paterno"
                       type="text"
@@ -180,7 +198,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="apm">
                     <label>Apellido Materno</label>
-                    <input 
+                    <input
                       id="apellidoM"
                       placeholder="Apellido Materno"
                       type="text"
@@ -190,7 +208,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="nombre">
                     <label>Nombre</label>
-                    <input 
+                    <input
                       id="nombre"
                       placeholder="Nombre"
                       type="text"
@@ -200,7 +218,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="fechaNacimiento">
                     <label>Fecha de Nacimiento</label>
-                    <input 
+                    <input
                       id="fechaNacimiento"
                       type="date"
                       value={fechaNacimiento}
@@ -209,7 +227,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="genero">
                     <label htmlFor="genero">Género</label>
-                    <select 
+                    <select
                       id="genero"
                       value={genero}
                       onChange={e => setGenero(e.target.value)}
@@ -220,7 +238,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="telefono">
                     <label>Télefono</label>
-                    <input 
+                    <input
                       id="telefono"
                       type="text"
                       placeholder="Telefono"
@@ -230,7 +248,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="correo">
                     <label>Correo</label>
-                    <input 
+                    <input
                       id="correo"
                       type="email"
                       placeholder="Correo"
@@ -240,7 +258,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="usuario">
                     <label>Usuario</label>
-                    <input 
+                    <input
                       id="usuario"
                       type="text"
                       placeholder="Usuario"
@@ -250,7 +268,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                   </div>
                   <div className="contra">
                     <label>Contraseña</label>
-                    <input 
+                    <input
                       id="password"
                       type="password"
                       placeholder="Contraseña"
@@ -263,7 +281,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario }) => {
                 <div className="colum">
                   <div className="usuario">
                     <label htmlFor="rol">Rol de Usuario</label>
-                    <select 
+                    <select
                       id="rol"
                       value={rol}
                       onChange={e => setRol(e.target.value)}
