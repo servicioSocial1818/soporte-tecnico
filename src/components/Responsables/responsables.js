@@ -9,8 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import { Input, Box } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import { DataGrid } from "@mui/x-data-grid";
-import { columns, rows } from './checkJson';
-// import { useAppContext } from "../Context/context";
+import { columns, inputsArray } from './checkJson';
+import { useAppContext } from "../Context/context";
+import useValidationField from "./useValidationField";
 
 
 const style = {
@@ -32,96 +33,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [apellidoP, setApellidoP] = useState('');
-  const [apellidoM, setApellidoM] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [fechaNacimiento, setFechaNacimiento] = useState('');
-  const [genero, setGenero] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [rol, setRol] = useState('');
-  const [ubicacion, setUbicacion] = useState('');
-
-  useEffect(() => {
-    if (Object.keys(usuario).length > 0) {
-      setApellidoP(usuario.apellidoP);
-      setApellidoM(usuario.apellidoM);
-      setNombre(usuario.nombre);
-      setFechaNacimiento(usuario.fechaNacimiento);
-      setGenero(usuario.genero);
-      setTelefono(usuario.telefono);
-      setCorreo(usuario.correo);
-      setUsername(usuario.username);
-      setPassword(usuario.password);
-      setRol(usuario.rol);
-      setUbicacion(usuario.ubicacion);
-    }
-  }, [usuario]);
-
-  const generarId = () => {
-    const random = Math.random().toString(36).substring(2);
-    const fecha = Date.now().toString(36);
-    return random + fecha;
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    //validacion para el formulario
-    if ([apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion].includes('')) {
-      console.log('Todos los campos son obligatorios');
-      return;
-    }
-
-    //Objeto de Usuario
-    const objetoUsuario = {
-      apellidoM,
-      apellidoP,
-      nombre,
-      fechaNacimiento,
-      genero,
-      telefono,
-      correo,
-      username,
-      password,
-      rol,
-      ubicacion
-    }
-
-    if (usuario.id) {
-      //Editar un registro
-      objetoUsuario.id = usuario.id;
-
-      const usuariosActualizados = usuarios.map(usuarioState => usuarioState.id ===
-        usuario.id ? objetoUsuario : usuarioState)
-      //.map retorna un arreglo nuevo y se puede setear a usuarios
-
-      setUsuarios(usuariosActualizados);
-      setUsuario({})
-    } else {
-      //Nuevo Registro
-      objetoUsuario.id = generarId();
-      setUsuarios([...usuarios, objetoUsuario]);
-
-    }
-
-    console.log(objetoUsuario);
-
-    //Reiniciar el nombre
-    setApellidoP('')
-    setApellidoM('')
-    setNombre('')
-    setFechaNacimiento('')
-    setGenero('')
-    setTelefono('')
-    setCorreo('')
-    setUsername('')
-    setPassword('')
-    setRol('')
-    setUbicacion('')
-  }
 
   return (
     <>
@@ -137,20 +48,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
           </BootstrapButton>
         </div>
         <div className="filtrar">
-          {/* <div className="seleccionar">
-            <p>Mostrar</p>
-            <Box sx={{ minWidth: 100 }}>
-              <FormControl>
-                <Select label="10">
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={20}>20</MenuItem>
-                  <MenuItem value={30}>30</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <p>registros</p>
-          </div> */}
-
           <div className="buscar">
             <p>Buscar: </p>
             <Input></Input>
@@ -158,7 +55,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
         </div>
         <div className="tabla">
           <DataGrid
-            rows={rows}
+            rows={inputsArray}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
@@ -192,8 +89,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                       id="apellidoP"
                       placeholder="Apellido Paterno"
                       type="text"
-                      value={apellidoP}
-                      onChange={e => setApellidoP(e.target.value)}
                     />
                   </div>
                   <div className="apm">
@@ -202,8 +97,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                       id="apellidoM"
                       placeholder="Apellido Materno"
                       type="text"
-                      value={apellidoM}
-                      onChange={e => setApellidoM(e.target.value)}
                     />
                   </div>
                   <div className="nombre">
@@ -212,8 +105,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                       id="nombre"
                       placeholder="Nombre"
                       type="text"
-                      value={nombre}
-                      onChange={e => setNombre(e.target.value)}
                     />
                   </div>
                   <div className="fechaNacimiento">
@@ -221,16 +112,12 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                     <input
                       id="fechaNacimiento"
                       type="date"
-                      value={fechaNacimiento}
-                      onChange={e => setFechaNacimiento(e.target.value)}
                     />
                   </div>
                   <div className="genero">
                     <label htmlFor="genero">Género</label>
                     <select
                       id="genero"
-                      value={genero}
-                      onChange={e => setGenero(e.target.value)}
                     >
                       <option value="F">Femenino</option>
                       <option value="M">Masculino</option>
@@ -242,8 +129,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                       id="telefono"
                       type="text"
                       placeholder="Telefono"
-                      value={telefono}
-                      onChange={e => setTelefono(e.target.value)}
                     />
                   </div>
                   <div className="correo">
@@ -252,8 +137,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                       id="correo"
                       type="email"
                       placeholder="Correo"
-                      value={correo}
-                      onChange={e => setCorreo(e.target.value)}
                     ></input>
                   </div>
                   <div className="usuario">
@@ -262,8 +145,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                       id="usuario"
                       type="text"
                       placeholder="Usuario"
-                      value={username}
-                      onChange={e => setUsername(e.target.value)}
                     />
                   </div>
                   <div className="contra">
@@ -272,8 +153,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                       id="password"
                       type="password"
                       placeholder="Contraseña"
-                      value={password}
-                      onChange={e => setPassword(e.target.value)}
 
                     />
                   </div>
@@ -283,8 +162,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                     <label htmlFor="rol">Rol de Usuario</label>
                     <select
                       id="rol"
-                      value={rol}
-                      onChange={e => setRol(e.target.value)}
                     >
                       <option value="C">Cliente</option>
                       <option value="A">Administrador</option>
@@ -295,8 +172,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
                   <label>Ubicación</label>
                   <textarea
                     id="ubicacion"
-                    value={ubicacion}
-                    onChange={e => setUbicacion(e.target.value)}
                   />
                 </div>
               </form>
