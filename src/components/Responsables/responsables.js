@@ -8,10 +8,8 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Typography from "@material-ui/core/Typography";
 import { Input, Box } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
-import { DataGrid } from "@mui/x-data-grid";
-import { columns, inputsArray } from './checkJson';
-import { useAppContext } from "../Context/context";
-import useValidationField from "./useValidationField";
+import Formulario from "./Formulario";
+import ListadoUsuarios from "./listadoUsuarios";
 
 
 const style = {
@@ -26,13 +24,31 @@ const style = {
   p: 4,
 };
 
-const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
+const Responsables = () => {
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuario, setUsuario] = useState({});
 
+
+  useEffect(() => {
+    const obtenerLS = () => {
+      const usuariosLS = JSON.parse(localStorage.getItem('usuarios')) ?? [];
+      setUsuarios(usuariosLS)
+    }
+    obtenerLS();
+  }, []); //cuando pasas un arreglo vacío se ejecuta una sola vez cuando el componente está listo
+
+  useEffect(() => {
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  }, [usuarios]) //sincroniza el state con lo que hay en usuarios
+
+  const saveData = (e) => {
+    console.log('click');
+  }
 
   return (
     <>
@@ -53,20 +69,11 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
             <Input></Input>
           </div>
         </div>
-        <div className="tabla">
-          <DataGrid
-            rows={inputsArray}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            sx={{
-              borderColor: 'transparent',
-              color: 'white',
-              fontSize: '1.2rem'
-            }}
-          />
-        </div>
-
+{/* TABLA */}
+        <ListadoUsuarios
+          usuarios={usuarios}
+          setUsuario={setUsuario}
+        />
         <Modal
           open={open}
           onClose={handleClose}
@@ -79,102 +86,12 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               Agregar Nuevo Usuario
             </Typography>
             <div className="formulario">
-              <form
-                onSubmit={handleSubmit}
-              >
-                <div className="row">
-                  <div className="ap">
-                    <label>Apellido Paterno</label>
-                    <input
-                      id="apellidoP"
-                      placeholder="Apellido Paterno"
-                      type="text"
-                    />
-                  </div>
-                  <div className="apm">
-                    <label>Apellido Materno</label>
-                    <input
-                      id="apellidoM"
-                      placeholder="Apellido Materno"
-                      type="text"
-                    />
-                  </div>
-                  <div className="nombre">
-                    <label>Nombre</label>
-                    <input
-                      id="nombre"
-                      placeholder="Nombre"
-                      type="text"
-                    />
-                  </div>
-                  <div className="fechaNacimiento">
-                    <label>Fecha de Nacimiento</label>
-                    <input
-                      id="fechaNacimiento"
-                      type="date"
-                    />
-                  </div>
-                  <div className="genero">
-                    <label htmlFor="genero">Género</label>
-                    <select
-                      id="genero"
-                    >
-                      <option value="F">Femenino</option>
-                      <option value="M">Masculino</option>
-                    </select>
-                  </div>
-                  <div className="telefono">
-                    <label>Télefono</label>
-                    <input
-                      id="telefono"
-                      type="text"
-                      placeholder="Telefono"
-                    />
-                  </div>
-                  <div className="correo">
-                    <label>Correo</label>
-                    <input
-                      id="correo"
-                      type="email"
-                      placeholder="Correo"
-                    ></input>
-                  </div>
-                  <div className="usuario">
-                    <label>Usuario</label>
-                    <input
-                      id="usuario"
-                      type="text"
-                      placeholder="Usuario"
-                    />
-                  </div>
-                  <div className="contra">
-                    <label>Contraseña</label>
-                    <input
-                      id="password"
-                      type="password"
-                      placeholder="Contraseña"
-
-                    />
-                  </div>
-                </div>
-                <div className="colum">
-                  <div className="usuario">
-                    <label htmlFor="rol">Rol de Usuario</label>
-                    <select
-                      id="rol"
-                    >
-                      <option value="C">Cliente</option>
-                      <option value="A">Administrador</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="ubica">
-                  <label>Ubicación</label>
-                  <textarea
-                    id="ubicacion"
-                  />
-                </div>
-              </form>
+              <Formulario
+                usuarios={usuarios}
+                setUsuarios={setUsuarios}
+                usuario={usuario}
+                setUsuario={setUsuario}
+              />
             </div>
             <div className="botones">
               <Button
@@ -184,7 +101,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               >
                 Cerrar
               </Button>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={saveData}>
                 Agregar
               </Button>
             </div>
