@@ -33,7 +33,6 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   return (
     <>
       <div className="containerResponsables">
@@ -184,7 +183,7 @@ const Responsables = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               >
                 Cerrar
               </Button>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={ saveData }>
                 Agregar
               </Button>
             </div>
