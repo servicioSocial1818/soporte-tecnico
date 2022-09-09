@@ -17,7 +17,7 @@ const ListadoUsuarios = ({ usuarios, setUsuario, eliminarUsuarios }) => {
 
       ) : (
         <>
-          
+          <p>No hay usuarios</p>
         </>
       )}
     </div>

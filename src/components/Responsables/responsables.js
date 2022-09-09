@@ -33,9 +33,6 @@ const Responsables = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [usuario, setUsuario] = useState({});
 
-<<<<<<< HEAD
-=======
-
   useEffect(() => {
     const obtenerLS = () => {
       const usuariosLS = JSON.parse(localStorage.getItem('usuarios')) ?? [];
@@ -48,11 +45,7 @@ const Responsables = () => {
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
   }, [usuarios]) //sincroniza el state con lo que hay en usuarios
 
-  const saveData = (e) => {
-    console.log('click');
-  }
 
->>>>>>> 01314f7a0f31385d8a42b08796127864857f332e
   return (
     <>
       <div className="containerResponsables">
@@ -103,13 +96,6 @@ const Responsables = () => {
                 onClick={handleClose}
               >
                 Cerrar
-              </Button>
-<<<<<<< HEAD
-              <Button variant="contained" color="primary" onClick={ saveData }>
-=======
-              <Button variant="contained" color="primary" onClick={saveData}>
->>>>>>> 01314f7a0f31385d8a42b08796127864857f332e
-                Agregar
               </Button>
             </div>
           </Box>

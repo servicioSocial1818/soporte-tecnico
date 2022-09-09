@@ -1,13 +1,17 @@
-import { Table } from '@material-ui/core';
-import { inputsArray } from './checkJson'
 import Button from "@material-ui/core/Button";
-
-
 
 const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
 
-  // const { apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion } = usuario
+  const { apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion, id } = usuario
 
+  const handleEliminar = () => {
+    const respuesta = window.confirm('Deseas eliminar este usuario');
+
+    if(respuesta) {
+      eliminarUsuario(id);
+    }
+
+  }
 
 
 
@@ -27,26 +31,27 @@ const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
             </tr>
           </thead>
           <tbody>
-            <tr key={inputsArray.id}>
-              <td>{`${inputsArray.nombre} ${inputsArray.apellidoP} ${inputsArray.apellidoM}`}</td>
-              <td>{inputsArray.fechaNacimiento}</td>
-              <td>{inputsArray.genero}</td>
-              <td>{inputsArray.telefono}</td>
-              <td>{inputsArray.correo}</td>
-              <td>{inputsArray.username}</td>
-              <td>{inputsArray.password}</td>
-              <td>{inputsArray.rol}</td>
-              <td>{inputsArray.ubicacion}</td>
+            <tr key={id}>
+              <td>{`${nombre} ${apellidoP} ${apellidoM}`}</td>
+              <td>{fechaNacimiento}</td>
+              <td>{genero}</td>
+              <td>{telefono}</td>
+              <td>{correo}</td>
+              <td>{username}</td>
+              <td>{password}</td>
+              <td>{rol}</td>
+              <td>{ubicacion}</td>
               <td>
-                <Button variant="outline-primary" onClick={() => {
-                  
-                 
-                }}>
-                  Actualizar Documentos
+                <Button 
+                  variant="outline-primary" 
+                  onClick={() => setUsuario(usuario)}
+                >
+                  Editar
                 </Button>
-                <Button variant="outline-danger" className="m-2" onClick={() => {
-            
-                }}>
+                <Button 
+                  variant="outline-danger" 
+                  className="m-2" onClick={handleEliminar}
+                >
                   Eliminar
                 </Button>
               </td>
