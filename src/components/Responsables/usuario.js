@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import { Table } from "@material-ui/core";
 
 const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
 
@@ -18,29 +19,28 @@ const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
   return (
     <>
       <div className="tabla">
-        <table>
+        <Table>
           <thead>
             <tr>
-              <th>#</th>
               <th>Nombre</th>
-              <th>Edad</th>
+              <th>usuario</th>
+              <th>rol</th>
+              <th>ubicacion</th>
               <th>Teléfono</th>
               <th>Correo</th>
-              <th>Usuario</th>
               <th>Género</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr key={id}>
               <td>{`${nombre} ${apellidoP} ${apellidoM}`}</td>
-              <td>{fechaNacimiento}</td>
-              <td>{genero}</td>
-              <td>{telefono}</td>
-              <td>{correo}</td>
               <td>{username}</td>
-              <td>{password}</td>
               <td>{rol}</td>
               <td>{ubicacion}</td>
+              <td>{telefono}</td>
+              <td>{correo}</td>
+              <td>{genero}</td>
               <td>
                 <Button 
                   variant="outline-primary" 
@@ -58,7 +58,7 @@ const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
             </tr>
           </tbody>
 
-        </table>
+        </Table>
       </div>
     </>
   )

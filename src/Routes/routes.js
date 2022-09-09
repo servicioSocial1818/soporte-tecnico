@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "../components/Header/header";
 import Login from "../components/Login/login";
 import Layout from "../components/Menu/layout";
-import Responsables from "../components/Responsables/responsables";
+import LayoutResponsables from "../components/Responsables/layout";
 import Equipos from "../components/Equipos/equipos";
 import Reportes from "../components/Reportes/reportes";
 import Inventario from "../components/Inventario/inventario";
@@ -22,7 +22,7 @@ const Routes = () => {
           <Layout/>
         </Route>
         <Route exact path="/responsables">
-          <Responsables/>
+          <LayoutResponsables/>
         </Route>
         <Route exact path="/equipos">
           <Equipos/>

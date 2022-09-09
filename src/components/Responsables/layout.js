@@ -65,7 +65,7 @@ const Responsables = () => {
             <Input></Input>
           </div>
         </div>
-{/* TABLA */}
+        {/* TABLA */}
         <ListadoUsuarios
           usuarios={usuarios}
           setUsuario={setUsuario}
