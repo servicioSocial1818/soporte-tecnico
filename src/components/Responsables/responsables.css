@@ -29,8 +29,7 @@
     justify-content: space-between;
 }
 .tabla {
-    height: 400px;
-    width: 100%;
+    border: 1px white solid;
 }
 
 .formulario {

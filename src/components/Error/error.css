@@ -1,9 +1,10 @@
 .notificacion {
-    background: red;
+    background-color: rgb(182, 11, 11) !important;
     color: white;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: bold;
     border-radius: 1rem;
+    border: 2px rgb(182, 11, 11) solid;
 }

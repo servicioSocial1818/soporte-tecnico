@@ -8,58 +8,39 @@ const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
   const handleEliminar = () => {
     const respuesta = window.confirm('Deseas eliminar este usuario');
 
-    if(respuesta) {
+    if (respuesta) {
       eliminarUsuario(id);
     }
 
   }
 
-
-
   return (
     <>
-      <div className="tabla">
-        <Table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>usuario</th>
-              <th>rol</th>
-              <th>ubicacion</th>
-              <th>Teléfono</th>
-              <th>Correo</th>
-              <th>Género</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr key={id}>
-              <td>{`${nombre} ${apellidoP} ${apellidoM}`}</td>
-              <td>{username}</td>
-              <td>{rol}</td>
-              <td>{ubicacion}</td>
-              <td>{telefono}</td>
-              <td>{correo}</td>
-              <td>{genero}</td>
-              <td>
-                <Button 
-                  variant="outline-primary" 
-                  onClick={() => setUsuario(usuario)}
-                >
-                  Editar
-                </Button>
-                <Button 
-                  variant="outline-danger" 
-                  className="m-2" onClick={handleEliminar}
-                >
-                  Eliminar
-                </Button>
-              </td>
-            </tr>
-          </tbody>
-
-        </Table>
-      </div>
+      <tbody>
+        <tr key={id}>
+          <td>{`${nombre} ${apellidoP} ${apellidoM}`}</td>
+          <td>{username}</td>
+          <td>{rol}</td>
+          <td>{ubicacion}</td>
+          <td>{telefono}</td>
+          <td>{correo}</td>
+          <td>{genero}</td>
+          <td>
+            <Button
+              variant="outline-primary"
+              onClick={() => setUsuario(usuario)}
+            >
+              Editar
+            </Button>
+            <Button
+              variant="outline-danger"
+              className="m-2" onClick={handleEliminar}
+            >
+              Eliminar
+            </Button>
+          </td>
+        </tr>
+      </tbody>
     </>
   )
 }
