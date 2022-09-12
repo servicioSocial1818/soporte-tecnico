@@ -1,9 +1,9 @@
 import Button from "@material-ui/core/Button";
-import { Table } from "@material-ui/core";
+
 
 const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
 
-  const { apellidoP, apellidoM, nombre, fechaNacimiento, genero, telefono, correo, username, password, rol, ubicacion, id } = usuario
+  const { apellidoP, apellidoM, nombre, genero, telefono, correo, username, rol, ubicacion, id } = usuario
 
   const handleEliminar = () => {
     const respuesta = window.confirm('Deseas eliminar este usuario');

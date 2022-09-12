@@ -41,6 +41,7 @@ export const ContextAppProvider = (props) => {
   const [password, setPassword] = useState('');
   const [rol, setRol] = useState('');
   const [ubicacion, setUbicacion] = useState('');
+  const [error, setError] = useState(false);
 
 
   const contextValue = useMemo(() => {
@@ -61,6 +62,7 @@ export const ContextAppProvider = (props) => {
       password,
       rol,
       ubicacion,
+      error,
       setPath,
       setIsLogged,
       setUser,
@@ -77,11 +79,28 @@ export const ContextAppProvider = (props) => {
       setPassword,
       setRol,
       setUbicacion,
+      setError,
       createNotification,
     };
 
     return contextAppState;
-  }, [isLogged, path, isShow, isNotAdmin]);
+  }, [isLogged,
+    path,
+    isShow,
+    isNotAdmin,
+    setApellidoP,
+    setApellidoM,
+    setNombre,
+    setFechaNacimiento,
+    setGenero,
+    setTelefono,
+    setCorreo,
+    setUsername,
+    setPassword,
+    setRol,
+    setUbicacion,
+    setError,
+  ]);
 
   return (
     <ContextApp.Provider value={contextValue}>{children}</ContextApp.Provider>

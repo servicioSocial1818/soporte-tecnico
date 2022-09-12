@@ -18,7 +18,9 @@ const ListadoUsuarios = ({ usuarios, setUsuario, eliminarUsuarios }) => {
   return (
     <div className='tabla'>
       {usuarios && usuarios.length ? (
-        <Table>
+        <Table
+          className='table'
+        >
           <thead>
             <tr>
               <th>Nombre</th>

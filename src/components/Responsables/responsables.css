@@ -28,13 +28,20 @@
     display: flex;
     justify-content: space-between;
 }
-.tabla {
+.table {
     border: 1px white solid;
+    
+}
+.tableContainer {
+    height: 23.2rem;
+}
+thead th {
+    border: 2px solid rgb(0, 0, 0);
+}
+tbody td {
+    border: 2px solid #000000;
 }
 
-.formulario {
-
-}
 .row {
     display: grid;
     grid-template-columns: 200px 200px 200px;
