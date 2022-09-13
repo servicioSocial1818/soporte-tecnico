@@ -11,7 +11,6 @@ import Modal from "@material-ui/core/Modal";
 import Formulario from "./Formulario";
 import ListadoUsuarios from "./listadoUsuarios";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -35,16 +34,15 @@ const Responsables = () => {
 
   useEffect(() => {
     const obtenerLS = () => {
-      const usuariosLS = JSON.parse(localStorage.getItem('usuarios')) ?? [];
-      setUsuarios(usuariosLS)
-    }
+      const usuariosLS = JSON.parse(localStorage.getItem("usuarios")) ?? [];
+      setUsuarios(usuariosLS);
+    };
     obtenerLS();
   }, []); //cuando pasas un arreglo vacío se ejecuta una sola vez cuando el componente está listo
 
   useEffect(() => {
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-  }, [usuarios]) //sincroniza el state con lo que hay en usuarios
-
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  }, [usuarios]); //sincroniza el state con lo que hay en usuarios
 
   return (
     <>
@@ -54,8 +52,8 @@ const Responsables = () => {
           <h2>Administrar Usuarios</h2>
         </div>
         <div className="button">
-          <PersonAddIcon />
           <BootstrapButton onClick={handleOpen}>
+            <PersonAddIcon />
             Agregar Usuario
           </BootstrapButton>
         </div>
@@ -66,10 +64,7 @@ const Responsables = () => {
           </div>
         </div>
         {/* TABLA */}
-        <ListadoUsuarios
-          usuarios={usuarios}
-          setUsuario={setUsuario}
-        />
+        <ListadoUsuarios usuarios={usuarios} setUsuario={setUsuario} />
         <Modal
           open={open}
           onClose={handleClose}

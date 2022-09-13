@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import { NotificationManager } from "react-notifications";
 
-
 const ContextApp = createContext();
 
 export const ContextAppProvider = (props) => {
@@ -30,19 +29,18 @@ export const ContextAppProvider = (props) => {
   const [path, setPath] = useState();
   const [isNotAdmin, setIsNotAdmin] = useState(false);
   const [isShow, setIsShow] = useState(false);
-  const [apellidoP, setApellidoP] = useState('');
-  const [apellidoM, setApellidoM] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [fechaNacimiento, setFechaNacimiento] = useState('');
-  const [genero, setGenero] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [correo, setCorreo] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [rol, setRol] = useState('');
-  const [ubicacion, setUbicacion] = useState('');
+  const [apellidoP, setApellidoP] = useState("");
+  const [apellidoM, setApellidoM] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
+  const [genero, setGenero] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [rol, setRol] = useState("");
+  const [ubicacion, setUbicacion] = useState("");
   const [error, setError] = useState(false);
-
 
   const contextValue = useMemo(() => {
     const contextAppState = {
@@ -84,7 +82,8 @@ export const ContextAppProvider = (props) => {
     };
 
     return contextAppState;
-  }, [isLogged,
+  }, [
+    isLogged,
     path,
     isShow,
     isNotAdmin,

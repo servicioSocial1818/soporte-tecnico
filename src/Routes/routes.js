@@ -4,7 +4,7 @@ import Header from "../components/Header/header";
 import Login from "../components/Login/login";
 import Layout from "../components/Menu/layout";
 import LayoutResponsables from "../components/Responsables/layout";
-import Equipos from "../components/Equipos/equipos";
+import LayoutEquipos from "../components/Equipos/layoutEquipos";
 import Reportes from "../components/Reportes/reportes";
 import Inventario from "../components/Inventario/inventario";
 import Dispositivos from "../components/Dispositivos/dispositivos";
@@ -25,7 +25,7 @@ const Routes = () => {
           <LayoutResponsables/>
         </Route>
         <Route exact path="/equipos">
-          <Equipos/>
+          <LayoutEquipos/>
         </Route>
         <Route exact path="/reportes">
           <Reportes/>

@@ -1,15 +1,39 @@
+import { Button } from "@material-ui/core";
+import { handleEliminar } from "./listadoUsuarios";
 export const columns = [
-  { field: "id", headerName: "ID", width: 30 },
   { field: "nombre", headerName: "Nombre", width: 100 },
-  { field: "apellidoP", headerName: "ApellidoP", width: 130 },
-  { field: "apellidoM", headerName: "ApellidoM", width: 130 },
-  { field: "edad", headerName: "Edad", width: 70 },
-  { field: "telefono", headerName: "Teléfono", width: 140 },
-  { field: "correo", headerName: "Correo", width: 180 },
-  { field: "usuario", headerName: "Usuario", width: 110 },
+  { field: "apellidoP", headerName: "Paterno", width: 130 },
+  { field: "apellidoM", headerName: "Materno", width: 130 },
+  { field: "username", headerName: "Usuario", width: 110 },
+  { field: "rol", headerName: "Rol", width: 70 },
+  { field: "ubicacion", headerName: "Ubicación", width: 100 },
+  { field: "telefono", headerName: "Teléfono", width: 100 },
+  { field: "correo", headerName: "Correo", width: 100 },
   { field: "genero", headerName: "Género", width: 70 },
-  { field: "botones", headerName: "Acción", width: 100 },
-
+  {
+    field: "eliminar",
+    renderCell: (cellValues) => {
+      return (
+        <>
+          <Button variant="contained" color="primary" onClick={(e) => {handleEliminar(cellValues)}}>
+            eliminar
+          </Button>
+        </>
+      );
+    },
+  },
+  {
+    field: "editar",
+    renderCell: (cellValues) => {
+      return (
+        <>
+          <Button variant="contained" color="primary" onClick={(e) => {}}>
+            editar
+          </Button>
+        </>
+      );
+    },
+  },
 ];
 
 export const inputsArray = [

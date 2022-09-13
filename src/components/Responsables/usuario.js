@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import { DataGrid } from "@mui/x-data-grid";
 
 
 const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
@@ -16,7 +17,7 @@ const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
 
   return (
     <>
-      <tbody>
+      {/* <tbody>
         <tr key={id}>
           <td>{`${nombre} ${apellidoP} ${apellidoM}`}</td>
           <td>{username}</td>
@@ -40,7 +41,7 @@ const Usuario = ({ usuario, setUsuario, eliminarUsuario }) => {
             </Button>
           </td>
         </tr>
-      </tbody>
+      </tbody> */}
     </>
   )
 }

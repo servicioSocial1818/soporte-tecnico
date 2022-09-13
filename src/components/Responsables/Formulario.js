@@ -115,7 +115,7 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
 
   return (
     <>
-      <form >
+      <form>
         {error && (
           <Error>
             <p>Todos los campos son obligatorios</p>
