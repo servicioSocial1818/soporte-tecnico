@@ -39,53 +39,72 @@
     height: auto;
     border-radius: 5px; 
 }
-.row {
+/* .row {
     display: grid;
-    /* grid-template-columns: 200px 200px 200px; */
     grid-template-columns: repeat(3, 1fr);
-    /* grid-template-rows: 70px 70px 70px;  */
     column-gap: 1rem;
     
+} */
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.encargado {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1/4;
 }
 .botones {
     display: flex;
     justify-content: end;
     margin-top: 1.5rem;
 }
-.usuario,
+@media (min-width: 768px) {
+    .user,
+    .marca,
+    .modelo,
+    .color,
+    .monitor {
+        display: flex;
+        flex-direction: column;
+    }
+    
+}
+/* .usuario,
 .user,
 .APM,
 .equipo,
 .Marca,
 .Modelo,
 .color,
-.Descripcion,
-.Monitor,
-.Perifericos,
-.Almacenamiento,
-.Memoria,
-.Procesador,
+.descripcion,
+.monitor,
+.perifericos,
+.almacenamiento,
+.memoria,
+.procesador,
 .tarjeta {
     display: flex;
     flex-direction: column;
     
  }
-.Monitor,
-.Perifericos,
-.Almacenamiento,
-.Memoria,
-.Procesador,
+.monitor,
+.perifericos,
+.almacenamiento,
+.memoria,
+.procesador,
 .tarjeta {
     margin-top: 1rem;
  }
- .Descripcion {
+ .descripcion input{
     grid-row: 3 / 4;
     grid-column: 1 / 4;
  }
- .Descripcion textarea {
+ .descripcion input {
     height: 2.4rem;
     
- }
+ } */
  .boton {
     width: 100%;
     justify-content: center;
