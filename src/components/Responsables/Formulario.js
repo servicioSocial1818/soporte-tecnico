@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Error from "../Error/error";
 import { Button } from "@material-ui/core";
+import { createUserRequest } from "../../api/users.api";
 
 const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
   const [apellidoP, setApellidoP] = useState("");
@@ -14,7 +15,6 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
   const [password, setPassword] = useState("");
   const [rol, setRol] = useState("");
   const [ubicacion, setUbicacion] = useState("");
-
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -33,11 +33,11 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
     }
   }, [usuario]);
 
-  const generarId = () => {
-    const random = Math.random().toString(36).substring(2);
-    const fecha = Date.now().toString(36);
-    return random + fecha;
-  };
+  // const generarId = () => {
+  //   const random = Math.random().toString(36).substring(2);
+  //   const fecha = Date.now().toString(36);
+  //   return random + fecha;
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
 
     setError(false);
 
-    //Objeto de Usuario
+    // Objeto de Usuario
     const objetoUsuario = {
       apellidoP,
       apellidoM,
@@ -80,22 +80,22 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
       ubicacion,
     };
 
-    if (usuario.id) {
-      //Editando el registro
-      objetoUsuario.id = usuario.id;
+    // if (usuario.id) {
+    //   //Editando el registro
+    //   objetoUsuario.id = usuario.id;
 
-      const usuariosActualizados = usuarios.map((usuarioState) =>
-        usuarioState.id === usuario.id ? objetoUsuario : usuarioState
-      );
-      //.map retorna un arreglo nuevo y se puede setear a usuarios
+    //   const usuariosActualizados = usuarios.map((usuarioState) =>
+    //     usuarioState.id === usuario.id ? objetoUsuario : usuarioState
+    //   );
+    //   //.map retorna un arreglo nuevo y se puede setear a usuarios
 
-      setUsuarios(usuariosActualizados);
-      setUsuario({});
-    } else {
-      //Nuevo registro
-      objetoUsuario.id = generarId();
-      setUsuarios([...usuarios, objetoUsuario]);
-    }
+    //   setUsuarios(usuariosActualizados);
+    //   setUsuario({});
+    // } else {
+    //   //Nuevo registro
+    //   // objetoUsuario.id = generarId();
+    //   setUsuarios([...usuarios, objetoUsuario]);
+    // }
 
     console.log(objetoUsuario);
 
@@ -115,7 +115,9 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
 
   return (
     <>
-      <form>
+      <form
+        onSubmit={handleSubmit}
+      >
         {error && (
           <Error>
             <p>Todos los campos son obligatorios</p>
