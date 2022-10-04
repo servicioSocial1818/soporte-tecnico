@@ -1,21 +1,29 @@
 import { Button } from "@material-ui/core";
 import { handleEliminar } from "./listadoUsuarios";
+
 export const columns = [
-  { field: "nombre", headerName: "Nombre", width: 100 },
-  { field: "apellidoP", headerName: "Paterno", width: 130 },
-  { field: "apellidoM", headerName: "Materno", width: 130 },
+  { field: "first_name", headerName: "Nombre", width: 100 },
+  { field: "paternal_surname", headerName: "Paterno", width: 130 },
+  { field: "maternal_surname", headerName: "Materno", width: 130 },
   { field: "username", headerName: "Usuario", width: 110 },
   { field: "rol", headerName: "Rol", width: 70 },
-  { field: "ubicacion", headerName: "Ubicación", width: 100 },
-  { field: "telefono", headerName: "Teléfono", width: 100 },
-  { field: "correo", headerName: "Correo", width: 100 },
-  { field: "genero", headerName: "Género", width: 70 },
+  { field: "location", headerName: "Ubicación", width: 100 },
+  { field: "phoneNumber", headerName: "Teléfono", width: 100 },
+  { field: "email", headerName: "Correo", width: 100 },
+  { field: "gender", headerName: "Género", width: 70 },
   {
     field: "eliminar",
     renderCell: (cellValues) => {
+      
       return (
         <>
-          <Button variant="contained" color="primary" onClick={(e) => {handleEliminar(cellValues)}}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => {
+              handleEliminar(cellValues);
+            }}
+          >
             eliminar
           </Button>
         </>

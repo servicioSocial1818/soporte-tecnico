@@ -34,7 +34,7 @@ const Formulario = ({}) => {
     });
     const data = await res.json(); // obtener los datos por respuesta
     console.log(data);
-    //validacion del formulario alch
+    //validacion del formulario 
     if (
       [
         user.username,
@@ -61,7 +61,7 @@ const Formulario = ({}) => {
       <form onSubmit={handleSubmit}>
         {error && (
           <Error>
-            <p>Todos los campos son obligatorios</p>
+            <p>Campos obligatorios vacíos</p>
           </Error>
         )}
         <div className="row">
@@ -107,6 +107,7 @@ const Formulario = ({}) => {
           <div className="genero">
             <label htmlFor="genero">Género</label>
             <select id="genero" name="gender" onChange={handleChange}>
+              <option value="" selected disabled hidden>Elegir una opción</option>
               <option value="F">Femenino</option>
               <option value="M">Masculino</option>
             </select>
@@ -156,6 +157,7 @@ const Formulario = ({}) => {
           <div className="usuario">
             <label htmlFor="rol">Rol de Usuario</label>
             <select id="rol" name="rol" onChange={handleChange}>
+              <option value="" selected disabled hidden>Elegir Rol</option>
               <option value="2">Cliente</option>
               <option value="1">Administrador</option>
             </select>

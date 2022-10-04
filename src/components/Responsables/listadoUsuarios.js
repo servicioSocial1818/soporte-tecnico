@@ -1,70 +1,72 @@
-import React from 'react'
-import Usuario from './usuario'
-import { DataGrid } from '@mui/x-data-grid';
-import { Table } from '@material-ui/core';
-import { columns, inputsArray } from './checkJson';
+import React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { columns } from "./checkJson";
+import { useEffect, useState } from "react";
+import { Button } from "@material-ui/core";
 
-export const handleEliminar = ({eliminarUsuario, usuario}) => {
+
+export const handleEliminar = async (id) => {
+  const res = await fetch(`http://localhost:4000/users/${id}`, {
+    method: 'DELETE'
+  })
+  console.log(res)
+};
+
+const ListadoUsuarios = ({}) => {
   
-
-  const respuesta = window.confirm(`Deseas eliminar este usuario`);
-  console.log(usuario);
-
-  // if (respuesta) {
-  //   eliminarUsuario(id);
-  // }
-
-}
-const ListadoUsuarios = ({ usuario, usuarios, setUsuario, eliminarUsuario }) => {
-
-  // const userArray = usuarios.map(usuario => {
-
-  //   return (
-  //     <Usuario
-  //       key={usuario.id}
-  //       usuario={usuario}
-  //       setUsuario={setUsuario}
-  //     />
-  //   )
-  // })
+  const [users, setUsers] = useState([]);
   
+  const loadUsers = async () => {
+    const response = await fetch('http://localhost:4000/users')
+    const data = await response.json()
+    setUsers(data)
+  }
   
+  useEffect(() => {
+    loadUsers()
+  },[])
+
+
   return (
-    <div className='tabla'>
-
-      {usuarios && usuarios.length ? (
-        // <Table
-        //   className='table'
-        // >
-        //   <thead>
-        //     <tr>
-        //       <th>Nombre</th>
-        //       <th>usuario</th>
-        //       <th>rol</th>
-        //       <th>ubicacion</th>
-        //       <th>Teléfono</th>
-        //       <th>Correo</th>
-        //       <th>Género</th>
-        //       <th>Acciones</th>
-        //     </tr>
-        //   </thead>
-        //   {userArray}
-        // </Table>
+    <div className="tabla">
+      {users && users.length ? (
+        
         <DataGrid
           columns={columns}
-          rows={usuarios}
+          rows={users}
+          getRowId={(users) => users.idUser}
+          loading={!users.length}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          
+          onCellClick={handleEliminar}
+          actions={[
+            {
+              icon: 'edit',
+              tooltip: 'Editar Artista',
+            },
+            {
+              icon: 'delete',
+              tooltip: 'Eliminar Artista',
+              onclick: () => handleEliminar(users.idUser)
+              
+            }
+          ]}
+          options={{
+            actionsColumnIndex: -1,
+          }}
+          localization={{
+            header:{
+              actions: "Acciones"
+            }
+          }}
         />
-        ) : (
+      ) : (
         <>
           <p>No hay usuarios</p>
         </>
       )}
     </div>
-  )
+  );
+};
 
-}
-
-export default ListadoUsuarios
+export default ListadoUsuarios;

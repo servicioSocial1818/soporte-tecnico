@@ -29,20 +29,19 @@ const Responsables = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [usuarios, setUsuarios] = useState([]);
-  const [usuario, setUsuario] = useState({});
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const obtenerLS = () => {
       const usuariosLS = JSON.parse(localStorage.getItem("usuarios")) ?? [];
-      setUsuarios(usuariosLS);
+      setUsers(usuariosLS);
     };
     obtenerLS();
   }, []); //cuando pasas un arreglo vacío se ejecuta una sola vez cuando el componente está listo
 
   useEffect(() => {
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-  }, [usuarios]); //sincroniza el state con lo que hay en usuarios
+    localStorage.setItem("usuarios", JSON.stringify(users));
+  }, [users]); //sincroniza el state con lo que hay en usuarios
 
   return (
     <>
@@ -64,7 +63,7 @@ const Responsables = () => {
           </div>
         </div>
         {/* TABLA */}
-        <ListadoUsuarios usuarios={usuarios} setUsuario={setUsuario} />
+        <ListadoUsuarios users={users} setUsuario={setUsers} />
         <Modal
           open={open}
           onClose={handleClose}
@@ -78,10 +77,8 @@ const Responsables = () => {
             </Typography>
             <div className="formulario">
               <Formulario
-                usuarios={usuarios}
-                setUsuarios={setUsuarios}
-                usuario={usuario}
-                setUsuario={setUsuario}
+                users={users}
+                setUsers={setUsers}
               />
             </div>
             <div className="botones">
