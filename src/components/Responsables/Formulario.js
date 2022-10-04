@@ -2,60 +2,45 @@ import React, { useEffect, useState } from "react";
 import Error from "../Error/error";
 import { Button } from "@material-ui/core";
 import { createUserRequest } from "../../api/users.api";
+import { CircularProgress } from "@mui/material";
 
-const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
-  const [apellidoP, setApellidoP] = useState("");
-  const [apellidoM, setApellidoM] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [genero, setGenero] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [rol, setRol] = useState("");
-  const [ubicacion, setUbicacion] = useState("");
+const Formulario = ({}) => {
+  const [user, setUser] = useState({
+    paternal_surname: "",
+    maternal_surname: "",
+    first_name: "",
+    date_birth: "",
+    gender: "",
+    phoneNumber: "",
+    email: "",
+    username: "",
+    password: "",
+    rol: "",
+    location: "",
+  });
+  const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    if (Object.keys(usuario).length > 0) {
-      setApellidoP(usuario.apellidoP);
-      setApellidoM(usuario.apellidoM);
-      setNombre(usuario.nombre);
-      setFechaNacimiento(usuario.fechaNacimiento);
-      setGenero(usuario.genero);
-      setTelefono(usuario.telefono);
-      setCorreo(usuario.correo);
-      setUsername(usuario.username);
-      setPassword(usuario.password);
-      setRol(usuario.rol);
-      setUbicacion(usuario.ubicacion);
-    }
-  }, [usuario]);
-
-  // const generarId = () => {
-  //   const random = Math.random().toString(36).substring(2);
-  //   const fecha = Date.now().toString(36);
-  //   return random + fecha;
-  // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+
+    const res = await fetch("http://localhost:4000/users", {
+      method: "POST",
+      body: JSON.stringify(user), //convierte el objeto en string
+      headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
+    });
+    const data = await res.json(); // obtener los datos por respuesta
+    console.log(data);
     //validacion del formulario alch
     if (
       [
-        apellidoP,
-        apellidoM,
-        nombre,
-        fechaNacimiento,
-        genero,
-        telefono,
-        correo,
-        username,
-        password,
-        rol,
-        ubicacion,
+        user.username,
+        user.password,
+        user.paternal_surname,
+        user.maternal_surname,
       ].includes("")
     ) {
       console.log("Hay al menos un campo vacío");
@@ -64,60 +49,16 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
     }
 
     setError(false);
+    setLoading(false);
+  };
 
-    // Objeto de Usuario
-    const objetoUsuario = {
-      apellidoP,
-      apellidoM,
-      nombre,
-      fechaNacimiento,
-      genero,
-      telefono,
-      correo,
-      username,
-      password,
-      rol,
-      ubicacion,
-    };
-
-    // if (usuario.id) {
-    //   //Editando el registro
-    //   objetoUsuario.id = usuario.id;
-
-    //   const usuariosActualizados = usuarios.map((usuarioState) =>
-    //     usuarioState.id === usuario.id ? objetoUsuario : usuarioState
-    //   );
-    //   //.map retorna un arreglo nuevo y se puede setear a usuarios
-
-    //   setUsuarios(usuariosActualizados);
-    //   setUsuario({});
-    // } else {
-    //   //Nuevo registro
-    //   // objetoUsuario.id = generarId();
-    //   setUsuarios([...usuarios, objetoUsuario]);
-    // }
-
-    console.log(objetoUsuario);
-
-    // Reiniciar Datos del usuario xd
-    setApellidoP("");
-    setApellidoM("");
-    setNombre("");
-    setFechaNacimiento("");
-    setGenero("");
-    setTelefono("");
-    setCorreo("");
-    setUsername("");
-    setPassword("");
-    setRol("");
-    setUbicacion("");
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         {error && (
           <Error>
             <p>Todos los campos son obligatorios</p>
@@ -130,8 +71,8 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               id="apellidoP"
               placeholder="Apellido Paterno"
               type="text"
-              value={apellidoP}
-              onChange={(e) => setApellidoP(e.target.value)}
+              name="paternal_surname"
+              onChange={handleChange}
             />
           </div>
           <div className="apm">
@@ -140,8 +81,8 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               id="apellidoM"
               placeholder="Apellido Materno"
               type="text"
-              value={apellidoM}
-              onChange={(e) => setApellidoM(e.target.value)}
+              name="maternal_surname"
+              onChange={handleChange}
             />
           </div>
           <div className="nombre">
@@ -150,8 +91,8 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               id="nombre"
               placeholder="Nombre"
               type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
+              name="first_name"
+              onChange={handleChange}
             />
           </div>
           <div className="fechaNacimiento">
@@ -159,17 +100,13 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
             <input
               id="fechaNacimiento"
               type="date"
-              value={fechaNacimiento}
-              onChange={(e) => setFechaNacimiento(e.target.value)}
+              name="date_birth"
+              onChange={handleChange}
             />
           </div>
           <div className="genero">
             <label htmlFor="genero">Género</label>
-            <select
-              id="genero"
-              value={genero}
-              onChange={(e) => setGenero(e.target.value)}
-            >
+            <select id="genero" name="gender" onChange={handleChange}>
               <option value="F">Femenino</option>
               <option value="M">Masculino</option>
             </select>
@@ -180,8 +117,8 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               id="telefono"
               type="text"
               placeholder="Telefono"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
+              name="phoneNumber"
+              onChange={handleChange}
             />
           </div>
           <div className="correo">
@@ -190,8 +127,8 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               id="correo"
               type="email"
               placeholder="Correo"
-              value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
+              name="email"
+              onChange={handleChange}
             ></input>
           </div>
           <div className="usuario">
@@ -200,8 +137,8 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               id="usuario"
               type="text"
               placeholder="Usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="username"
+              onChange={handleChange}
             />
           </div>
           <div className="contra">
@@ -210,35 +147,32 @@ const Formulario = ({ usuarios, setUsuarios, usuario, setUsuario }) => {
               id="password"
               type="password"
               placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              onChange={handleChange}
             />
           </div>
         </div>
         <div className="colum">
           <div className="usuario">
             <label htmlFor="rol">Rol de Usuario</label>
-            <select
-              id="rol"
-              value={rol}
-              onChange={(e) => setRol(e.target.value)}
-            >
-              <option value="C">Cliente</option>
-              <option value="A">Administrador</option>
+            <select id="rol" name="rol" onChange={handleChange}>
+              <option value="2">Cliente</option>
+              <option value="1">Administrador</option>
             </select>
           </div>
         </div>
         <div className="ubica">
           <label>Ubicación</label>
-          <textarea
-            id="ubicacion"
-            value={ubicacion}
-            onChange={(e) => setUbicacion(e.target.value)}
-          />
+          <textarea id="ubicacion" name="location" onChange={handleChange} />
         </div>
         <div className="botones">
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Agregar
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={!user.username || !user.password}
+          >
+            {loading ? <CircularProgress color="inherit" size={24} /> : "Crear"}
           </Button>
         </div>
       </form>
