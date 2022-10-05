@@ -3,8 +3,9 @@ import Error from "../Error/error";
 import { Button } from "@material-ui/core";
 import { createUserRequest } from "../../api/users.api";
 import { CircularProgress } from "@mui/material";
+import { useParams } from "react-router-dom";
 
-const Formulario = ({}) => {
+const Formulario = () => {
   const [user, setUser] = useState({
     paternal_surname: "",
     maternal_surname: "",

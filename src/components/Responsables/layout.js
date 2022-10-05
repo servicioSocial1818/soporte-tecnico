@@ -29,19 +29,6 @@ const Responsables = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const obtenerLS = () => {
-      const usuariosLS = JSON.parse(localStorage.getItem("usuarios")) ?? [];
-      setUsers(usuariosLS);
-    };
-    obtenerLS();
-  }, []); //cuando pasas un arreglo vacío se ejecuta una sola vez cuando el componente está listo
-
-  useEffect(() => {
-    localStorage.setItem("usuarios", JSON.stringify(users));
-  }, [users]); //sincroniza el state con lo que hay en usuarios
 
   return (
     <>
@@ -63,7 +50,7 @@ const Responsables = () => {
           </div>
         </div>
         {/* TABLA */}
-        <ListadoUsuarios users={users} setUsuario={setUsers} />
+        <ListadoUsuarios />
         <Modal
           open={open}
           onClose={handleClose}
@@ -76,10 +63,7 @@ const Responsables = () => {
               Agregar Nuevo Usuario
             </Typography>
             <div className="formulario">
-              <Formulario
-                users={users}
-                setUsers={setUsers}
-              />
+              <Formulario />
             </div>
             <div className="botones">
               <Button
