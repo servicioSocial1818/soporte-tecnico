@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import { handleEliminar } from "./listadoUsuarios";
+import { handleDelete } from "./listadoUsuarios";
 
 export const columns = [
   { field: "first_name", headerName: "Nombre", width: 100 },
@@ -14,14 +14,13 @@ export const columns = [
   {
     field: "eliminar",
     renderCell: (cellValues) => {
-      
       return (
         <>
           <Button
             variant="contained"
             color="primary"
-            onClick={(e) => {
-              handleEliminar(cellValues);
+            onClick={() => {
+              handleDelete(cellValues);
             }}
           >
             eliminar

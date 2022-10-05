@@ -29,7 +29,18 @@ const Responsables = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [users, setUsers] = useState([]);
 
+  const loadUsers = async () => {
+    const response = await fetch("http://localhost:4000/users");
+    const data = await response.json();
+    console.log(data);
+    setUsers(data);
+  };
+  
+  useEffect(() => {
+    loadUsers();
+  }, [users]);
   return (
     <>
       <div className="containerResponsables">
@@ -50,7 +61,10 @@ const Responsables = () => {
           </div>
         </div>
         {/* TABLA */}
-        <ListadoUsuarios />
+        <ListadoUsuarios 
+          users={users}
+          setUsers={setUsers}
+        />
         <Modal
           open={open}
           onClose={handleClose}
