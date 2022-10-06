@@ -1,45 +1,53 @@
-import React from "react";
+import { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { columns } from "./checkJson";
-import { useEffect, useState } from "react";
+import { getColumns } from "./checkJson";
+import { useAppContext } from "../Context/context";
+// import { useEffect, useState } from "react";
 
-export const handleDelete = async (cellValues) => {
+export const handleDelete = async (cellValues, callback) => {
   const datos = cellValues.row;
   const id = datos.idUser;
+  //console.log(datos);
   try {
     console.log(id);
-    const res = await fetch(`http://localhost:4000/users/${id}`, {
+    await fetch(`http://localhost:4000/users/${id}`, {
       method: "DELETE",
     });
-    console.log(res);
+    callback(id);
+    //console.log(res);
   } catch (error) {
     console.log(error);
   }
 };
-const ListadoUsuarios = ({users, setUsers}) => {
+const ListadoUsuarios = () => {
+  const { users, setUsers } = useAppContext();
 
-  // const loadUsers = async () => {
-  //   const response = await fetch("http://localhost:4000/users");
-  //   const data = await response.json();
-  //   console.log(data);
-  //   setUsers(data);
-  // };
+  const loadUsers = async () => {
+    const response = await fetch("http://localhost:4000/users");
+    const data = await response.json();
+    //console.log(data);
+    setUsers(data);
+  };
 
-
-  // useEffect(() => {
-  //   loadUsers();
-  // }, [users]);
-
+  useEffect(() => {
+    loadUsers();
+  }, []);
 
   return (
     <div className="tabla">
       {users && users.length ? (
         <>
           <DataGrid
-            columns={columns}
+            columns={getColumns((userId) => {
+              setUsers(
+                users.filter((user) => {
+                  //console.log(user.idUser, userId);
+                  return user.idUser !== userId;
+                })
+              );
+            })}
             rows={users}
             getRowId={(users) => users.idUser}
-            loading={!users.length}
             pageSize={5}
             rowsPerPageOptions={[5]}
           />

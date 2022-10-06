@@ -1,47 +1,54 @@
 import { Button } from "@material-ui/core";
 import { handleDelete } from "./listadoUsuarios";
 
-export const columns = [
-  { field: "first_name", headerName: "Nombre", width: 100 },
-  { field: "paternal_surname", headerName: "Paterno", width: 130 },
-  { field: "maternal_surname", headerName: "Materno", width: 130 },
-  { field: "username", headerName: "Usuario", width: 110 },
-  { field: "rol", headerName: "Rol", width: 70 },
-  { field: "location", headerName: "Ubicación", width: 100 },
-  { field: "phoneNumber", headerName: "Teléfono", width: 100 },
-  { field: "email", headerName: "Correo", width: 100 },
-  { field: "gender", headerName: "Género", width: 70 },
-  {
-    field: "eliminar",
-    renderCell: (cellValues) => {
-      return (
-        <>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              handleDelete(cellValues);
-            }}
-          >
-            eliminar
-          </Button>
-        </>
-      );
+export const getColumns = (callback) => {
+  const columns = [
+    { field: "first_name", headerName: "Nombre", width: 100 },
+    { field: "paternal_surname", headerName: "Paterno", width: 130 },
+    { field: "maternal_surname", headerName: "Materno", width: 130 },
+    { field: "username", headerName: "Usuario", width: 110 },
+    { field: "rol", headerName: "Rol", width: 70 },
+    { field: "location", headerName: "Ubicación", width: 100 },
+    { field: "phoneNumber", headerName: "Teléfono", width: 100 },
+    { field: "email", headerName: "Correo", width: 100 },
+    { field: "gender", headerName: "Género", width: 70 },
+    {
+      field: "eliminar",
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={(e) => {
+                if(!window.confirm('¿Deseas eliminar este registro?')) {
+                    return;
+                }
+                handleDelete(cellValues, callback);
+              }}
+            >
+              eliminar
+            </Button>
+          </>
+        );
+      },
     },
-  },
-  {
-    field: "editar",
-    renderCell: (cellValues) => {
-      return (
-        <>
-          <Button variant="contained" color="primary" onClick={(e) => {}}>
-            editar
-          </Button>
-        </>
-      );
+    {
+      field: "editar",
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <Button variant="contained" color="primary" onClick={(e) => {}}>
+              editar
+            </Button>
+          </>
+        );
+      },
     },
-  },
-];
+  ];
+  return columns;
+} 
+
 
 export const inputsArray = [
   {

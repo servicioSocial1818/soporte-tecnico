@@ -2,16 +2,15 @@ import React, {
   createContext,
   useState,
   useContext,
-  useMemo,
-  Children,
+  useMemo
 } from "react";
 import { NotificationManager } from "react-notifications";
 
-const ContextApp = createContext();
+const ContextApp = createContext(); //Contexto que agrupa
 
-export const ContextAppProvider = (props) => {
+export const ContextAppProvider = (props) => { //permite comunicarte con el contexto
   const { children } = props;
-
+  
   const createNotification = (type, title, message) => {
     if (type === "info") {
       return NotificationManager.info(message);
@@ -23,25 +22,16 @@ export const ContextAppProvider = (props) => {
       return NotificationManager.error(message, title, 3000);
     }
   };
-
+  
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState();
   const [path, setPath] = useState();
   const [isNotAdmin, setIsNotAdmin] = useState(false);
   const [isShow, setIsShow] = useState(false);
-  const [apellidoP, setApellidoP] = useState("");
-  const [apellidoM, setApellidoM] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [genero, setGenero] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [rol, setRol] = useState("");
-  const [ubicacion, setUbicacion] = useState("");
   const [error, setError] = useState(false);
+  const [users, setUsers] = useState([]);
 
+  
   const contextValue = useMemo(() => {
     const contextAppState = {
       isLogged,
@@ -49,35 +39,15 @@ export const ContextAppProvider = (props) => {
       path,
       isNotAdmin,
       isShow,
-      apellidoP,
-      apellidoM,
-      nombre,
-      fechaNacimiento,
-      genero,
-      telefono,
-      correo,
-      username,
-      password,
-      rol,
-      ubicacion,
       error,
+      users,
       setPath,
       setIsLogged,
       setUser,
       setIsNotAdmin,
       setIsShow,
-      setApellidoP,
-      setApellidoM,
-      setNombre,
-      setFechaNacimiento,
-      setGenero,
-      setTelefono,
-      setCorreo,
-      setUsername,
-      setPassword,
-      setRol,
-      setUbicacion,
       setError,
+      setUsers,
       createNotification,
     };
 
@@ -87,17 +57,7 @@ export const ContextAppProvider = (props) => {
     path,
     isShow,
     isNotAdmin,
-    setApellidoP,
-    setApellidoM,
-    setNombre,
-    setFechaNacimiento,
-    setGenero,
-    setTelefono,
-    setCorreo,
-    setUsername,
-    setPassword,
-    setRol,
-    setUbicacion,
+    users,
     setError,
   ]);
 
@@ -106,4 +66,5 @@ export const ContextAppProvider = (props) => {
   );
 };
 
+//Esto actua como un "Hook"
 export const useAppContext = () => useContext(ContextApp);
