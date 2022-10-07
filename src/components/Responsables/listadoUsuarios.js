@@ -19,6 +19,7 @@ export const handleDelete = async (cellValues, callback) => {
     console.log(error);
   }
 };
+
 const ListadoUsuarios = () => {
   const { users, setUsers } = useAppContext();
 

@@ -24,6 +24,12 @@ const Routes = () => {
         <Route exact path="/responsables">
           <LayoutResponsables/>
         </Route>
+        <Route exact path="/responsables/new">
+          <LayoutResponsables/>
+        </Route>
+        <Route exact path="/responsables/:id/edit">
+          <LayoutResponsables/>
+        </Route>
         <Route exact path="/equipos">
           <LayoutEquipos/>
         </Route>

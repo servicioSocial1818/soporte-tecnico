@@ -10,6 +10,16 @@ import { Input, Box } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import Formulario from "./Formulario";
 import ListadoUsuarios from "./listadoUsuarios";
+import { getColumns } from "./checkJson";
+
+export const openModalEdit = (cellValues, callback) => {
+  const datas = cellValues.row;
+  const id = datas.idUser;
+  callback(id);
+  console.log(id)
+
+
+}
 
 const style = {
   position: "absolute",
@@ -28,12 +38,18 @@ const Responsables = () => {
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
+  const handleOpen = () => {
+    setOpen(true)
+    history.push("/responsables/new")
+  };
+  const handleClose = () => {
+    setOpen(false)
+    history.push("/responsables")
+  };
 
   
-
-
+  
   return (
     <>
       <div className="containerResponsables">

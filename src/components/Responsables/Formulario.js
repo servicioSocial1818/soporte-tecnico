@@ -4,6 +4,8 @@ import { Button } from "@material-ui/core";
 import { createUserRequest } from "../../api/users.api";
 import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 
 const Formulario = () => {
   const [user, setUser] = useState({
@@ -19,22 +21,21 @@ const Formulario = () => {
     rol: "",
     location: "",
   });
+  let history = useHistory();
+
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState(false);
-
+  const [open, setOpen] = useState(true);
+  const handleClose = () => {
+    setOpen(false)
+    history.push("/responsables")
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-
-    const res = await fetch("http://localhost:4000/users", {
-      method: "POST",
-      body: JSON.stringify(user), //convierte el objeto en string
-      headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
-    });
-    const data = await res.json(); // obtener los datos por respuesta
-    console.log(data);
+    
     //validacion del formulario 
     if (
       [
@@ -43,20 +44,30 @@ const Formulario = () => {
         user.paternal_surname,
         user.maternal_surname,
       ].includes("")
-    ) {
-      console.log("Hay al menos un campo vacío");
-      setError(true);
-      return;
-    }
+      ) {
+        console.log("Hay al menos un campo vacío");
+        setError(true);
+        setLoading(false);
+        return;
+      }
+      
+      const res = await fetch("http://localhost:4000/users", {
+        method: "POST",
+        body: JSON.stringify(user), //convierte el objeto en string
+        headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
+      });
+      const data = await res.json(); // obtener los datos por respuesta
+      console.log(data);
+      
+      console.log("usuario agregado");
+      handleClose();
 
-    setError(false);
-    setLoading(false);
-  };
-
-  const handleChange = (e) => {
+    };
+    
+    const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
+  
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -74,7 +85,7 @@ const Formulario = () => {
               type="text"
               name="paternal_surname"
               onChange={handleChange}
-            />
+              />
           </div>
           <div className="apm">
             <label>Apellido Materno</label>
