@@ -115,3 +115,6 @@ tbody td {
     padding: 10px;
     column-gap: 10px;
 }
+label{
+    font-size: 1.2rem;
+}

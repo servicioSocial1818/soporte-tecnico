@@ -16,10 +16,8 @@ export const openModalEdit = (cellValues, callback) => {
   const datas = cellValues.row;
   const id = datas.idUser;
   callback(id);
-  console.log(id)
-
-
-}
+  console.log(id);
+};
 
 const style = {
   position: "absolute",
@@ -34,22 +32,19 @@ const style = {
 };
 
 const Responsables = () => {
-
   let history = useHistory();
 
   const [open, setOpen] = useState(false);
-  
+
   const handleOpen = () => {
-    setOpen(true)
-    history.push("/responsables/new")
+    setOpen(true);
+    history.push("/responsables/new");
   };
   const handleClose = () => {
-    setOpen(false)
-    history.push("/responsables")
+    setOpen(false);
+    history.push("/responsables");
   };
 
-  
-  
   return (
     <>
       <div className="containerResponsables">
@@ -70,7 +65,7 @@ const Responsables = () => {
           </div>
         </div>
         {/* TABLA */}
-        <ListadoUsuarios/>
+        <ListadoUsuarios />
         <Modal
           open={open}
           onClose={handleClose}
@@ -83,7 +78,7 @@ const Responsables = () => {
               Agregar Nuevo Usuario
             </Typography>
             <div className="formulario">
-              <Formulario />
+              <Formulario open={open} setOpen={setOpen} />
             </div>
             <div className="botones">
               <Button

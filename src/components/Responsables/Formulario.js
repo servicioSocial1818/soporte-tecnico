@@ -5,9 +5,10 @@ import { createUserRequest } from "../../api/users.api";
 import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { useAppContext } from "../Context/context";
 
-
-const Formulario = () => {
+const Formulario = ({ open, setOpen }) => {
+  const { createNotification, setUsers } = useAppContext();
   const [user, setUser] = useState({
     paternal_surname: "",
     maternal_surname: "",
@@ -26,48 +27,69 @@ const Formulario = () => {
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState(false);
-  const [open, setOpen] = useState(true);
-  const handleClose = () => {
-    setOpen(false)
-    history.push("/responsables")
-  };
-  
+
+  function handleClose() {
+    setOpen(false);
+    history.push("/responsables");
+  }
+  async function loadDatas() {
+    const response = await fetch("http://localhost:4000/users");
+    const data = await response.json();
+    setUsers(data);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
-    //validacion del formulario 
+
+    //validacion del formulario
     if (
       [
-        user.username,
-        user.password,
         user.paternal_surname,
         user.maternal_surname,
+        user.first_name,
+        user.date_birth,
+        user.gender,
+        user.phoneNumber,
+        user.email,
+        user.username,
+        user.password,
+        user.rol,
+        user.location,
       ].includes("")
-      ) {
-        console.log("Hay al menos un campo vacío");
-        setError(true);
-        setLoading(false);
-        return;
-      }
-      
-      const res = await fetch("http://localhost:4000/users", {
-        method: "POST",
-        body: JSON.stringify(user), //convierte el objeto en string
-        headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
-      });
-      const data = await res.json(); // obtener los datos por respuesta
-      console.log(data);
-      
-      console.log("usuario agregado");
-      handleClose();
+    ) {
+      console.log("Hay al menos un campo vacío");
+      setError(true);
+      setLoading(false);
+      return;
+    }
 
-    };
-    
-    const handleChange = (e) => {
+    const res = await fetch("http://localhost:4000/users", {
+      method: "POST",
+      body: JSON.stringify(user), //convierte el objeto en string
+      headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
+    });
+
+    createNotification(
+      "success",
+      "Datos validados",
+      "Usuario registrado con éxito"
+    );
+    //const data = await res.json(); // obtener los datos por respuesta
+
+    // console.log(data);
+
+    // console.log("usuario agregado");
+    handleClose();
+    loadDatas();
+  };
+  useEffect(() => {
+    handleSubmit();
+  }, []);
+  const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -85,7 +107,7 @@ const Formulario = () => {
               type="text"
               name="paternal_surname"
               onChange={handleChange}
-              />
+            />
           </div>
           <div className="apm">
             <label>Apellido Materno</label>
@@ -119,7 +141,9 @@ const Formulario = () => {
           <div className="genero">
             <label htmlFor="genero">Género</label>
             <select id="genero" name="gender" onChange={handleChange}>
-              <option value="" selected disabled hidden>Elegir una opción</option>
+              <option value="" selected disabled hidden>
+                Elegir una opción
+              </option>
               <option value="F">Femenino</option>
               <option value="M">Masculino</option>
             </select>
@@ -169,7 +193,9 @@ const Formulario = () => {
           <div className="usuario">
             <label htmlFor="rol">Rol de Usuario</label>
             <select id="rol" name="rol" onChange={handleChange}>
-              <option value="" selected disabled hidden>Elegir Rol</option>
+              <option value="" selected disabled hidden>
+                Elegir Rol
+              </option>
               <option value="2">Cliente</option>
               <option value="1">Administrador</option>
             </select>
@@ -184,7 +210,19 @@ const Formulario = () => {
             variant="contained"
             color="primary"
             onClick={handleSubmit}
-            disabled={!user.username || !user.password}
+            disabled={
+              !user.paternal_surname ||
+              !user.maternal_surname ||
+              !user.first_name ||
+              !user.date_birth ||
+              !user.gender ||
+              !user.phoneNumber ||
+              !user.email ||
+              !user.username ||
+              !user.password ||
+              !user.rol ||
+              !user.location
+            }
           >
             {loading ? <CircularProgress color="inherit" size={24} /> : "Crear"}
           </Button>

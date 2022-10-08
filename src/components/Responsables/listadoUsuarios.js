@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { getColumns } from "./checkJson";
 import { useAppContext } from "../Context/context";
-// import { useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 export const handleDelete = async (cellValues, callback) => {
   const datos = cellValues.row;
@@ -55,7 +55,8 @@ const ListadoUsuarios = () => {
         </>
       ) : (
         <>
-          <p>No hay usuarios</p>
+          <CircularProgress color="inherit" size={24} />
+          <p>Cargando usuarios...</p>
         </>
       )}
     </div>
