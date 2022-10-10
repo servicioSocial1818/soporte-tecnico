@@ -1,5 +1,5 @@
 import "./responsables.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
 import { styled } from "@material-ui/styles";
@@ -12,12 +12,6 @@ import Formulario from "./Formulario";
 import ListadoUsuarios from "./listadoUsuarios";
 import { getColumns } from "./checkJson";
 
-export const openModalEdit = (cellValues, callback) => {
-  const datas = cellValues.row;
-  const id = datas.idUser;
-  callback(id);
-  console.log(id);
-};
 
 const style = {
   position: "absolute",
@@ -44,6 +38,12 @@ const Responsables = () => {
     setOpen(false);
     history.push("/responsables");
   };
+  
+  // function handleOpenEdit() {
+  //   getColumns((datas, isOpen)=>{
+  //     history.push(`/responsables/${datas.idUser}/edit`)
+  //   })
+  // }
 
   return (
     <>
@@ -91,6 +91,9 @@ const Responsables = () => {
             </div>
           </Box>
         </Modal>
+        {/* Modal editar */}
+        
+      
         <div className="boton">
           <Button
             variant="contained"

@@ -5,6 +5,7 @@ import React, {
   useMemo
 } from "react";
 import { NotificationManager } from "react-notifications";
+import { Button } from "@material-ui/core";
 
 const ContextApp = createContext(); //Contexto que agrupa
 
@@ -22,6 +23,7 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
       return NotificationManager.error(message, title, 3000);
     }
   };
+
   
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState();

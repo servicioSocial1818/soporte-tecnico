@@ -6,8 +6,10 @@ import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../Context/context";
+import { getColumns } from "./checkJson";
+import CustomInput from "../CustomComponents/customInput";
 
-const Formulario = ({ open, setOpen }) => {
+const Formulario = ({ open, setOpen, idExtract }) => {
   const { createNotification, setUsers } = useAppContext();
   const [user, setUser] = useState({
     paternal_surname: "",
@@ -37,6 +39,15 @@ const Formulario = ({ open, setOpen }) => {
     const data = await response.json();
     setUsers(data);
   }
+
+  function myFunction() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  } 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,17 +86,44 @@ const Formulario = ({ open, setOpen }) => {
       "Datos validados",
       "Usuario registrado con éxito"
     );
-    //const data = await res.json(); // obtener los datos por respuesta
+    const data = await res.json(); // obtener los datos por respuesta
 
-    // console.log(data);
+    console.log(data);
 
     // console.log("usuario agregado");
     handleClose();
     loadDatas();
   };
+
+  const loadUser = async (id) => {
+    const res = await fetch(`http://localhost:4000/users/${id}`);
+    const data = await res.json();
+    setUser({
+      paternal_surname: data.paternal_surname,
+      maternal_surname: data.maternal_surname,
+      first_name: data.first_name,
+      date_birth: data.date_birth,
+      gender: data.gender,
+      phoneNumber: data.phoneNumber,
+      email: data.email,
+      username: data.username,
+      password: data.password,
+      rol: data.rol,
+      location: data.location,
+    });
+    console.log(setUser);
+  };
+
   useEffect(() => {
     handleSubmit();
   }, []);
+
+  useEffect(() => {
+    if (idExtract) {
+      loadUser(idExtract);
+    }
+  }, [idExtract]);
+
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -105,6 +143,7 @@ const Formulario = ({ open, setOpen }) => {
               id="apellidoP"
               placeholder="Apellido Paterno"
               type="text"
+              value={user.paternal_surname}
               name="paternal_surname"
               onChange={handleChange}
             />
@@ -115,6 +154,7 @@ const Formulario = ({ open, setOpen }) => {
               id="apellidoM"
               placeholder="Apellido Materno"
               type="text"
+              value={user.maternal_surname}
               name="maternal_surname"
               onChange={handleChange}
             />
@@ -125,6 +165,7 @@ const Formulario = ({ open, setOpen }) => {
               id="nombre"
               placeholder="Nombre"
               type="text"
+              value={user.first_name}
               name="first_name"
               onChange={handleChange}
             />
@@ -134,13 +175,14 @@ const Formulario = ({ open, setOpen }) => {
             <input
               id="fechaNacimiento"
               type="date"
+              value={user.date_birth}
               name="date_birth"
               onChange={handleChange}
             />
           </div>
           <div className="genero">
             <label htmlFor="genero">Género</label>
-            <select id="genero" name="gender" onChange={handleChange}>
+            <select id="genero" name="gender" onChange={handleChange} value={user.gender}>
               <option value="" selected disabled hidden>
                 Elegir una opción
               </option>
@@ -155,6 +197,7 @@ const Formulario = ({ open, setOpen }) => {
               type="text"
               placeholder="Telefono"
               name="phoneNumber"
+              value={user.phoneNumber}
               onChange={handleChange}
             />
           </div>
@@ -165,6 +208,7 @@ const Formulario = ({ open, setOpen }) => {
               type="email"
               placeholder="Correo"
               name="email"
+              value={user.email}
               onChange={handleChange}
             ></input>
           </div>
@@ -175,6 +219,7 @@ const Formulario = ({ open, setOpen }) => {
               type="text"
               placeholder="Usuario"
               name="username"
+              value={user.username}
               onChange={handleChange}
             />
           </div>
@@ -185,14 +230,15 @@ const Formulario = ({ open, setOpen }) => {
               type="password"
               placeholder="Contraseña"
               name="password"
+              value={user.password}
               onChange={handleChange}
-            />
+            /> 
           </div>
         </div>
         <div className="colum">
           <div className="usuario">
             <label htmlFor="rol">Rol de Usuario</label>
-            <select id="rol" name="rol" onChange={handleChange}>
+            <select id="rol" name="rol" onChange={handleChange} value={user.rol}>
               <option value="" selected disabled hidden>
                 Elegir Rol
               </option>
@@ -203,7 +249,7 @@ const Formulario = ({ open, setOpen }) => {
         </div>
         <div className="ubica">
           <label>Ubicación</label>
-          <textarea id="ubicacion" name="location" onChange={handleChange} />
+          <textarea id="ubicacion" name="location" onChange={handleChange} value={user.location} />
         </div>
         <div className="botones">
           <Button

@@ -1,5 +1,5 @@
 .containerResponsables {
-    width: 70rem;
+    width: 25em;
     height: 33.2rem;
     position: absolute;
     left: 50%;
@@ -9,6 +9,11 @@
     box-shadow: 18px 18px 20px 0px rgba(0, 0, 0, 0.342);
     background: #3879f1be;
     text-align: center;
+}
+@media (min-width:768px){
+    .containerResponsables {
+        width: 70rem;
+    }
 }
 .title {
     color: white;
@@ -27,19 +32,6 @@
 .filtrar {
     display: flex;
     justify-content: space-between;
-}
-.table {
-    border: 1px white solid;
-    
-}
-.tableContainer {
-    height: 23.2rem;
-}
-thead th {
-    border: 2px solid rgb(0, 0, 0);
-}
-tbody td {
-    border: 2px solid #000000;
 }
 
 .row {
@@ -106,8 +98,13 @@ tbody td {
 .modalStyles div {
     background-color: #007bff;
     color: white;
-    width: auto;
+    width: 20rem !important;
     border-radius: 5px;
+}
+@media (min-width: 768px) {
+    .modalStyles div {
+        width: auto !important;
+    }
 }
 .botones {
     display: flex;
