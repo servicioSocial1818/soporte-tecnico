@@ -10,8 +10,6 @@ import { Input, Box } from "@material-ui/core";
 import Modal from "@material-ui/core/Modal";
 import Formulario from "./Formulario";
 import ListadoUsuarios from "./listadoUsuarios";
-import { getColumns } from "./checkJson";
-
 
 const style = {
   position: "absolute",
@@ -38,12 +36,6 @@ const Responsables = () => {
     setOpen(false);
     history.push("/responsables");
   };
-  
-  // function handleOpenEdit() {
-  //   getColumns((datas, isOpen)=>{
-  //     history.push(`/responsables/${datas.idUser}/edit`)
-  //   })
-  // }
 
   return (
     <>

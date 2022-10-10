@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Error from "../Error/error";
 import { Button } from "@material-ui/core";
-import { createUserRequest } from "../../api/users.api";
 import { CircularProgress } from "@mui/material";
-import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../Context/context";
-import { getColumns } from "./checkJson";
-import CustomInput from "../CustomComponents/customInput";
 
 const Formulario = ({ open, setOpen, idExtract }) => {
-  const { createNotification, setUsers } = useAppContext();
+  const { createNotification, setUsers, editing, setEditing } = useAppContext();
+
   const [user, setUser] = useState({
     paternal_surname: "",
     maternal_surname: "",
@@ -40,19 +37,11 @@ const Formulario = ({ open, setOpen, idExtract }) => {
     setUsers(data);
   }
 
-  function myFunction() {
-    var x = document.getElementById("myInput");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
-  } 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
+    if()
     //validacion del formulario
     if (
       [
@@ -111,6 +100,7 @@ const Formulario = ({ open, setOpen, idExtract }) => {
       rol: data.rol,
       location: data.location,
     });
+    setEditing(true)
     console.log(setUser);
   };
 

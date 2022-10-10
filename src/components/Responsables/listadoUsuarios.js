@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { getColumns } from "./checkJson";
 import { useAppContext } from "../Context/context";
 import { CircularProgress } from "@mui/material";
 import Formulario from "./Formulario";
@@ -21,18 +20,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-// export let bandera = false;
-// export const handleEdit = (cellValues, callback, callback2) => {
-//   const datas = cellValues.row;
-//   console.log(datas);
-//   const id = datas.idUser;
-//   console.log(id);
-//   callback(datas);
-//   bandera = true;
-//   console.log(bandera);
-//   callback2(bandera);
-// };
 
 const ListadoUsuarios = () => {
   const columns = [
@@ -96,6 +83,7 @@ const ListadoUsuarios = () => {
   const handleDelete = async (cellValues) => {
     const datos = cellValues.row;
     const id = datos.idUser;
+    console.log(id)
     console.log(datos);
     try {
       console.log(id);

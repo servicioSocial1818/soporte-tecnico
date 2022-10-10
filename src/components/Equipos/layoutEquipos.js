@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { Box, Input, Modal, Typography } from "@material-ui/core";
-import { columns, rows } from "./equiposJson";
 import { useHistory } from "react-router-dom";
 import { styled } from "@material-ui/styles";
 import "./equipos.css";
-import { DataGrid } from "@mui/x-data-grid";
 import ComputerIcon from "@mui/icons-material/Computer";
 import AddIcon from "@mui/icons-material/Add";
 import FormularioEquipos from "./formularioEquipos";
+import ListadoEquipos from "./listadoequipos";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -44,20 +44,7 @@ const EquiposLayout = () => {
           <Input></Input>
         </div>
       </div>
-      <div className="tabla">
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          sx={{
-            borderColor: "transparent",
-            color: "white",
-            fontSize: "1.2rem",
-          }}
-        />
-      </div>
-
+      <ListadoEquipos/>
       <Modal
         open={open}
         onClose={handleClose}

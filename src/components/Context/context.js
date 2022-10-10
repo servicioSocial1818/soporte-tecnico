@@ -32,7 +32,8 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
   const [isShow, setIsShow] = useState(false);
   const [error, setError] = useState(false);
   const [users, setUsers] = useState([]);
-
+  const [assignments, setAssignments] = useState([]);
+  const [editing, setEditing] = useState(false);
   
   const contextValue = useMemo(() => {
     const contextAppState = {
@@ -43,6 +44,8 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
       isShow,
       error,
       users,
+      assignments,
+      editing,
       setPath,
       setIsLogged,
       setUser,
@@ -50,6 +53,8 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
       setIsShow,
       setError,
       setUsers,
+      setEditing,
+      setAssignments,
       createNotification,
     };
 
@@ -59,7 +64,9 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
     path,
     isShow,
     isNotAdmin,
+    editing,
     users,
+    assignments,
     setError,
   ]);
 

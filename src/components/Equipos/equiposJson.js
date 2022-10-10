@@ -1,16 +1,4 @@
-export const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "persona", headerName: "Persona", width: 130 },
-    { field: "apellidoP", headerName: "ApellidoP", width: 150 },
-    { field: "apellidoM", headerName: "ApellidoM", width: 150 },
-    { field: "nserie", headerName: "Numero de Serie", width: 150 },
-    { field: "marca", headerName: "Marca", width: 70 },
-    { field: "modelo", headerName: "Modelo", width: 100 },
-    { field: "color", headerName: "Color", width: 100 },
-    { field: "botones", headerName: "Acción", width: 150 },
-  ];
-  
-  export const rows = [
+export const rows = [
     {
       id: 1,
       persona: "nombre1",
