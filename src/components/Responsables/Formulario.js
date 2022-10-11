@@ -40,48 +40,63 @@ const Formulario = ({ open, setOpen, idExtract }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    if (editing) {
+      const response = await fetch(`http://localhost:4000/users/${idExtract}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      const data = await response.json();
+      console.log(data);
+      createNotification(
+        "success",
+        "Datos validados",
+        "Usuario modificado con éxito"
+      );
+    } else {
+      if (
+        [
+          user.paternal_surname,
+          user.maternal_surname,
+          user.first_name,
+          user.date_birth,
+          user.gender,
+          user.phoneNumber,
+          user.email,
+          user.username,
+          user.password,
+          user.rol,
+          user.location,
+        ].includes("")
+      ) {
+        console.log("Hay al menos un campo vacío");
+        setError(true);
+        setLoading(false);
+        return;
+      }
 
-    if()
-    //validacion del formulario
-    if (
-      [
-        user.paternal_surname,
-        user.maternal_surname,
-        user.first_name,
-        user.date_birth,
-        user.gender,
-        user.phoneNumber,
-        user.email,
-        user.username,
-        user.password,
-        user.rol,
-        user.location,
-      ].includes("")
-    ) {
-      console.log("Hay al menos un campo vacío");
-      setError(true);
-      setLoading(false);
-      return;
+      const res = await fetch("http://localhost:4000/users", {
+        method: "POST",
+        body: JSON.stringify(user), //convierte el objeto en string
+        headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
+      });
+
+      createNotification(
+        "success",
+        "Datos validados",
+        "Usuario registrado con éxito"
+      );
+      const data = await res.json(); // obtener los datos por respuesta
+
+      console.log(data);
+
+      // console.log("usuario agregado");
     }
-
-    const res = await fetch("http://localhost:4000/users", {
-      method: "POST",
-      body: JSON.stringify(user), //convierte el objeto en string
-      headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
-    });
-
-    createNotification(
-      "success",
-      "Datos validados",
-      "Usuario registrado con éxito"
-    );
-    const data = await res.json(); // obtener los datos por respuesta
-
-    console.log(data);
-
-    // console.log("usuario agregado");
     handleClose();
     loadDatas();
+    //validacion del formulario
   };
 
   const loadUser = async (id) => {
@@ -100,7 +115,7 @@ const Formulario = ({ open, setOpen, idExtract }) => {
       rol: data.rol,
       location: data.location,
     });
-    setEditing(true)
+    setEditing(true);
     console.log(setUser);
   };
 
@@ -172,7 +187,12 @@ const Formulario = ({ open, setOpen, idExtract }) => {
           </div>
           <div className="genero">
             <label htmlFor="genero">Género</label>
-            <select id="genero" name="gender" onChange={handleChange} value={user.gender}>
+            <select
+              id="genero"
+              name="gender"
+              onChange={handleChange}
+              value={user.gender}
+            >
               <option value="" selected disabled hidden>
                 Elegir una opción
               </option>
@@ -222,13 +242,18 @@ const Formulario = ({ open, setOpen, idExtract }) => {
               name="password"
               value={user.password}
               onChange={handleChange}
-            /> 
+            />
           </div>
         </div>
         <div className="colum">
           <div className="usuario">
             <label htmlFor="rol">Rol de Usuario</label>
-            <select id="rol" name="rol" onChange={handleChange} value={user.rol}>
+            <select
+              id="rol"
+              name="rol"
+              onChange={handleChange}
+              value={user.rol}
+            >
               <option value="" selected disabled hidden>
                 Elegir Rol
               </option>
@@ -239,7 +264,12 @@ const Formulario = ({ open, setOpen, idExtract }) => {
         </div>
         <div className="ubica">
           <label>Ubicación</label>
-          <textarea id="ubicacion" name="location" onChange={handleChange} value={user.location} />
+          <textarea
+            id="ubicacion"
+            name="location"
+            onChange={handleChange}
+            value={user.location}
+          />
         </div>
         <div className="botones">
           <Button
@@ -260,7 +290,13 @@ const Formulario = ({ open, setOpen, idExtract }) => {
               !user.location
             }
           >
-            {loading ? <CircularProgress color="inherit" size={24} /> : "Crear"}
+            {loading ? (
+              <CircularProgress color="inherit" size={24} />
+            ) : editing ? (
+              "Editar"
+            ) : (
+              "Crear"
+            )}
           </Button>
         </div>
       </form>

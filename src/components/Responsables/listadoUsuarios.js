@@ -70,7 +70,7 @@ const ListadoUsuarios = () => {
       },
     },
   ];
-  const { users, setUsers } = useAppContext();
+  const { users, setUsers, editing, setEditing } = useAppContext();
   const [open, setOpen] = useState(false);
   const [idExtract, setIdExtract] = useState('');
   let history = useHistory();
@@ -78,6 +78,7 @@ const ListadoUsuarios = () => {
   const handleClose = () => {
     setOpen(false);
     history.push("/responsables");
+    setEditing(false);
   };
 
   const handleDelete = async (cellValues) => {
@@ -161,7 +162,7 @@ const ListadoUsuarios = () => {
             Editar Usuario
           </Typography>
           <div className="formulario">
-            <Formulario idExtract={idExtract} setIdExtract={setIdExtract} />
+            <Formulario idExtract={idExtract} setIdExtract={setIdExtract} setOpen={setOpen}/>
           </div>
           <div className="botones">
             <Button variant="contained" color="secondary" onClick={handleClose}>
