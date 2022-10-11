@@ -10,13 +10,17 @@
     background: #3879f1be;
     text-align: center;
 }
+
 .title {
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.button, .seleccionar, .buscar {
+
+.button,
+.seleccionar,
+.buscar {
     display: flex;
     justify-content: left;
     align-items: center;
@@ -24,21 +28,25 @@
     margin-right: 3rem;
     color: white;
 }
+
 .filtrar {
     display: flex;
     justify-content: space-between;
 }
+
 .tabla {
     height: 370px;
     width: 100%;
 }
-.modalStyles div{
+
+.modalStyles div {
     background-color: #007bff;
     color: white;
     width: auto;
     height: auto;
-    border-radius: 5px; 
+    border-radius: 5px;
 }
+
 /* .row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -50,17 +58,21 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+
 .encargado {
     display: flex;
     flex-direction: column;
     grid-column: 1/4;
 }
+
 .botones {
     display: flex;
     justify-content: end;
     margin-top: 1.5rem;
 }
+
 @media (min-width: 768px) {
+
     .user,
     .marca,
     .modelo,
@@ -69,8 +81,8 @@
         display: flex;
         flex-direction: column;
     }
-    
 }
+
 /* .usuario,
 .user,
 .APM,
@@ -105,8 +117,64 @@
     height: 2.4rem;
     
  } */
- .boton {
+.boton {
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.row {
+    height: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user,
+.nserie,
+.equipo,
+.marca,
+.modelo,
+.color,
+.descripcion,
+.monitor,
+.perifericos,
+.almacenamiento,
+.memoria,
+.procesador,
+.tarjeta {
+    border: 1px green solid;
+    display: flex;
+    flex-direction: column;
+}
+
+input,
+select {
+    margin-top: auto;
+}
+@media (min-width: 768px) {
+    .row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .user,
+    .nserie,
+    .equipo,
+    .marca,
+    .modelo,
+    .color,
+    .descripcion,
+    .monitor,
+    .perifericos,
+    .almacenamiento,
+    .memoria,
+    .procesador,
+    .tarjeta {
+        border: 1px green solid;
+        display: flex;
+        flex-direction: column;
+    }
+
 }

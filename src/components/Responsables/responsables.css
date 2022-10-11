@@ -97,9 +97,30 @@
 
 .modalStyles div {
     background-color: #007bff;
-    color: white;
-    width: 20rem !important;
+    width: 17rem !important;
     border-radius: 5px;
+}
+@media (max-width: 768px) {
+    .modalStyles div {
+    background-color: #007bff;
+    width: 17rem !important;
+    border-radius: 5px;
+    
+    }
+    .row {
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        column-gap: 10px;
+    }
+    .ap, .apm,
+    .nombre, .fechaNacimiento,
+    .genero, .telefono, .correo,
+    .usuario, .contra, .colum,
+    .ubica > div {
+        width: 1rem;
+    }
+
 }
 @media (min-width: 768px) {
     .modalStyles div {

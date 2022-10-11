@@ -97,6 +97,7 @@ const Formulario = ({ open, setOpen, idExtract }) => {
     handleClose();
     loadDatas();
     //validacion del formulario
+    setEditing(false);
   };
 
   const loadUser = async (id) => {
@@ -115,8 +116,9 @@ const Formulario = ({ open, setOpen, idExtract }) => {
       rol: data.rol,
       location: data.location,
     });
-    setEditing(true);
     console.log(setUser);
+    setEditing(true);
+
   };
 
   useEffect(() => {
@@ -246,7 +248,6 @@ const Formulario = ({ open, setOpen, idExtract }) => {
           </div>
         </div>
         <div className="colum">
-          <div className="usuario">
             <label htmlFor="rol">Rol de Usuario</label>
             <select
               id="rol"
@@ -260,7 +261,7 @@ const Formulario = ({ open, setOpen, idExtract }) => {
               <option value="2">Cliente</option>
               <option value="1">Administrador</option>
             </select>
-          </div>
+          
         </div>
         <div className="ubica">
           <label>Ubicación</label>

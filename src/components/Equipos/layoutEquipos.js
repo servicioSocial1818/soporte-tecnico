@@ -52,7 +52,9 @@ const EquiposLayout = () => {
         aria-describedby="modal-modal-description"
         className="modalStyles"
       >
-        <Box sx={style}>
+        <Box 
+          sx={style}
+        >
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Asignar Equipo
           </Typography>
