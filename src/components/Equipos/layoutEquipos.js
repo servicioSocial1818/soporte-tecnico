@@ -6,6 +6,7 @@ import { styled } from "@material-ui/styles";
 import "./equipos.css";
 import ComputerIcon from "@mui/icons-material/Computer";
 import AddIcon from "@mui/icons-material/Add";
+import QueuePlayNextIcon from '@mui/icons-material/QueuePlayNext';
 import FormularioEquipos from "./formularioEquipos";
 import ListadoEquipos from "./listadoequipos";
 
@@ -24,8 +25,20 @@ const style = {
 const EquiposLayout = () => {
   let history = useHistory();
   const [open, setOpen] = useState(false);
+  const [add, setAdd] = useState(false);
+
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+  const handleOpenAdd = () => {
+    setAdd(true);
+    console.log("añadir")
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setAdd(false);
+  };
+
   return (
     <div className="container">
       <div className="title">
@@ -38,13 +51,12 @@ const EquiposLayout = () => {
           Asignar Equipo
         </BootstrapButton>
       </div>
-      <div className="filtrar">
-        <div className="buscar">
-          <p>Buscar: </p>
-          <Input></Input>
-        </div>
+      <div className="btnAdd">
+        <BootstrapButton onClick={handleOpenAdd}>
+          <QueuePlayNextIcon />Añadir Equipo
+        </BootstrapButton>
       </div>
-      <ListadoEquipos/>
+      <ListadoEquipos />
       <Modal
         open={open}
         onClose={handleClose}
@@ -52,9 +64,7 @@ const EquiposLayout = () => {
         aria-describedby="modal-modal-description"
         className="modalStyles"
       >
-        <Box 
-          sx={style}
-        >
+        <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Asignar Equipo
           </Typography>
@@ -62,11 +72,29 @@ const EquiposLayout = () => {
             <FormularioEquipos />
           </div>
           <div className="botones">
-            <Button 
-              variant="contained" 
-              color="secondary" 
-              onClick={handleClose}
-            >
+            <Button variant="contained" color="secondary" onClick={handleClose}>
+              Cerrar
+            </Button>
+          </div>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={add}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="modalStyles"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Añadir Equipo
+          </Typography>
+          <div className="formulario">
+            <FormularioEquipos add={add} />
+          </div>
+          <div className="botones">
+            <Button variant="contained" color="secondary" onClick={handleClose}>
               Cerrar
             </Button>
           </div>

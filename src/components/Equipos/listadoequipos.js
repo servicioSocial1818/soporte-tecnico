@@ -83,7 +83,7 @@ function ListadoEquipos() {
             borderColor: "transparent",
             color: "white",
             fontSize: "1.2 rem",
-            height: "370px",
+            height: "386px",
             width: "100%",
           }}
         />
