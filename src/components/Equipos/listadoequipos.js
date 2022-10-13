@@ -55,7 +55,7 @@ function ListadoEquipos() {
     }
   ];
 
-  const getDevices = async () => {
+  const getAssignments = async () => {
     try {
       const res = await fetch("http://localhost:4000/assignments");
       const data = await res.json();
@@ -67,7 +67,7 @@ function ListadoEquipos() {
   };
 
   useEffect(() => {
-    getDevices();
+    getAssignments();
   }, []);
 
   return (

@@ -34,6 +34,7 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
   const [users, setUsers] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [editing, setEditing] = useState(false);
+  const [equipo, setEquipo] = useState([]);
   
   const contextValue = useMemo(() => {
     const contextAppState = {
@@ -46,6 +47,7 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
       users,
       assignments,
       editing,
+      equipo,
       setPath,
       setIsLogged,
       setUser,
@@ -54,6 +56,7 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
       setError,
       setUsers,
       setEditing,
+      setEquipo,
       setAssignments,
       createNotification,
     };
