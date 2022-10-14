@@ -2,50 +2,45 @@ import React, { useEffect, useState } from "react";
 import Error from "../Error/error";
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@mui/x-data-grid";
+import MaterialTable from "material-table";
 import "./equipos.css";
 import { useAppContext } from "../Context/context";
 import { CircularProgress } from "@mui/material";
+import ListadoEquipos from "./listadoequipos";
+const columns = [
+  { field: "serie_number", headerName: "Numero de serie", width: 100 },
+  { field: "trademark", headerName: "Marca", width: 100 },
+  { field: "model", headerName: "Modelo", width: 100 },
+  { field: "storage_device", headerName: "Almacenamiento", width: 100 },
+  { field: "ram", headerName: "Ram", width: 100 },
+];
+
 const FormularioEquipos = ({ add }) => {
-  
-  const {equipo, setEquipo} = useAppContext();
+  const { equipos, setEquipos } = useAppContext();
 
   const [error, setError] = useState(false);
 
-  const columns = [
-    
-      { field: "serie_number", headerName: "Numero de serie", width: 100 },
-      { field: "trademark", headerName: "Marca", width: 100 },
-      { field: "model", headerName: "Modelo", width: 100 },
-      { field: "storage_device", headerName: "Almacenamiento", width: 100 },
-      { field: "ram", headerName: "Ram", width: 100 },
-    
-  ];
-
   const getAssignmentsWithoutDevices = async () => {
     try {
-      const res = await fetch("http://localhost:4000/assignments-no-devices")
+      const res = await fetch("http://localhost:4000/assignments-no-devices");
       const data = await res.json();
-      console.log(data);
-      setEquipo(data)
+      // console.log(data);
+      setEquipos(data);
+      console.log(equipos);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     getAssignmentsWithoutDevices();
-  },[])
+  }, []);
 
   const users = [
     {
       label: "first_name",
     },
   ];
-  const generarId = () => {
-    const random = Math.random().toString(36).substring(2);
-    const fecha = Date.now().toString(36);
-    return random + fecha;
-  };
 
   const handleSubmit = () => {};
 
@@ -150,28 +145,21 @@ const FormularioEquipos = ({ add }) => {
               </div>
               <div className="deviceTable"></div>
             </div>
-            {equipo && equipo.length ? (
-              <DataGrid
-                rows={equipo}
+            <ListadoEquipos/>
+            {/* {equipos && equipos.length ? (
+              <MaterialTable
+                title="Equipos Disponibles"
+                data={equipos}
                 columns={columns}
-                getRowId={(equipos) => equipos.idDevice}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                sx={{
-                  borderColor: "transparent",
-                  color: "white",
-                  fontSize: "1.2 rem",
-                  height: "386px",
-                  width: "100%",
-                }}
+                options={{ selection: true }}
+                // onSelectionChange={ onselectionchange}
               />
-
             ) : (
               <>
-              <CircularProgress color="inherit" size={24} />
-              <p>Cargando Equipos Disponibles...</p>
+                <CircularProgress color="inherit" size={24} />
+                <p>Cargando Equipos Disponibles...</p>
               </>
-            )}
+            )} */}
             <div className="botones">
               <Button
                 variant="contained"

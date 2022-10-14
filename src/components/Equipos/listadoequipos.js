@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect } from "react";
-import { rows } from "./equiposJson";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@material-ui/core";
 import { useAppContext } from "../Context/context";
