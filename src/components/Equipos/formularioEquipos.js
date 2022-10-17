@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Error from "../Error/error";
 import { Button } from "@material-ui/core";
-import { DataGrid } from "@mui/x-data-grid";
-import MaterialTable from "material-table";
 import "./equipos.css";
 import { useAppContext } from "../Context/context";
-import { CircularProgress } from "@mui/material";
-import ListadoEquipos from "./listadoequipos";
-const columns = [
-  { field: "serie_number", headerName: "Numero de serie", width: 100 },
-  { field: "trademark", headerName: "Marca", width: 100 },
-  { field: "model", headerName: "Modelo", width: 100 },
-  { field: "storage_device", headerName: "Almacenamiento", width: 100 },
-  { field: "ram", headerName: "Ram", width: 100 },
-];
 
 const FormularioEquipos = ({ add }) => {
-  const { equipos, setEquipos } = useAppContext();
-
+  const { equipos, setEquipos, users, setUsers } = useAppContext();
+  const [textUser, setTextUser] = useState("");
   const [error, setError] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsDev, setSuggestionsDev] = useState([]);
+  const [textDevice, setTextDevice] = useState("");
+  const [idU, setIdU] = useState();
+  const [idD, setIdD] = useState();
 
   const getAssignmentsWithoutDevices = async () => {
     try {
@@ -26,23 +20,76 @@ const FormularioEquipos = ({ add }) => {
       const data = await res.json();
       // console.log(data);
       setEquipos(data);
-      console.log(equipos);
+      console.log("equipooooss", equipos);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getAssignmentsWithoutUsers = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/assignments-no-users");
+      const data = await res.json();
+      setUsers(data);
+      console.log("usuarioooss", users);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onSuggestHandler = (text) => {
+    setTextUser(text);
+    setSuggestions([]);
+  };
+
+  const onSuggestDev = (text) => {
+    setTextDevice(text);
+    setSuggestionsDev([]);
+  };
+
   useEffect(() => {
     getAssignmentsWithoutDevices();
+    getAssignmentsWithoutUsers();
   }, []);
 
-  const users = [
-    {
-      label: "first_name",
-    },
-  ];
+  const onChangeHandler = (text) => {
+    let matches = [];
+    if (text.length > 0) {
+      matches = users.filter((user) => {
+        const regex = new RegExp(`${text}`, "gi");
+        return (
+          user.paternal_surname.match(regex) ||
+          user.maternal_surname.match(regex) ||
+          user.first_name.match(regex)
+        );
+      });
+    }
+    setSuggestions(matches);
+    console.log("sugerencias", suggestions);
+    setTextUser(text);
+  };
 
-  const handleSubmit = () => {};
+  const onChangeDevice = (text) => {
+    let matches = [];
+    if (text.length > 0) {
+      matches = equipos.filter((device) => {
+        const regex = new RegExp(`${text}`, "gi");
+        return (
+          device.serie_number.match(regex) ||
+          device.trademark.match(regex) ||
+          device.model.match(regex)
+        );
+      });
+    }
+    setSuggestionsDev(matches);
+    console.log("sugerencias devices", suggestions);
+    setTextDevice(text);
+  };
+
+  const handleSubmit = () => {
+    console.log(idU);
+    console.log(idD);
+  };
 
   return (
     <>
@@ -141,25 +188,61 @@ const FormularioEquipos = ({ add }) => {
 
               <div className="user">
                 <label>Usuario</label>
-                <input placeholder="usuario"></input>
+                <input
+                  placeholder="Apellido Paterno"
+                  onChange={(e) => onChangeHandler(e.target.value)}
+                  value={textUser}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setSuggestions([]);
+                    }, 5000);
+                  }}
+                />
+                <div className="sugContainer">
+                  {suggestions &&
+                    suggestions.map((suggestion, i) => (
+                      <div
+                        key={i}
+                        className="userSuggestion"
+                        onClick={() =>
+                          onSuggestHandler(
+                            `${suggestion.paternal_surname} ${suggestion.maternal_surname} ${suggestion.first_name}`,
+                            setIdU(suggestion.idUser)
+                          )
+                        }
+                      >
+                        {`${suggestion.paternal_surname} ${suggestion.maternal_surname} ${suggestion.first_name}`}
+                      </div>
+                    ))}
+                </div>
               </div>
-              <div className="deviceTable"></div>
+
+              <div className="device">
+                <label>Equipo</label>
+                <input
+                  placeholder="n° serie"
+                  onChange={(e) => onChangeDevice(e.target.value)}
+                  value={textDevice}
+                />
+                <div className="sugContainer">
+                  {suggestionsDev &&
+                    suggestionsDev.map((suggestion, i) => (
+                      <div
+                        key={i}
+                        className="userSuggestion"
+                        onClick={() =>
+                          onSuggestDev(
+                            `${suggestion.serie_number} ${suggestion.trademark} ${suggestion.model}`,
+                            setIdD(suggestion.idDevice)
+                          )
+                        }
+                      >
+                        {`${suggestion.serie_number} ${suggestion.trademark} ${suggestion.model}`}
+                      </div>
+                    ))}
+                </div>
+              </div>
             </div>
-            <ListadoEquipos/>
-            {/* {equipos && equipos.length ? (
-              <MaterialTable
-                title="Equipos Disponibles"
-                data={equipos}
-                columns={columns}
-                options={{ selection: true }}
-                // onSelectionChange={ onselectionchange}
-              />
-            ) : (
-              <>
-                <CircularProgress color="inherit" size={24} />
-                <p>Cargando Equipos Disponibles...</p>
-              </>
-            )} */}
             <div className="botones">
               <Button
                 variant="contained"

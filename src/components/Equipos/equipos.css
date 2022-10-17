@@ -66,7 +66,8 @@
 
 @media (min-width: 768px) {
   .user,
-  .monitor {
+  .monitor,
+  .device {
     display: flex;
     flex-direction: column;
   }
@@ -86,9 +87,28 @@
   align-items: center;
 }
 
-.user {
-  display: flex;
-  flex-direction: column;
+.user,.device {
+  margin-top: 10rem;
+}
+
+.sugContainer {
+  width: 110px !important;
+  height: 110px !important;
+  overflow: auto !important;
+}
+
+.userSuggestion {
+  cursor: pointer;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: white !important;
+  color: black !important;
+  font-size: 1rem !important;
+}
+
+.userSuggestion:hover {
+  background-color: gray !important;
 }
 
 input,
