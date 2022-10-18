@@ -3,6 +3,7 @@ import Error from "../Error/error";
 import { Button } from "@material-ui/core";
 import "./equipos.css";
 import { useAppContext } from "../Context/context";
+import { useHistory } from "react-router-dom";
 
 const FormularioEquipos = ({ add }) => {
   const { equipos, setEquipos, users, setUsers } = useAppContext();
@@ -13,6 +14,15 @@ const FormularioEquipos = ({ add }) => {
   const [textDevice, setTextDevice] = useState("");
   const [idU, setIdU] = useState();
   const [idD, setIdD] = useState();
+
+  const [assignment, setAssignment] = useState({
+    idUser: "",
+    idDevice: "",
+    manager: "",
+  });
+
+  let history = useHistory();
+
 
   const getAssignmentsWithoutDevices = async () => {
     try {
@@ -86,7 +96,20 @@ const FormularioEquipos = ({ add }) => {
     setTextDevice(text);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setAssignment(
+      {idUser: idU,
+      idDevice: idD,
+      manager: ""}
+    )
+    const res = await fetch("http://localhost:4000/assignments", {
+      method: "POST",
+      body: JSON.stringify(assignment),
+      headers: { "Content-Type": "application/json" },
+    });
+
     console.log(idU);
     console.log(idD);
   };
@@ -170,7 +193,10 @@ const FormularioEquipos = ({ add }) => {
             <div className="row">
               <div className="encargado">
                 <label>Encargado</label>
-                <select name="Responsable">
+                <select 
+                  name="Responsable"
+                  
+                >
                   <option value="seleccionar" disabled>
                     --Seleccionar--
                   </option>
@@ -248,6 +274,11 @@ const FormularioEquipos = ({ add }) => {
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}
+                disabled={
+                  !assignment.idUser ||
+                  !assignment.idDevice ||
+                  !assignment.manager
+                }
               >
                 Asignar
               </Button>
