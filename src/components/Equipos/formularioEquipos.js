@@ -23,14 +23,13 @@ const FormularioEquipos = ({ add }) => {
 
   let history = useHistory();
 
-
   const getAssignmentsWithoutDevices = async () => {
     try {
       const res = await fetch("http://localhost:4000/assignments-no-devices");
       const data = await res.json();
       // console.log(data);
       setEquipos(data);
-      console.log("equipooooss", equipos);
+      // console.log("equipooooss", equipos);
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +40,7 @@ const FormularioEquipos = ({ add }) => {
       const res = await fetch("http://localhost:4000/assignments-no-users");
       const data = await res.json();
       setUsers(data);
-      console.log("usuarioooss", users);
+      // console.log("usuarioooss", users);
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +59,7 @@ const FormularioEquipos = ({ add }) => {
   useEffect(() => {
     getAssignmentsWithoutDevices();
     getAssignmentsWithoutUsers();
+  
   }, []);
 
   const onChangeHandler = (text) => {
@@ -75,7 +75,7 @@ const FormularioEquipos = ({ add }) => {
       });
     }
     setSuggestions(matches);
-    console.log("sugerencias", suggestions);
+    // console.log("sugerencias", suggestions);
     setTextUser(text);
   };
 
@@ -88,30 +88,29 @@ const FormularioEquipos = ({ add }) => {
           device.serie_number.match(regex) ||
           device.trademark.match(regex) ||
           device.model.match(regex)
-        );
-      });
-    }
-    setSuggestionsDev(matches);
-    console.log("sugerencias devices", suggestions);
-    setTextDevice(text);
+          );
+        });
+      }
+      setSuggestionsDev(matches);
+      // console.log("sugerencias devices", suggestions);
+      setTextDevice(text);
+    
+  };
+
+  const handleChangeManager = (e) => {
+    setAssignment({ ...assignment, [e.target.name]: e.target.value });
+    
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const res = await fetch("http://localhost:4000/assignments", {
+    //   method: "POST",
+    //   body: JSON.stringify(assignment),
+    //   headers: { "Content-Type": "application/json" },
+    // });
 
-    setAssignment(
-      {idUser: idU,
-      idDevice: idD,
-      manager: ""}
-    )
-    const res = await fetch("http://localhost:4000/assignments", {
-      method: "POST",
-      body: JSON.stringify(assignment),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    console.log(idU);
-    console.log(idD);
+    console.log(assignment);
   };
 
   return (
@@ -194,10 +193,11 @@ const FormularioEquipos = ({ add }) => {
               <div className="encargado">
                 <label>Encargado</label>
                 <select 
-                  name="Responsable"
-                  
+                  name="manager"
+                  value={assignment.manager}
+                  onChange={handleChangeManager}
                 >
-                  <option value="seleccionar" disabled>
+                  <option selected value="" disabled hidden>
                     --Seleccionar--
                   </option>
                   <option value="JOSE ALEJANDRO CANSECO FLORES">
@@ -230,10 +230,17 @@ const FormularioEquipos = ({ add }) => {
                       <div
                         key={i}
                         className="userSuggestion"
+                        value={assignment.idUser = idU}
+                        name="idUser"
+                        onChange={handleChangeManager}
                         onClick={() =>
                           onSuggestHandler(
                             `${suggestion.paternal_surname} ${suggestion.maternal_surname} ${suggestion.first_name}`,
-                            setIdU(suggestion.idUser)
+                            // setIdU(suggestion.idUser)
+                            // setAssignment({
+                            //   idUser: suggestion.idUser
+                            // }),
+                            // console.log(assignment)
                           )
                         }
                       >
@@ -256,10 +263,18 @@ const FormularioEquipos = ({ add }) => {
                       <div
                         key={i}
                         className="userSuggestion"
+                        value={assignment.idDevice = idD}
+                        name="idDevice"
+                        onChange={handleChangeManager}
                         onClick={() =>
                           onSuggestDev(
                             `${suggestion.serie_number} ${suggestion.trademark} ${suggestion.model}`,
-                            setIdD(suggestion.idDevice)
+                            // setIdD(suggestion.idDevice)
+
+                            // setAssignment({
+                            //   idDevice: suggestion.idDevice
+                            // }), 
+                            // console.log(assignment)
                           )
                         }
                       >
@@ -274,11 +289,7 @@ const FormularioEquipos = ({ add }) => {
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}
-                disabled={
-                  !assignment.idUser ||
-                  !assignment.idDevice ||
-                  !assignment.manager
-                }
+                // disabled={!assignment.idDevice || !assignment.idUser || !assignment.manager}
               >
                 Asignar
               </Button>
