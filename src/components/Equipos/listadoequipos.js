@@ -8,12 +8,13 @@ function ListadoEquipos() {
   const { assignments, setAssignments } = useAppContext();
 
   const columns = [
-    { field: "first_name", headerName: "Nombre", width: 100 },
+    { field: "first_name", headerName: "Nombre(s)", width: 100 },
     { field: "paternal_surname", headerName: "Paterno", width: 130 },
     { field: "maternal_surname", headerName: "Materno", width: 130 },
-    { field: "trademark", headerName: "Modelo", width: 130 },
-    { field: "manager", headerName: "Encargado", width: 270 },
-    {field: "serie_number", headerName: "Numero de Serie", width: 124},
+    { field: "trademark", headerName: "Marca", width: 130 },
+    { field: "model", headerName: "Modelo", width: 100 },
+    { field: "manager", headerName: "Encargado", width: 300 },
+    {field: "serie_number", headerName: "Numero de Serie", width: 130},
     {
       field: "Eliminar",
       renderCell: (cellValues) => {
@@ -26,6 +27,7 @@ function ListadoEquipos() {
                 if (!window.confirm("¿Deseas eliminar este registro?")) {
                   return;
                 }
+                handleDelete(cellValues);
               }}
             >
               eliminar
@@ -46,6 +48,22 @@ function ListadoEquipos() {
       console.log(error);
     }
   };
+
+  const handleDelete = async (cellValues) => {
+    const datos = cellValues.row;
+    const idU = datos.idUser;
+    const idD = datos.idDevice;
+    const idA = datos.idAssignment;
+    console.log("Usuario:",idU, "Equipo:",idD, "Asignacion:",idA)
+    console.log("datos: ", datos)
+
+    try {
+      await fetch(`http://localhost:4000/assignments/${idA}/user/${idU}/device/${idD}`)
+    } catch (error) {
+      
+    }
+
+  }
 
   useEffect(() => {
     getAssignments();
