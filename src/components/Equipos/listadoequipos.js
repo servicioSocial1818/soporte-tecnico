@@ -33,24 +33,6 @@ function ListadoEquipos() {
           </>
         );
       },
-    },
-    {
-        field: "Editar",
-        renderCell: (cellValues) => {
-            return (
-              <>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    console.log("editar");
-                  }}
-                >
-                  Editar
-                </Button>
-              </>
-            );
-          },
     }
   ];
 

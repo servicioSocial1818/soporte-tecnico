@@ -119,14 +119,17 @@ const FormularioEquipos = ({ add }) => {
       headers: { "Content-Type": "application/json" },
     });
 
+    
+    const data = await res.json();
+    console.log(data)
+    
     createNotification(
       "succes",
       "Datos registrados",
       "Asignación registrada con éxito"
     );
-    
     loadAssignments();
-    console.log(assignment);
+    // console.log(assignment);
   };
 
   return (
