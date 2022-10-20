@@ -1,11 +1,16 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@material-ui/core";
 import { useAppContext } from "../Context/context";
 
 function ListadoEquipos() {
   const { assignments, setAssignments } = useAppContext();
+  const [assignment, setAssignment] = useState({
+    idUser: "",
+    idDevice: "",
+    idAssignment: "",
+  });
 
   const columns = [
     { field: "first_name", headerName: "Nombre(s)", width: 100 },
@@ -14,7 +19,7 @@ function ListadoEquipos() {
     { field: "trademark", headerName: "Marca", width: 130 },
     { field: "model", headerName: "Modelo", width: 100 },
     { field: "manager", headerName: "Encargado", width: 300 },
-    {field: "serie_number", headerName: "Numero de Serie", width: 130},
+    { field: "serie_number", headerName: "Numero de Serie", width: 130 },
     {
       field: "Eliminar",
       renderCell: (cellValues) => {
@@ -35,7 +40,7 @@ function ListadoEquipos() {
           </>
         );
       },
-    }
+    },
   ];
 
   const getAssignments = async () => {
@@ -50,20 +55,37 @@ function ListadoEquipos() {
   };
 
   const handleDelete = async (cellValues) => {
-    const datos = cellValues.row;
-    const idU = datos.idUser;
-    const idD = datos.idDevice;
-    const idA = datos.idAssignment;
-    console.log("Usuario:",idU, "Equipo:",idD, "Asignacion:",idA)
-    console.log("datos: ", datos)
+    const response = cellValues.row;
+    const datas = response;
+    const idU = datas.idUser;
+    const idD = datas.idDevice;
+    const idA = datas.idAssignment;
+    // setAssignment(datas)
+    // console.log("Usuario:", idU, "Equipo:", idD, "Asignacion:", idA);
+    // console.log("datos: ", datos)
+    // console.log(datas);
 
     try {
-      await fetch(`http://localhost:4000/assignments/${idA}/user/${idU}/device/${idD}`)
+      await fetch(`http://localhost:4000/assignments`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          idUser: idU,
+          idDevice: idD,
+          idAssignment: idA,
+        }),
+      });
+      setAssignments(
+        assignments.filter((ass) => {
+          return ass.idAssignment !== idA;
+        })
+      );
     } catch (error) {
-      
+      console.log(error);
     }
-
-  }
+  };
 
   useEffect(() => {
     getAssignments();
