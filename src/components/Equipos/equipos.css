@@ -18,11 +18,9 @@
   align-items: center;
 }
 
-.button,
-.seleccionar,
-.buscar {
+.button {
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   margin-left: 2rem;
   margin-right: 3rem;
@@ -65,11 +63,29 @@
 }
 
 @media (min-width: 768px) {
-  .user,
+  .user, 
   .monitor,
-  .device {
+  .device, 
+  .tradeMark, 
+  .numS, 
+  .deviceT,
+  .model,
+  .monitor,
+  .perifericos,
+  .storage,
+  .ram,
+  .processador,
+  .graphicCard,
+  .color
+   {
     display: flex;
     flex-direction: column;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) !important;
+    
   }
 }
 
@@ -114,15 +130,10 @@
 input,
 select {
   margin-top: auto;
+  border-radius: 1rem;
+  font-size: 1rem !important;
 }
-@media (min-width: 768px) {
-  .row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
 
-  .user {
-    display: flex;
-    flex-direction: column;
-  }
+input {
+  height: 1.5rem;
 }

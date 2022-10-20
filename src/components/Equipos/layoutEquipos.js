@@ -1,14 +1,16 @@
 import { useState } from "react";
 import Button from "@material-ui/core/Button";
-import { Box, Input, Modal, Typography } from "@material-ui/core";
+import { Box, Modal, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { styled } from "@material-ui/styles";
 import "./equipos.css";
 import ComputerIcon from "@mui/icons-material/Computer";
 import AddIcon from "@mui/icons-material/Add";
-import QueuePlayNextIcon from '@mui/icons-material/QueuePlayNext';
+import QueuePlayNextIcon from "@mui/icons-material/QueuePlayNext";
 import FormularioEquipos from "./formularioEquipos";
 import ListadoEquipos from "./listadoequipos";
+import PersonalVideoSharpIcon from "@mui/icons-material/PersonalVideoSharp";
+import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 
 const style = {
   position: "absolute",
@@ -26,12 +28,13 @@ const EquiposLayout = () => {
   let history = useHistory();
   const [open, setOpen] = useState(false);
   const [add, setAdd] = useState(false);
+  const [eq, SetEq] = useState(false);
 
   const handleOpen = () => setOpen(true);
 
   const handleOpenAdd = () => {
     setAdd(true);
-    console.log("añadir")
+    console.log("añadir");
   };
 
   const handleClose = () => {
@@ -39,24 +42,50 @@ const EquiposLayout = () => {
     setAdd(false);
   };
 
+  const btnChange = () => {
+    SetEq(!eq);
+  };
+
   return (
     <div className="container">
       <div className="title">
-        <ComputerIcon fontSize="large" />
-        <h1>Asignación de Equipos</h1>
+        {eq ? (
+          <>
+            <ComputerIcon fontSize="large" />
+            <h1>Equipos</h1>
+          </>
+        ) : (
+          <>
+            <AssignmentIndOutlinedIcon fontSize="large" />
+            <h1>Asignación de Equipos</h1>
+          </>
+        )}
       </div>
       <div className="button">
         <BootstrapButton onClick={handleOpen}>
           <AddIcon />
           Asignar Equipo
         </BootstrapButton>
+        {eq ? (
+          <BootstrapButton onClick={btnChange}>
+            <AssignmentIndOutlinedIcon />
+            Mostrar Asignaciones
+          </BootstrapButton>
+        ) : (
+          <BootstrapButton onClick={btnChange}>
+            <PersonalVideoSharpIcon />
+            Mostrar Equipos
+          </BootstrapButton>
+        )}
       </div>
+
       <div className="btnAdd">
         <BootstrapButton onClick={handleOpenAdd}>
-          <QueuePlayNextIcon />Añadir Equipo
+          <QueuePlayNextIcon />
+          Añadir Equipo
         </BootstrapButton>
       </div>
-      <ListadoEquipos />
+      <ListadoEquipos eq={eq} />
       <Modal
         open={open}
         onClose={handleClose}
@@ -69,7 +98,12 @@ const EquiposLayout = () => {
             Asignar Equipo
           </Typography>
           <div className="formulario">
-            <FormularioEquipos />
+            <FormularioEquipos
+              add={add}
+              setAdd={setAdd}
+              open={open}
+              setOpen={setOpen}
+            />
           </div>
           <div className="botones">
             <Button variant="contained" color="secondary" onClick={handleClose}>
@@ -91,7 +125,12 @@ const EquiposLayout = () => {
             Añadir Equipo
           </Typography>
           <div className="formulario">
-            <FormularioEquipos add={add} />
+            <FormularioEquipos
+              add={add}
+              setAdd={setAdd}
+              open={open}
+              setOpen={setOpen}
+            />
           </div>
           <div className="botones">
             <Button variant="contained" color="secondary" onClick={handleClose}>

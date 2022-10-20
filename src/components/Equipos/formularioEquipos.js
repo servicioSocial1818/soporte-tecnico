@@ -5,7 +5,7 @@ import "./equipos.css";
 import { useAppContext } from "../Context/context";
 import { useHistory } from "react-router-dom";
 
-const FormularioEquipos = ({ add }) => {
+const FormularioEquipos = ({ add, setOpen, setAdd }) => {
   const {
     equipos,
     setEquipos,
@@ -27,6 +27,12 @@ const FormularioEquipos = ({ add }) => {
   });
 
   let history = useHistory();
+
+  function handleClose() {
+    setOpen(false);
+    setAdd(false);
+    history.push("/asignaciones");
+  }
 
   async function loadAssignments() {
     const response = await fetch("http://localhost:4000/assignments");
@@ -119,17 +125,17 @@ const FormularioEquipos = ({ add }) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    
-    const data = await res.json();
-    console.log(data)
-    
+    // const data = await res.json();
+    // console.log(data);
+
     createNotification(
-      "succes",
+      "success",
       "Datos registrados",
       "Asignación registrada con éxito"
     );
+
     loadAssignments();
-    // console.log(assignment);
+    handleClose();
   };
 
   return (
@@ -140,7 +146,7 @@ const FormularioEquipos = ({ add }) => {
             <div className="devicesForm">
               <div className="numS">
                 <label>Número de serie</label>
-                <input type="Number"></input>
+                <input type="Number" placeholder="12345"></input>
               </div>
 
               <div className="deviceT">
@@ -155,7 +161,7 @@ const FormularioEquipos = ({ add }) => {
 
               <div className="tradeMark">
                 <label>Marca</label>
-                <input></input>
+                <input placeholder="Ej: DELL"></input>
               </div>
 
               <div className="model">
@@ -168,23 +174,23 @@ const FormularioEquipos = ({ add }) => {
                 <input placeholder="Ej: 24' DELL"></input>
               </div>
 
-              <div>
-                <label className="perifericos">Periféricos</label>
+              <div className="perifericos">
+                <label>Periféricos</label>
                 <input placeholder="Ej: mouse, teclado y webcam"></input>
               </div>
 
-              <div>
-                <label className="storage">Almacenamiento</label>
+              <div className="storage">
+                <label>Almacenamiento</label>
                 <input placeholder="Ej: HDD 500GB"></input>
               </div>
 
-              <div>
-                <label className="ram">RAM</label>
+              <div className="ram">
+                <label>RAM</label>
                 <input placeholder="Ej: 8gb"></input>
               </div>
 
-              <div>
-                <label className="processador">Procesador</label>
+              <div className="processador">
+                <label>Procesador</label>
                 <input placeholder="Ej: Intel Core i5-10505"></input>
               </div>
 
@@ -197,6 +203,16 @@ const FormularioEquipos = ({ add }) => {
                 <label>Color</label>
                 <input></input>
               </div>
+            </div>
+            <div className="botones">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}
+                disabled={!textDevice || !textUser || !assignment.manager}
+              >
+                Añadir
+              </Button>
             </div>
           </form>
         </>
@@ -229,7 +245,7 @@ const FormularioEquipos = ({ add }) => {
               <div className="user">
                 <label>Usuario</label>
                 <input
-                  placeholder="Apellido Paterno"
+                  placeholder="Nombre"
                   onChange={(e) => onChangeHandler(e.target.value)}
                   value={textUser}
                   onBlur={() => {

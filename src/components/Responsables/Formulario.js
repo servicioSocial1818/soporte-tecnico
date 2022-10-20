@@ -5,7 +5,7 @@ import { CircularProgress } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../Context/context";
 
-const Formulario = ({ open, setOpen, idExtract }) => {
+const Formulario = ({ setOpen, idExtract }) => {
   const { createNotification, setUsers, editing, setEditing } = useAppContext();
 
   const [user, setUser] = useState({

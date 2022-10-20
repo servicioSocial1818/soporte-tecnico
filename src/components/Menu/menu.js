@@ -44,13 +44,13 @@ const Menu = () => {
         </div>
         <div 
           className="boxes boxes3"
-          onClick={() => history.push("/equipos")}
+          onClick={() => history.push("/asignaciones")}
         >
           <div className="boxesTitle">
             <ComputerIcon fontSize="large" />
           </div>
           <div className="boxesSub">
-            <span>Equipos</span>
+            <span>Asignaciones & Equipos</span>
           </div>
         </div>
         <div 

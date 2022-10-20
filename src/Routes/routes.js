@@ -29,7 +29,7 @@ const Routes = () => {
         <Route exact path="/responsables/:id/edit">
           <LayoutResponsables/>
         </Route>
-        <Route exact path="/equipos">
+        <Route exact path="/asignaciones">
           <LayoutEquipos/>
         </Route>
         <Route exact path="/reportes">
