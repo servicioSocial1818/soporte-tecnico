@@ -26,6 +26,21 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
     manager: "",
   });
 
+  const [device, setDevice] = useState({
+    description_device: "",
+    serie_number: "",
+    device_type: "",
+    trademark: "",
+    model: "",
+    monitor: "",
+    perifericos: "",
+    storage_device: "",
+    ram: "",
+    processor: "",
+    graphic_card: "",
+    color: "",
+  });
+
   let history = useHistory();
 
   function handleClose() {
@@ -119,25 +134,45 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:4000/assignments", {
-      method: "POST",
-      body: JSON.stringify(assignment),
-      headers: { "Content-Type": "application/json" },
-    });
+    if (!device.serie_number && !device.device_type) {
+      const res = await fetch("http://localhost:4000/assignments", {
+        method: "POST",
+        body: JSON.stringify(assignment),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    // const data = await res.json();
-    // console.log(data);
+      // const data = await res.json();
+      // console.log(data);
 
-    createNotification(
-      "success",
-      "Datos registrados",
-      "Asignación registrada con éxito"
-    );
+      createNotification(
+        "success",
+        "Datos registrados",
+        "Asignación registrada con éxito"
+      );
 
+    } else {
+      const res = await fetch("http://localhost:4000/devices", {
+        method: "POST",
+        body: JSON.stringify(device),
+        headers: { "Content-Type": "application/json" },
+      })  
+
+      createNotification(
+        "success",
+        "Datos validados",
+        "Equipo registrado con éxito"
+      );
+
+      const data = await res.json();
+      console.log(data);
+    }
     loadAssignments();
     handleClose();
   };
 
+  const handleChange = (e) => {
+    setDevice({ ...device, [e.target.name]: e.target.value });
+  };
   return (
     <>
       {add ? (
@@ -146,12 +181,22 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
             <div className="devicesForm">
               <div className="numS">
                 <label>Número de serie</label>
-                <input type="Number" placeholder="12345"></input>
+                <input
+                  type="Number"
+                  placeholder="12345"
+                  value={device.serie_number}
+                  name="serie_number"
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="deviceT">
                 <label>Tipo de dispositivo</label>
-                <select name="deviceType">
+                <select
+                  name="device_type"
+                  value={device.device_type}
+                  onChange={handleChange}
+                >
                   <option value="" selected disabled hidden>
                     --Seleccionar--
                   </option>
@@ -161,47 +206,90 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
 
               <div className="tradeMark">
                 <label>Marca</label>
-                <input placeholder="Ej: DELL"></input>
+                <input
+                  placeholder="Ej: DELL"
+                  name="trademark"
+                  value={device.trademark}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="model">
                 <label>Modelo</label>
-                <input></input>
+                <input
+                  name="model"
+                  value={device.model}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="monitor">
                 <label>Monitor</label>
-                <input placeholder="Ej: 24' DELL"></input>
+                <input
+                  placeholder="Ej: 24' DELL"
+                  name="monitor"
+                  value={device.monitor}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="perifericos">
                 <label>Periféricos</label>
-                <input placeholder="Ej: mouse, teclado y webcam"></input>
+                <input
+                  placeholder="Ej: mouse, teclado y webcam"
+                  name="perifericos"
+                  value={device.perifericos}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="storage">
                 <label>Almacenamiento</label>
-                <input placeholder="Ej: HDD 500GB"></input>
+                <input
+                  placeholder="Ej: HDD 500GB"
+                  name="storage_device"
+                  value={device.storage_device}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="ram">
                 <label>RAM</label>
-                <input placeholder="Ej: 8gb"></input>
+                <input
+                  placeholder="Ej: 8gb"
+                  name="ram"
+                  value={device.ram}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="processador">
                 <label>Procesador</label>
-                <input placeholder="Ej: Intel Core i5-10505"></input>
+                <input
+                  placeholder="Ej: Intel Core i5-10505"
+                  name="processor"
+                  value={device.processor}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="graphicCard">
                 <label>Tarjeta Gráfica</label>
-                <input placeholder="Ej: NVIDIA GeForce RTX 4090"></input>
+                <input
+                  placeholder="Ej: NVIDIA GeForce RTX 4090"
+                  name="graphic_card"
+                  value={device.graphic_card}
+                  onChange={handleChange}
+                ></input>
               </div>
 
               <div className="color">
                 <label>Color</label>
-                <input></input>
+                <input
+                  name="color"
+                  value={device.color}
+                  onChange={handleChange}
+                ></input>
               </div>
             </div>
             <div className="botones">
@@ -209,7 +297,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}
-                disabled={!textDevice || !textUser || !assignment.manager}
+                disabled={!device.serie_number || !device.device_type}
               >
                 Añadir
               </Button>
