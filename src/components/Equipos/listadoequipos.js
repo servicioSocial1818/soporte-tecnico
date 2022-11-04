@@ -3,9 +3,29 @@ import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@material-ui/core";
 import { useAppContext } from "../Context/context";
+import FormularioEquipos from "./formularioEquipos";
+import { useHistory } from "react-router-dom";
+import { Box, Modal, Typography } from "@material-ui/core";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 
 function ListadoEquipos({ eq }) {
   const { assignments, setAssignments, equipos, setEquipos } = useAppContext();
+  const [open, setOpen] = useState(false);
+  let history = useHistory();
+  const [add, setAdd] = useState(false);
+
 
   const columns = [
     { field: "first_name", headerName: "Nombre(s)", width: 100 },
@@ -75,10 +95,7 @@ function ListadoEquipos({ eq }) {
               variant="contained"
               color="primary"
               onClick={(e) => {
-                if (!window.confirm("¿Deseas eliminar este registro?")) {
-                  return;
-                }
-                handleDelete(cellValues);
+                handleEdit(cellValues);
               }}
             >
               Editar
@@ -114,21 +131,12 @@ function ListadoEquipos({ eq }) {
   const handleDelete = async (cellValues) => {
     const response = cellValues.row;
     const datas = response;
-    const idU = datas.idUser;
     const idD = datas.idDevice;
-    const idA = datas.idAssignment;
+    const idA = datas.idAssignment
 
     try {
-      await fetch(`http://localhost:4000/assignments`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          idUser: idU,
-          idDevice: idD,
-          idAssignment: idA,
-        }),
+      await fetch(`http://localhost:4000/assignments/${idD}`, {
+        method: "DELETE"
       });
       setAssignments(
         assignments.filter((ass) => {
@@ -138,6 +146,25 @@ function ListadoEquipos({ eq }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleClose = () => {
+    setAdd(false);
+    history.push("/asignaciones");
+  }
+
+  const handleEdit = (cellValues) => {
+    const devices = cellValues.row;
+    console.log(devices);
+    
+    const id = devices.idDevice;
+    history.push(`/equipos/${id}/edit`)
+    handleOpenAdd();
+  }
+  
+  function handleOpenAdd() {
+    setAdd(true);
+    console.log("añadir");
   };
 
   const handleDeleteDev = async (cellValues) => {
@@ -213,6 +240,32 @@ function ListadoEquipos({ eq }) {
           )}
         </>
       )}
+      <Modal
+        open={add}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="modalStyles"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Editar Equipo
+          </Typography>
+          <div className="formulario">
+            <FormularioEquipos
+              add={add}
+              setAdd={setAdd}
+              open={open}
+              setOpen={setOpen}
+            />
+          </div>
+          <div className="botones">
+            <Button variant="contained" color="secondary" onClick={handleClose}>
+              Cerrar
+            </Button>
+          </div>
+        </Box>
+      </Modal>
     </>
   );
 }

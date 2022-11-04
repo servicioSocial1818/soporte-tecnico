@@ -4,21 +4,28 @@ import { Button } from "@material-ui/core";
 import "./equipos.css";
 import { useAppContext } from "../Context/context";
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const FormularioEquipos = ({ add, setOpen, setAdd }) => {
   const {
-    equipos,
-    setEquipos,
     users,
     setUsers,
     createNotification,
     assignments,
     setAssignments,
+    editing,
+    setEditing,
+    equipos,
+    setEquipos
   } = useAppContext();
+  const [noAssignmentDevice, setNoAssignmentDevice] = useState([]);
   const [textUser, setTextUser] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [suggestionsDev, setSuggestionsDev] = useState([]);
   const [textDevice, setTextDevice] = useState("");
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
 
   const [assignment, setAssignment] = useState({
     idUser: "",
@@ -55,21 +62,55 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
     setAssignments(data);
   }
 
+  async function getAllDevices() {
+    try {
+      const res = await fetch(`http://localhost:4000/devices`);
+      const data = await res.json();
+      setEquipos(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const loadDevice = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:4000/devices/${params.id}`);
+      const data = await res.json();
+      setDevice({
+        description_device: data.description_device,
+        serie_number: data.serie_number,
+        device_type: data.device_type,
+        trademark: data.trademark,
+        model: data.model,
+        monitor: data.monitor,
+        perifericos: data.perifericos,
+        storage_device: data.storage_device,
+        ram: data.ram,
+        processor: data.processor,
+        graphic_card: data.graphic_card,
+        color: data.color,
+      });
+      setEditing(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const getAssignmentsWithoutDevices = async () => {
     try {
       const res = await fetch("http://localhost:4000/assignments-no-devices");
       const data = await res.json();
       // console.log(data);
-      setEquipos(data);
+      setNoAssignmentDevice(data);
       // console.log("equipooooss", equipos);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getAssignmentsWithoutUsers = async () => {
+  const getAllUsers = async () => {
     try {
-      const res = await fetch("http://localhost:4000/assignments-no-users");
+      const res = await fetch("http://localhost:4000/users");
       const data = await res.json();
       setUsers(data);
       // console.log("usuarioooss", users);
@@ -90,7 +131,13 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
 
   useEffect(() => {
     getAssignmentsWithoutDevices();
-    getAssignmentsWithoutUsers();
+    getAllUsers();
+  }, []);
+
+  useEffect(() => {
+    if (params.id) {
+      loadDevice(params.id);
+    }
   }, []);
 
   const onChangeHandler = (text) => {
@@ -113,7 +160,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
   const onChangeDevice = (text) => {
     let matches = [];
     if (text.length > 0) {
-      matches = equipos.filter((device) => {
+      matches = noAssignmentDevice.filter((device) => {
         const regex = new RegExp(`${text}`, "gi");
         return (
           device.serie_number.match(regex) ||
@@ -133,41 +180,62 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (!device.serie_number && !device.device_type) {
-      const res = await fetch("http://localhost:4000/assignments", {
-        method: "POST",
-        body: JSON.stringify(assignment),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      // const data = await res.json();
-      // console.log(data);
-
-      createNotification(
-        "success",
-        "Datos registrados",
-        "Asignación registrada con éxito"
+    if (editing) {
+      const response = await fetch(
+        `http://localhost:4000/devices/${params.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(device),
+        }
       );
-
-    } else {
-      const res = await fetch("http://localhost:4000/devices", {
-        method: "POST",
-        body: JSON.stringify(device),
-        headers: { "Content-Type": "application/json" },
-      })  
-
       createNotification(
         "success",
         "Datos validados",
-        "Equipo registrado con éxito"
+        "Equipo modificado con éxito"
       );
+    } else {
+      if (!device.serie_number && !device.device_type) {
+        const res = await fetch("http://localhost:4000/assignments", {
+          method: "POST",
+          body: JSON.stringify(assignment),
+          headers: { "Content-Type": "application/json" },
+        });
 
-      const data = await res.json();
-      console.log(data);
+        // const data = await res.json();
+        // console.log(data);
+
+        createNotification(
+          "success",
+          "Datos registrados",
+          "Asignación registrada con éxito"
+        );
+      } else {
+        const res = await fetch("http://localhost:4000/devices", {
+          method: "POST",
+          body: JSON.stringify(device),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        createNotification(
+          "success",
+          "Datos validados",
+          "Equipo registrado con éxito"
+        );
+
+        const data = await res.json();
+        console.log(data);
+      }
     }
+
+    setEditing(false);
     loadAssignments();
     handleClose();
+    getAllDevices();
   };
 
   const handleChange = (e) => {
@@ -299,7 +367,13 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
                 onClick={handleSubmit}
                 disabled={!device.serie_number || !device.device_type}
               >
-                Añadir
+                {loading ? (
+                  <CircularProgress color="inherit" size={24} />
+                ) : editing ? (
+                  "Editar"
+                ) : (
+                  "Crear"
+                )}
               </Button>
             </div>
           </form>
