@@ -88,7 +88,7 @@ const ListadoUsuarios = () => {
     console.log(datos);
     try {
       console.log(id);
-      await fetch(`http://localhost:4000/users/${id}`, {
+      await fetch(`http://localhost:4000/api/users/${id}`, {
         method: "DELETE",
       });
       // callback(id);
@@ -117,7 +117,7 @@ const ListadoUsuarios = () => {
   };
 
   const loadUsers = async () => {
-    const response = await fetch("http://localhost:4000/users");
+    const response = await fetch("http://localhost:4000/api/users");
     const data = await response.json();
     //console.log(data);
     setUsers(data);

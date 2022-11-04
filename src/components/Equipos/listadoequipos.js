@@ -108,7 +108,7 @@ function ListadoEquipos({ eq }) {
 
   const getAssignments = async () => {
     try {
-      const res = await fetch("http://localhost:4000/assignments");
+      const res = await fetch("http://localhost:4000/api/assignments");
       const data = await res.json();
       console.log(data);
       setAssignments(data);
@@ -119,7 +119,7 @@ function ListadoEquipos({ eq }) {
 
   const getDevices = async () => {
     try {
-      const res = await fetch("http://localhost:4000/devices");
+      const res = await fetch("http://localhost:4000/api/devices");
       const data = await res.json();
       // console.log(data);
       setEquipos(data);
@@ -135,7 +135,7 @@ function ListadoEquipos({ eq }) {
     const idA = datas.idAssignment
 
     try {
-      await fetch(`http://localhost:4000/assignments/${idD}`, {
+      await fetch(`http://localhost:4000/api/assignments/${idD}`, {
         method: "DELETE"
       });
       setAssignments(
@@ -171,7 +171,7 @@ function ListadoEquipos({ eq }) {
     const datos = cellValues.row;
     const id = datos.idDevice;
     try {
-      await fetch(`http://localhost:4000/devices/${id}`, {
+      await fetch(`http://localhost:4000/api/devices/${id}`, {
         method: "DELETE",
       });
       setEquipos(

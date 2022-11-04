@@ -32,7 +32,7 @@ const Formulario = ({ setOpen, idExtract }) => {
     history.push("/responsables");
   }
   async function loadDatas() {
-    const response = await fetch("http://localhost:4000/users");
+    const response = await fetch("http://localhost:4000/api/users");
     const data = await response.json();
     setUsers(data);
   }
@@ -41,7 +41,7 @@ const Formulario = ({ setOpen, idExtract }) => {
     e.preventDefault();
     setLoading(true);
     if (editing) {
-      const response = await fetch(`http://localhost:4000/users/${idExtract}`, {
+      const response = await fetch(`http://localhost:4000/api/users/${idExtract}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const Formulario = ({ setOpen, idExtract }) => {
         return;
       }
 
-      const res = await fetch("http://localhost:4000/users", {
+      const res = await fetch("http://localhost:4000/api/users", {
         method: "POST",
         body: JSON.stringify(user), //convierte el objeto en string
         headers: { "Content-Type": "application/json" }, //con esto sabe que es un json
@@ -101,7 +101,7 @@ const Formulario = ({ setOpen, idExtract }) => {
   };
 
   const loadUser = async (id) => {
-    const res = await fetch(`http://localhost:4000/users/${id}`);
+    const res = await fetch(`http://localhost:4000/api/users/${id}`);
     const data = await res.json();
     setUser({
       paternal_surname: data.paternal_surname,

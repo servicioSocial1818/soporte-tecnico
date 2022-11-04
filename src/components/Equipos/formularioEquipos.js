@@ -57,14 +57,14 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
   }
 
   async function loadAssignments() {
-    const response = await fetch("http://localhost:4000/assignments");
+    const response = await fetch("http://localhost:4000/api/assignments");
     const data = await response.json();
     setAssignments(data);
   }
 
   async function getAllDevices() {
     try {
-      const res = await fetch(`http://localhost:4000/devices`);
+      const res = await fetch(`http://localhost:4000/api/devices`);
       const data = await res.json();
       setEquipos(data);
     } catch (e) {
@@ -74,7 +74,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
 
   const loadDevice = async (id) => {
     try {
-      const res = await fetch(`http://localhost:4000/devices/${params.id}`);
+      const res = await fetch(`http://localhost:4000/api/devices/${params.id}`);
       const data = await res.json();
       setDevice({
         description_device: data.description_device,
@@ -98,11 +98,11 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
 
   const getAssignmentsWithoutDevices = async () => {
     try {
-      const res = await fetch("http://localhost:4000/assignments-no-devices");
+      const res = await fetch("http://localhost:4000/api/assignments-no-devices");
       const data = await res.json();
       // console.log(data);
       setNoAssignmentDevice(data);
-      // console.log("equipooooss", equipos);
+      console.log("equipooooss", equipos);
     } catch (error) {
       console.log(error);
     }
@@ -110,7 +110,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
 
   const getAllUsers = async () => {
     try {
-      const res = await fetch("http://localhost:4000/users");
+      const res = await fetch("http://localhost:4000/api/users");
       const data = await res.json();
       setUsers(data);
       // console.log("usuarioooss", users);
@@ -184,7 +184,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
 
     if (editing) {
       const response = await fetch(
-        `http://localhost:4000/devices/${params.id}`,
+        `http://localhost:4000/api/devices/${params.id}`,
         {
           method: "PUT",
           headers: {
@@ -200,7 +200,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
       );
     } else {
       if (!device.serie_number && !device.device_type) {
-        const res = await fetch("http://localhost:4000/assignments", {
+        const res = await fetch("http://localhost:4000/api/assignments", {
           method: "POST",
           body: JSON.stringify(assignment),
           headers: { "Content-Type": "application/json" },
@@ -215,7 +215,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
           "Asignación registrada con éxito"
         );
       } else {
-        const res = await fetch("http://localhost:4000/devices", {
+        const res = await fetch("http://localhost:4000/api/devices", {
           method: "POST",
           body: JSON.stringify(device),
           headers: { "Content-Type": "application/json" },
