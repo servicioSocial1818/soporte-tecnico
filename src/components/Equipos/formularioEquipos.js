@@ -199,7 +199,7 @@ const FormularioEquipos = ({ add, setOpen, setAdd }) => {
         "Equipo modificado con éxito"
       );
     } else {
-      if (!device.serie_number && !device.device_type) {
+      if (!!assignment.idDevice && !!assignment.idUser) {
         const res = await fetch("http://localhost:4000/api/assignments", {
           method: "POST",
           body: JSON.stringify(assignment),

@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Error from "../Error/error";
 import { Button } from "@material-ui/core";
 import { CircularProgress } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../Context/context";
+import authContext from "../Context/auth/authContext";
 
 const Formulario = ({ setOpen, idExtract }) => {
   const { createNotification, setUsers, editing, setEditing } = useAppContext();
+
+  // Acceder al state
+  const AuthContext = useContext(authContext);
+  const {usuarioAutenticado, token} = AuthContext;
 
   const [user, setUser] = useState({
     paternal_surname: "",

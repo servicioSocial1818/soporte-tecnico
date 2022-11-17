@@ -128,25 +128,32 @@ function ListadoEquipos({ eq }) {
       console.log(error);
     }
   };
-  const handleDelete = async (cellValues) => {
-    const response = cellValues.row;
-    const datas = response;
+  const handleDelete = (cellValues) => {
+    const datas = cellValues.row;
     const idD = datas.idDevice;
     const idA = datas.idAssignment
 
     try {
-      await fetch(`http://localhost:4000/api/assignments/${idD}`, {
-        method: "DELETE"
-      });
+      deleteAsignaciones(idD);
       setAssignments(
         assignments.filter((ass) => {
+          console.log('Equipo 2:' + idD, 'Asignacion 2:' + idA)
+          
+          console.log("Devolver asignaciones nuevaaaaaaaaaaaassssss")
           return ass.idAssignment !== idA;
         })
       );
+      console.log('entra')
     } catch (error) {
       console.log(error);
     }
   };
+
+  const deleteAsignaciones = async (idD) => {
+    await fetch(`http://localhost:4000/api/assignments/${idD}`, {
+        method: "DELETE"
+      });
+  }
 
   const handleClose = () => {
     setAdd(false);
@@ -167,13 +174,11 @@ function ListadoEquipos({ eq }) {
     console.log("añadir");
   };
 
-  const handleDeleteDev = async (cellValues) => {
+  const handleDeleteDev = (cellValues) => {
     const datos = cellValues.row;
     const id = datos.idDevice;
     try {
-      await fetch(`http://localhost:4000/api/devices/${id}`, {
-        method: "DELETE",
-      });
+      handleDeleteDevice(id);
       setEquipos(
         equipos.filter((device) => {
           return device.idDevice !== id;
@@ -187,6 +192,12 @@ function ListadoEquipos({ eq }) {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleDeleteDevice = async (id) => {
+    await fetch(`http://localhost:4000/api/devices/${id}`, {
+      method: "DELETE",
+    });
   }
 
   useEffect(() => {
