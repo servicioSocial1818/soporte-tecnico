@@ -263,8 +263,8 @@ const Formulario = ({ setOpen, idExtract }) => {
               <option value="" selected disabled hidden>
                 Elegir Rol
               </option>
-              <option value="2">Cliente</option>
-              <option value="1">Administrador</option>
+              <option value="1">Cliente</option>
+              <option value="2">Administrador</option>
             </select>
           
         </div>

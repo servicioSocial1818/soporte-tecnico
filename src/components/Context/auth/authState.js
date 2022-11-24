@@ -4,9 +4,13 @@ import authReducer from "./authReducer";
 import { useReducer } from "react";
 import {
   LOGIN_EXITOSO,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  USUARIO_AUTENTICADO_ADMIN,
+  USUARIO_AUTENTICADO_CLIENTE,
+  CERRAR_SESION
 } from '../../../types'
 import clienteAxios from "../../../config/axios";
+import tokenAuth from "../../../api/tokenAuth";
 
 const AuthState = ({ children }) => {
   // state inicial
@@ -15,18 +19,11 @@ const AuthState = ({ children }) => {
     autenticado: null,
     usuario: null,
     mensaje: null,
+    isNotAdmin: null,
   };
 
   //Definir el reducer
   const [state, dispatch] = useReducer(authReducer, initialState);
-
-  // Usuario autenticado
-  const usuarioAutenticado = (nombre) => {
-    dispatch({
-      type: 'USUARIO_AUTENTICADO',
-      payload: nombre,
-    });
-  };
 
   const iniciarSesion = async (datos) => {
     try {
@@ -44,6 +41,42 @@ const AuthState = ({ children }) => {
     }
   }
 
+  const usuarioAutenticado = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      tokenAuth(token);
+    }
+
+    try {
+      const respuesta = await clienteAxios.get('api/auth');
+      console.log(respuesta.data.usuario);
+      console.log(respuesta);
+      if (respuesta.data.usuario.rol === 1) {
+        dispatch({
+          type: USUARIO_AUTENTICADO_CLIENTE,
+          payload: respuesta.data.usuario
+        })
+      } else if (respuesta.data.usuario.rol === 2) {
+        dispatch({
+          type: USUARIO_AUTENTICADO_ADMIN,
+          payload: respuesta.data.usuario
+        })
+      }
+    } catch (error) {
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: error.response.data.msg
+      })
+    }
+
+  }
+
+  const cerrarSesion = () => {
+    dispatch({
+      type: CERRAR_SESION
+    })
+  }
+
   return (
     <authContext.Provider
       value={{
@@ -51,8 +84,10 @@ const AuthState = ({ children }) => {
         autenticado: state.autenticado,
         usuario: state.usuario,
         mensaje: state.mensaje,
+        isNotAdmin: state.isNotAdmin,
         usuarioAutenticado,
-        iniciarSesion
+        iniciarSesion,
+        cerrarSesion
       }}
     >
       {children}

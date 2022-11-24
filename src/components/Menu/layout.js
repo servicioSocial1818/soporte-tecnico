@@ -3,18 +3,27 @@ import IsNotAdmin from './isNotAdmin'
 import Menu from './menu'
 import { useContext, useEffect } from 'react'
 import { useAppContext } from "../Context/context";
+import authContext from '../Context/auth/authContext';
 
 const Layout = () => {
 
-  const { isNotAdmin, setIsShow } = useAppContext();
-  
+  const AuthContext = useContext( authContext );
+  const { usuarioAutenticado, usuario, isNotAdmin } = AuthContext;
+
   useEffect(() => {
-    setIsShow(true);
-  }, [])
+    usuarioAutenticado();
+  },[])
+ 
+  console.log(isNotAdmin);
   
   return (
     <>
-        { isNotAdmin ? <IsNotAdmin/> : <Menu/> }
+      {usuario ? (
+        <>
+
+          { isNotAdmin ? <IsNotAdmin/> : <Menu/> }
+        </>
+      ) : null}
     </>
 
   )

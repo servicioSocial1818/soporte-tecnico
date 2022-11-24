@@ -65,6 +65,7 @@ export const ContextAppProvider = (props) => { //permite comunicarte con el cont
   }, [
     isLogged,
     path,
+    user,
     isShow,
     isNotAdmin,
     editing,

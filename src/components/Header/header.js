@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./header.css";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useAppContext } from "../Context/context";
 import { useHistory } from "react-router-dom";
+import authContext from "../Context/auth/authContext";
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -45,10 +47,10 @@ const Header = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const AuthContext = useContext( authContext );
+  const { usuarioAutenticado, usuario, cerrarSesion } = AuthContext;
 
   let history = useHistory();
-
-  const { user, path } = useAppContext();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -96,6 +98,10 @@ const Header = () => {
     </>
   );
 
+  useEffect(() => {
+    usuarioAutenticado();
+  },[])
+
   return (
     <>
       <AppBar position="static" className={"backHeader"}>
@@ -104,19 +110,21 @@ const Header = () => {
             Soporte Técnico
           </Typography>
           <div className={classes.grow} />
-          {path !== "/" ? (
+          {usuario ? (
             <>
               <div className={classes.pRight}>
                 <Typography className={classes.title} variant="h6" noWrap>
-                  {`Bienvenido ${user}`}
+                  {`Bienvenido ${usuario.username}`}
                 </Typography>
               </div>
               <div className={classes.sectionDesktop}>
                 <Button
                   variant="contained"
                   color="secondary"
-                  onClick={() => {
-                    history.push("/");
+                  onClick={ () => {
+                    cerrarSesion();
+                    history.push("/"); 
+
                   }}
                 >
                   <ExitToAppIcon />
