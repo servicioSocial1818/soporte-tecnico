@@ -48,7 +48,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const AuthContext = useContext( authContext );
-  const { usuarioAutenticado, usuario, cerrarSesion } = AuthContext;
+  const { usuarioAutenticado, usuario, cerrarSesion, token } = AuthContext;
 
   let history = useHistory();
 
@@ -110,7 +110,7 @@ const Header = () => {
             Soporte Técnico
           </Typography>
           <div className={classes.grow} />
-          {usuario ? (
+          {usuario && token ? (
             <>
               <div className={classes.pRight}>
                 <Typography className={classes.title} variant="h6" noWrap>

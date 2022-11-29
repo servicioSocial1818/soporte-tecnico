@@ -6,12 +6,13 @@ import CustomInput from "../CustomComponents/customInput";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../Context/context";
 import authContext from "../Context/auth/authContext";
+import Layout from "../Menu/layout";
 
 const FormLogin = () => {
   let history = useHistory();
 
   const AuthContext = useContext(authContext);
-  const { autenticado, iniciarSesion, usuarioAutenticado, usuario } =
+  const { autenticado, iniciarSesion, usuarioAutenticado, usuario, token } =
     AuthContext;
   const { createNotification, setIsLogged, setUser, setIsNotAdmin, user } =
     useAppContext();
@@ -51,30 +52,41 @@ const FormLogin = () => {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit} className="formContainer">
-        <div className="inputs">
-          <div className="inputUser">
-            <CustomInput
-              field="username"
-              id="standard-basic"
-              label="Usuario"
-              required
-            />
-          </div>
-          <div className="inputPass">
-            <CustomInput
-              field="password"
-              id="standard-basic"
-              label="Contraseña"
-              type="password"
-              required
-            />
-          </div>
-        </div>
-        <Button type="submit" variant="contained" color="primary">
-          Enviar
-        </Button>
-      </Form>
+      {
+        token ? (
+          <>
+            {history.push("/layout")}
+          </>
+        ) : (
+          <>
+            <Form onSubmit={handleSubmit} className="formContainer">
+              <div className="inputs">
+                <div className="inputUser">
+                  <CustomInput
+                    field="username"
+                    id="standard-basic"
+                    label="Usuario"
+                    required
+                  />
+                </div>
+                <div className="inputPass">
+                  <CustomInput
+                    field="password"
+                    id="standard-basic"
+                    label="Contraseña"
+                    type="password"
+                    required
+                  />
+                </div>
+              </div>
+              <Button type="submit" variant="contained" color="primary">
+                Enviar
+              </Button>
+            </Form>
+          </>
+        )
+
+      }
     </div>
   );
 };

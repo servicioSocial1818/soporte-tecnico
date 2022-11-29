@@ -8,7 +8,7 @@ import authContext from '../Context/auth/authContext';
 const Layout = () => {
 
   const AuthContext = useContext( authContext );
-  const { usuarioAutenticado, usuario, isNotAdmin } = AuthContext;
+  const { usuarioAutenticado, usuario, isNotAdmin, token } = AuthContext;
 
   useEffect(() => {
     usuarioAutenticado();
@@ -18,12 +18,12 @@ const Layout = () => {
   
   return (
     <>
-      {usuario ? (
+      {usuario && token ? (
         <>
 
           { isNotAdmin ? <IsNotAdmin/> : <Menu/> }
         </>
-      ) : null}
+      ) : <p>INICIE SESIÓN PARA CONTINUAR</p>}
     </>
 
   )
